@@ -1,0 +1,20 @@
+[Unit]
+Description=agentmemory memory server
+Documentation=https://github.com/rohitg00/agentmemory
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart={{ .chezmoi.homeDir }}/.local/share/mise/shims/agentmemory
+Restart=on-failure
+RestartSec=5
+Environment=AGENTMEMORY_URL=http://localhost:3111
+Environment=GRAPH_EXTRACTION_ENABLED=true
+Environment=CONSOLIDATION_ENABLED=true
+Environment=AGENTMEMORY_AUTO_COMPRESS=true
+Environment=AGENTMEMORY_INJECT_CONTEXT=true
+Environment=GEMINI_API_KEY=AIzaSyAjA3HtuxotW1HWaCSvBRvu8qwmJpI5FWs
+
+[Install]
+WantedBy=default.target

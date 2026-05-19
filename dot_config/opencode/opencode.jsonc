@@ -207,7 +207,14 @@
         },
         "agentmemory": {
             "type": "local",
-            "command": ["npx", "-y", "@agentmemory/mcp"],
+            "command": ["mise", "exec", "--", "agentmemory-mcp"],
+            "environment": {
+                "AGENTMEMORY_URL": "http://localhost:3111",
+                "GRAPH_EXTRACTION_ENABLED": "true",
+                "CONSOLIDATION_ENABLED": "true",
+                "AGENTMEMORY_AUTO_COMPRESS": "true",
+                "AGENTMEMORY_INJECT_CONTEXT": "true"
+            },
             "enabled": true
         }
     },
