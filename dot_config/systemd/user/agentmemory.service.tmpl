@@ -14,7 +14,7 @@ Environment=GRAPH_EXTRACTION_ENABLED=true
 Environment=CONSOLIDATION_ENABLED=true
 Environment=AGENTMEMORY_AUTO_COMPRESS=true
 Environment=AGENTMEMORY_INJECT_CONTEXT=true
-Environment=GEMINI_API_KEY=AIzaSyAjA3HtuxotW1HWaCSvBRvu8qwmJpI5FWs
+EnvironmentFile={{ .chezmoi.homeDir }}/.config/agentmemory/.env
 
 [Install]
 WantedBy=default.target
