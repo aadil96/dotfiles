@@ -1,0 +1,8 @@
+[".config/opencode"]
+    type = "git-repo"
+    url = "https://github.com/aadil96/opencode-config.git"
+    refreshPeriod = "168h"
+    [".config/opencode".clone]
+        args = ["--depth", "1"]
+    [".config/opencode".pull]
+        args = ["--ff-only"]
