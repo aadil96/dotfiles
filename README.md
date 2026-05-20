@@ -86,3 +86,10 @@ DevPod is supported via `.chezmoiexternals/devpod.toml`, which ensures the DevPo
 ## License
 
 These dotfiles are provided as-is for personal use and inspiration. Use at your own risk.
+
+## Opencode config
+
+The global opencode config lives in a separate public repo:
+[aadil96/opencode-config](https://github.com/aadil96/opencode-config).
+Chezmoi pulls it into `~/.config/opencode/` via `.chezmoiexternal.toml`.
+To force a refresh: `chezmoi apply --refresh-externals`.
