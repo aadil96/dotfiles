@@ -1,0 +1,74 @@
+#!/bin/bash
+# Managed by chezmoi — installs Anchor runtime
+set -euo pipefail
+
+AEOS_REPO_URL="{{ .aeos_repo_url | default "https://github.com/aadil/autonomous-engineering-os.git" }}"
+AEOS_DIR="{{ .aeos_dir | default "$HOME/.aeos" }}"
+ANCHOR_BIN="{{ .anchor_bin_dir | default "$HOME/.local/bin" }}"
+MACHINE_ID="{{ .machine_id | default (exec "hostname" | lower | replace " " "-") }}"
+SYNC_HUB="{{ .sync_hub | default "" }}"
+AEOS_SSH_USER="{{ .aeos_ssh_user | default "" }}"
+
+export AEOS_REPO_URL AEOS_DIR ANCHOR_BIN MACHINE_ID SYNC_HUB AEOS_SSH_USER
+
+echo "==> chezmoi: Installing Anchor runtime..."
+
+# Clone or update AEOS repo
+if [ ! -d "$AEOS_DIR" ]; then
+    echo "--> Cloning AEOS repo..."
+    git clone --depth 1 "$AEOS_REPO_URL" "$AEOS_DIR"
+else
+    echo "--> Updating AEOS repo..."
+    cd "$AEOS_DIR" && git pull --ff-only origin main
+fi
+
+# Ensure directories and symlinks
+mkdir -p "$ANCHOR_BIN" "$AEOS_DIR/runtime"/{sessions,state,feedback}
+ln -sf "$AEOS_DIR/scripts/anchor" "$ANCHOR_BIN/anchor"
+
+# Generate config if not present
+if [ ! -f "$AEOS_DIR/config" ]; then
+    cat > "$AEOS_DIR/config" << EOF
+machine_id=${MACHINE_ID}
+sync_hub=${SYNC_HUB}
+sync_enabled=$([[ -n "$SYNC_HUB" ]] && echo "true" || echo "false")
+aeos_ssh_user=${AEOS_SSH_USER}
+EOF
+    echo "--> Generated config at $AEOS_DIR/config"
+fi
+
+# Set up sync timer
+if command -v systemctl &>/dev/null; then
+    mkdir -p "$HOME/.config/systemd/user"
+    cat > "$HOME/.config/systemd/user/aeos-sync.service" << EOF
+[Unit]
+Description=AEOS sync push to Hermes hub
+
+[Service]
+Type=oneshot
+ExecStart=${AEOS_DIR}/scripts/sync-push.sh
+
+[Install]
+WantedBy=default.target
+EOF
+    cat > "$HOME/.config/systemd/user/aeos-sync.timer" << 'EOF'
+[Unit]
+Description=AEOS sync timer (every 10 min)
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=10min
+RandomizedDelaySec=2min
+
+[Install]
+WantedBy=timers.target
+EOF
+    systemctl --user daemon-reload 2>/dev/null || true
+    systemctl --user enable --now aeos-sync.timer 2>/dev/null || true
+    echo "--> Enabled systemd timer"
+elif command -v crontab &>/dev/null; then
+    (crontab -l 2>/dev/null | grep -v 'sync-push.sh'; echo "*/10 * * * * $AEOS_DIR/scripts/sync-push.sh") | crontab - || true
+    echo "--> Added crontab entry"
+fi
+
+echo "✓ Anchor runtime installed"
