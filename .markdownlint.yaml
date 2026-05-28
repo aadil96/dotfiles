@@ -1,0 +1,11 @@
+# markdownlint configuration
+# See https://github.com/DavidAnson/markdownlint/blob/main/schema/.markdownlint.yaml
+
+# Line length — disabled (docs repo, many long lines are intentional)
+MD013: false
+
+# No inline HTML — disabled (some docs use HTML for formatting)
+MD033: false
+
+# Bare URLs — allow
+MD034: false
