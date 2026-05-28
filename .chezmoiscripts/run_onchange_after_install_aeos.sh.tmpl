@@ -5,11 +5,19 @@ set -euo pipefail
 AEOS_REPO_URL="{{ .aeos_repo_url | default "https://github.com/aadil/autonomous-engineering-os.git" }}"
 AEOS_DIR="{{ .aeos_dir | default "$HOME/.aeos" }}"
 ANCHOR_BIN="{{ .anchor_bin_dir | default "$HOME/.local/bin" }}"
-MACHINE_ID="{{ .machine_id | default (exec "hostname" | lower | replace " " "-") }}"
+# Note: machine_id defaults to slugified short hostname (matching install-aeos.sh behavior)
+# Override via chezmoi data: machine_id = "my-custom-name"
+MACHINE_ID="{{ .machine_id | default "" }}"
 SYNC_HUB="{{ .sync_hub | default "" }}"
 AEOS_SSH_USER="{{ .aeos_ssh_user | default "" }}"
 
 export AEOS_REPO_URL AEOS_DIR ANCHOR_BIN MACHINE_ID SYNC_HUB AEOS_SSH_USER
+
+# Slugify machine ID if not explicitly set (match install-aeos.sh behavior)
+if [ -z "$MACHINE_ID" ]; then
+    MACHINE_ID=$(hostname -s 2>/dev/null || echo "unknown")
+    MACHINE_ID=$(echo "$MACHINE_ID" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g; s/--*/-/g; s/^-//; s/-$//')
+fi
 
 echo "==> chezmoi: Installing Anchor runtime..."
 
@@ -69,6 +77,9 @@ EOF
 elif command -v crontab &>/dev/null; then
     (crontab -l 2>/dev/null | grep -v 'sync-push.sh'; echo "*/10 * * * * $AEOS_DIR/scripts/sync-push.sh") | crontab - || true
     echo "--> Added crontab entry"
+else
+    echo "--> WARNING: No systemd or cron found. Sync will not run automatically."
+    echo "    Run 'anchor sync' manually or set up a scheduler."
 fi
 
 echo "✓ Anchor runtime installed"
