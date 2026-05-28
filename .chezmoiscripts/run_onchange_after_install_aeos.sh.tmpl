@@ -9,7 +9,7 @@ ANCHOR_BIN="{{ .anchor_bin_dir | default "$HOME/.local/bin" }}"
 # Override via chezmoi data: machine_id = "my-custom-name"
 MACHINE_ID="{{ .machine_id | default "" }}"
 SYNC_HUB="{{ .sync_hub | default "" }}"
-AEOS_SSH_USER="{{ .aeos_ssh_user | default "" }}"
+AEOS_SSH_USER="{{ .aeos_ssh_user | default "vagrant" }}"
 
 export AEOS_REPO_URL AEOS_DIR ANCHOR_BIN MACHINE_ID SYNC_HUB AEOS_SSH_USER
 
