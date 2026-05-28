@@ -8,7 +8,7 @@
 
 ## Branch Naming
 
-```
+```text
 feat/<description>      — New features
 fix/<description>       — Bug fixes
 chore/<description>     — Maintenance, tooling

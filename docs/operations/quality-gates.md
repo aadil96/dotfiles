@@ -21,6 +21,7 @@ The CI pipeline (`.github/workflows/ci.yml`) will automatically enforce:
 | Tests           | Test suite runner              | `scripts/tests/run-all.sh`     |
 
 Manual gates (not yet automated) must be checked by the developer:
+
 - Documentation updated
 - No secrets committed
 - ADR created for architecture changes
