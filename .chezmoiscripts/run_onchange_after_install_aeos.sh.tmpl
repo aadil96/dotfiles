@@ -8,7 +8,7 @@ ANCHOR_BIN="{{ .anchor_bin_dir | default "$HOME/.local/bin" }}"
 # Note: machine_id defaults to slugified short hostname (matching install-aeos.sh behavior)
 # Override via chezmoi data: machine_id = "my-custom-name"
 MACHINE_ID="{{ .machine_id | default "" }}"
-SYNC_HUB="{{ .sync_hub | default "" }}"
+SYNC_HUB="{{ .sync_hub | default "hermes-sandbox" }}"
 AEOS_SSH_USER="{{ .aeos_ssh_user | default "vagrant" }}"
 
 export AEOS_REPO_URL AEOS_DIR ANCHOR_BIN MACHINE_ID SYNC_HUB AEOS_SSH_USER
