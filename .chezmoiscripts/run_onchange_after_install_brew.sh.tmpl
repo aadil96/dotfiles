@@ -1,0 +1,10 @@
+#!/bin/bash
+# brew hash: {{ include "dot_config/brew/Brewfile" | sha256sum }}
+
+set -euo pipefail
+
+BREW_BIN="{{ if $b := lookPath "brew" }}{{ $b }}{{ else }}/home/linuxbrew/.linuxbrew/bin/brew{{ end }}"
+
+BREWFILE="{{ .chezmoi.homeDir }}/.config/brew/Brewfile"
+
+"$BREW_BIN" bundle --file "$BREWFILE" --no-lock
