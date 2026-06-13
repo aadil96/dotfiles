@@ -29,6 +29,7 @@ deno = "2.7.14"
 "npm:@agentmemory/agentmemory" = "latest"
 "npm:@agentmemory/mcp" = "latest"
 "npm:iii-sdk" = "0.12.0"
+tmux = "latest"
 
 [settings]
 experimental = true
