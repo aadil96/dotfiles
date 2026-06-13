@@ -7,4 +7,4 @@ BREW_BIN="{{ if $b := lookPath "brew" }}{{ $b }}{{ else }}/home/linuxbrew/.linux
 
 BREWFILE="{{ .chezmoi.homeDir }}/.config/brew/Brewfile"
 
-"$BREW_BIN" bundle --file "$BREWFILE" --no-lock
+"$BREW_BIN" bundle --file "$BREWFILE"
