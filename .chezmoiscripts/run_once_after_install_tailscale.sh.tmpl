@@ -1,0 +1,18 @@
+#!/bin/bash
+# Installs Tailscale and authenticates once. Re-run by deleting chezmoi state entry.
+set -euo pipefail
+
+if ! command -v tailscale &>/dev/null; then
+    curl -fsSL https://tailscale.com/install.sh | sh
+fi
+
+sudo systemctl enable --now tailscaled
+
+{{- if .tailscale_authkey }}
+sudo tailscale up \
+    --authkey={{ .tailscale_authkey | quote }} \
+    --accept-routes \
+    --ssh
+{{- else }}
+echo "[tailscale] No auth key set. Run: tailscale up --authkey=<key> --accept-routes --ssh"
+{{- end }}

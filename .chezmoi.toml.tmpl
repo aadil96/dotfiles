@@ -4,6 +4,7 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 {{ $name := promptStringOnce . "name" "Git user.name" }}
 {{ $email := promptStringOnce . "email" "Git user.email" }}
 {{ $gpg_key := promptStringOnce . "gpg_signing_key" "GPG key fingerprint" }}
+{{ $ts_key := promptStringOnce . "tailscale_authkey" "Tailscale auth key (leave blank to skip)" }}
 
 [data]
   remote = {{ $remote }}
@@ -15,6 +16,7 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   aeos_dir = "$HOME/.aeos"
   anchor_bin_dir = "$HOME/.local/bin"
   aeos_ssh_user = "vagrant"
+  tailscale_authkey = {{ $ts_key | quote }}
 
 {{- if not $remote }}
 [git]
