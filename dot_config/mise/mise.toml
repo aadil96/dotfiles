@@ -23,7 +23,7 @@ go = "1.25.6"
 "ubi:supabase/cli" = { version = "2.98.2", exe = "supabase" }
 deno = "2.7.14"
 "npm:wrangler" = "4.88.0"
-"github:anomalyco/opencode" = "1.15.4"
+"github:anomalyco/opencode" = "1.17.7"
 "npm:@google/gemini-cli" = "0.41.2"
 "npm:aicommits" = "3.1.2"
 "npm:@agentmemory/agentmemory" = "latest"
