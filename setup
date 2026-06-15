@@ -3,7 +3,10 @@
 set -euo pipefail
 
 # Ensure ~/.local/bin is on PATH (mise installs tools here)
-export PATH="$HOME/.local/bin:$PATH"
+case ":$PATH:" in
+  *:"$HOME/.local/bin":*) ;;
+  *) export PATH="$HOME/.local/bin:$PATH" ;;
+esac
 
 # ── Collect config values upfront ────────────────────────────────────────────
 CHEZMOI_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/chezmoi"
@@ -11,10 +14,30 @@ CHEZMOI_CONFIG="$CHEZMOI_CONFIG_DIR/chezmoi.toml"
 
 if [ ! -f "$CHEZMOI_CONFIG" ]; then
   echo "==> Configuring dotfiles"
-  read -rp "Git user.name: " cfg_name
-  read -rp "Git user.email: " cfg_email
-  read -rp "GPG key fingerprint (leave blank to skip): " cfg_gpg
-  read -rp "Tailscale auth key (leave blank to skip): " cfg_ts
+
+  if [ -t 0 ]; then
+    # Interactive mode: prompt for values
+    while [ -z "$cfg_name" ]; do
+      read -rp "Git user.name: " cfg_name
+    done
+    while [ -z "$cfg_email" ]; do
+      read -rp "Git user.email: " cfg_email
+    done
+    read -rp "GPG key fingerprint (leave blank to skip): " cfg_gpg
+    read -rp "Tailscale auth key (leave blank to skip): " cfg_ts
+  else
+    # Non-interactive mode: use environment variables
+    cfg_name="${GIT_USER_NAME:-}"
+    cfg_email="${GIT_USER_EMAIL:-}"
+    cfg_gpg="${GPG_KEY:-}"
+    cfg_ts="${TAILSCALE_AUTHKEY:-}"
+  fi
+
+  # Validate: name and email are required in non-interactive mode
+  if [ ! -t 0 ] && { [ -z "$cfg_name" ] || [ -z "$cfg_email" ]; }; then
+    echo "ERROR: GIT_USER_NAME and GIT_USER_EMAIL must be set in non-interactive mode" >&2
+    exit 1
+  fi
 
   # Escape backslashes and double-quotes for TOML string values
   toml_quote() { printf '"%s"' "$(printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g')"; }
@@ -27,6 +50,7 @@ if [ ! -f "$CHEZMOI_CONFIG" ]; then
   gpg_signing_key = $(toml_quote "$cfg_gpg")
   tailscale_authkey = $(toml_quote "$cfg_ts")
 EOF
+  chmod 600 "$CHEZMOI_CONFIG"
 fi
 
 # ── Install Homebrew if missing ───────────────────────────────────────────────
@@ -55,8 +79,7 @@ if command -v chezmoi >/dev/null; then
 fi
 
 if command -v mise >/dev/null; then
-  mise exec chezmoi -- chezmoi init --apply --source "$PWD"
-  exit 0
+  mise exec chezmoi -- chezmoi init --apply --source "$PWD" && exit 0
 fi
 
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --source "$PWD"
