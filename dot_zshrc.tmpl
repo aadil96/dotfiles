@@ -98,6 +98,11 @@ if command -v batcat > /dev/null ; then
   alias cat="batcat"
 fi
 
+if command -v codex > /dev/null ; then
+  eval "$(codex completion zsh)"
+fi
+
+
 if command -v dagger > /dev/null ; then
   export DAGGER_NO_NAG=1
 fi
@@ -126,6 +131,15 @@ export GPG_TTY=$(tty)
 
 export TERM=xterm-256color
 export COLORTERM=truecolor
+
+take() {
+  if [[ $# -ne 1 ]]; then
+    echo "Usage: take <directory>"
+    return 1
+  fi
+
+  mkdir -p -- "$1" && cd -- "$1"
+}
 
 gca() {
   if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
