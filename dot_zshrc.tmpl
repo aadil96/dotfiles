@@ -127,6 +127,10 @@ if [[ -f "$HOME/.config/zsh/local.zsh" ]]; then
   source "$HOME/.config/zsh/local.zsh"
 fi
 
+if command -v opencode > /dev/null ; then
+  opencode completion
+fi
+
 export GPG_TTY=$(tty)
 
 export TERM=xterm-256color
