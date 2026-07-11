@@ -15,14 +15,14 @@ mise exec -- chezmoi apply           # Run via mise if chezmoi not on PATH
 
 ## Repo structure
 
-| Prefix | Becomes | Notes |
-|--------|---------|-------|
-| `dot_*` | `$HOME/.filename` | Chezmoi auto-symlinks |
-| `dot_config/` | `$HOME/.config/` | XDG config |
-| `private_dot_*` | `$HOME/.filename` | Never tracked in git |
-| `.chezmoiexternals/` | External resources | Mise, devpod, fonts |
-| `.chezmoiscripts/` | Hook scripts | Run by chezmoi |
-| `.devcontainer/` | VS Code Dev Container | - |
+| Prefix                | Becomes                  | Notes                   |
+| --------------------- | ------------------------ | ----------------------- |
+| `dot_*`               | `$HOME/.filename`        | Chezmoi auto-symlinks   |
+| `dot_config/`         | `$HOME/.config/`         | XDG config              |
+| `private_dot_*`       | `$HOME/.filename`        | Never tracked in git    |
+| `.chezmoiexternals/`  | External resources       | Mise, devpod, fonts     |
+| `.chezmoiscripts/`    | Hook scripts             | Run by chezmoi          |
+| `.devcontainer/`      | VS Code Dev Container    | -                       |
 
 ## Templates
 
@@ -47,7 +47,7 @@ mise exec -- chezmoi apply           # Run via mise if chezmoi not on PATH
 ## Key files to read
 
 | Purpose | File |
-|---------|------|
+| --------- | ------ |
 | chezmoi config + template vars | `.chezmoi.toml.tmpl` |
 | Tool versions | `dot_config/mise/mise.toml` |
 | OpenCode config | `.opencode/ocx.jsonc` |

@@ -12,10 +12,10 @@ Before merging to main, verify:
 
 ## CI Enforcement
 
-| Gate | Enforced By | Details |
-|------|-------------|---------|
-| Shell scripts | reviewdog/action-shellcheck | All `*.sh` files |
-| Markdown | reviewdog/action-markdownlint | All `*.md` files |
+| Gate            | Enforced By                      | Details             |
+| --------------- | -------------------------------- | ------------------- |
+| Shell scripts   | reviewdog/action-shellcheck      | All `*.sh` files    |
+| Markdown        | reviewdog/action-markdownlint    | All `*.md` files    |
 
 ## Manual checks (not automated)
 
