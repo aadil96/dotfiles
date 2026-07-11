@@ -1,0 +1,7 @@
+tap "hashicorp/tap"
+
+brew "zsh"
+brew "hashicorp/tap/vagrant"
+
+cask "claude-code"
+cask "codex"

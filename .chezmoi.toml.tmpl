@@ -1,9 +1,28 @@
-{{- $remote := or (env "CODESPACES" | not | not) (env "SSH_CONNECTION" | not | not) (env "KUBERNETES_SERVICE_HOST" | not | not) (env "container" | not | not) (env "REMOTE_CONTAINERS" | not | not) (stat "/.dockerenv" | not | not) -}}
+{{- $remote := or (env "CODESPACES" | not | not) (env "SSH_CONNECTION" | not | not) (env "KUBERNETES_SERVICE_HOST" | not | not) (env "container" | not | not) (env "REMOTE_CONTAINERS" | not | not) (env "DEVPOD" | not | not) (stat "/.dockerenv" | not | not) -}}
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
-{{ $name := promptStringOnce . "name" "Git user.name" }}
-{{ $email := promptStringOnce . "email" "Git user.email" }}
-{{ $gpg_key := promptStringOnce . "gpg_signing_key" "GPG key fingerprint" }}
+{{- /* Collect configuration values */ -}}
+{{- $name := "" -}}
+{{- $email := "" -}}
+{{- $gpg_key := "" -}}
+{{- $ts_key := "" -}}
+
+{{- if $remote }}
+  {{- /* Non-interactive: use env vars or config data */ -}}
+  {{- $name = env "GIT_USER_NAME" | default .name -}}
+  {{- $email = env "GIT_USER_EMAIL" | default .email -}}
+  {{- $gpg_key = env "GPG_KEY" | default .gpg_signing_key -}}
+  {{- $ts_key = env "TAILSCALE_AUTHKEY" | default .tailscale_authkey -}}
+  {{- if or (eq $name "") (eq $email "") }}
+    {{- fail "GIT_USER_NAME and GIT_USER_EMAIL must be set in remote/container environment" -}}
+  {{- end }}
+{{- else }}
+  {{- /* Interactive: prompt for values (stored in chezmoi state) */ -}}
+  {{- $name = promptStringOnce . "name" "Git user.name" -}}
+  {{- $email = promptStringOnce . "email" "Git user.email" -}}
+  {{- $gpg_key = promptStringOnce . "gpg_signing_key" "GPG key fingerprint" -}}
+  {{- $ts_key = promptStringOnce . "tailscale_authkey" "Tailscale auth key (leave blank to skip)" -}}
+{{- end }}
 
 [data]
   remote = {{ $remote }}
@@ -15,6 +34,7 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   aeos_dir = "$HOME/.aeos"
   anchor_bin_dir = "$HOME/.local/bin"
   aeos_ssh_user = "vagrant"
+  tailscale_authkey = {{ $ts_key | quote }}
 
 {{- if not $remote }}
 [git]

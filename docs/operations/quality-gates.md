@@ -1,28 +1,25 @@
 # Quality Gates
 
-Before merging to main, verify ALL of the following:
+Before merging to main, verify:
 
-## Required Gates
+## Required
 
-- [ ] Code compiles/lints without errors
-- [ ] Tests pass
-- [ ] Documentation is updated
-- [ ] No secrets committed
-- [ ] ADR created for architecture changes
-- [ ] CHANGELOG updated (if applicable)
+- [ ] Shell scripts lint clean (ShellCheck)
+- [ ] Markdown files lint clean (markdownlint)
+- [ ] Documentation updated for any behavior changes
+- [ ] No secrets committed (check for hardcoded tokens/keys)
+- [ ] `./setup` still works on a vanilla system (if bootstrap changed)
 
 ## CI Enforcement
 
-The CI pipeline (`.github/workflows/ci.yml`) will automatically enforce:
+| Gate            | Enforced By                      | Details             |
+| --------------- | -------------------------------- | ------------------- |
+| Shell scripts   | reviewdog/action-shellcheck      | All `*.sh` files    |
+| Markdown        | reviewdog/action-markdownlint    | All `*.md` files    |
 
-| Gate            | Enforced By                    | Details                          |
-|-----------------|--------------------------------|----------------------------------|
-| Linting         | ShellCheck + markdownlint      | All shell scripts and markdown   |
-| Tests           | Test suite runner              | `scripts/tests/run-all.sh`     |
-
-Manual gates (not yet automated) must be checked by the developer:
+## Manual checks (not automated)
 
 - Documentation updated
 - No secrets committed
-- ADR created for architecture changes
-- CHANGELOG updated
+- Private files not accidentally tracked
+- setup script remains portable

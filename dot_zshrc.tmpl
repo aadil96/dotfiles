@@ -98,9 +98,16 @@ if command -v batcat > /dev/null ; then
   alias cat="batcat"
 fi
 
-if command -v dagger > /dev/null ; then 
+if command -v codex > /dev/null ; then
+  eval "$(codex completion zsh)"
+fi
+
+
+if command -v dagger > /dev/null ; then
   export DAGGER_NO_NAG=1
 fi
+
+export HOMEBREW_BUNDLE_FILE="$HOME/.config/brew/Brewfile"
 
 if [[ -d "$HOME/.zsh/zsh-autosuggestions" ]] ; then
   source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
@@ -120,10 +127,49 @@ if [[ -f "$HOME/.config/zsh/local.zsh" ]]; then
   source "$HOME/.config/zsh/local.zsh"
 fi
 
+
+#compdef opencode
+###-begin-opencode-completions-###
+#
+# yargs command completion script
+#
+# Installation: opencode completion >> ~/.zshrc
+#    or opencode completion >> ~/.zprofile on OSX.
+#
+_opencode_yargs_completions()
+{
+  local reply
+  local si=$IFS
+  IFS=$'
+' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" opencode --get-yargs-completions "${words[@]}"))
+  IFS=$si
+  if [[ ${#reply} -gt 0 ]]; then
+    _describe 'values' reply
+  else
+    _default
+  fi
+}
+if [[ "'${zsh_eval_context[-1]}" == "loadautofunc" ]]; then
+  _opencode_yargs_completions "$@"
+else
+  compdef _opencode_yargs_completions opencode
+fi
+###-end-opencode-completions-###
+
+
 export GPG_TTY=$(tty)
 
 export TERM=xterm-256color
 export COLORTERM=truecolor
+
+take() {
+  if [[ $# -ne 1 ]]; then
+    echo "Usage: take <directory>"
+    return 1
+  fi
+
+  mkdir -p -- "$1" && cd -- "$1"
+}
 
 gca() {
   if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
@@ -180,3 +226,5 @@ Hard rules:
     echo "Commit aborted."
   fi
 }
+
+export PATH="/home/aadil/.local/bin:$PATH"

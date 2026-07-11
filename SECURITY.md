@@ -1,21 +1,29 @@
 # Security Policy
 
-## Supported Versions
+## Scope
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+This repo manages personal dotfiles and configuration. It does NOT run production services.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+## Key rules
 
-## Reporting a Vulnerability
+- **Never commit secrets.** Use `private_*` prefix for any file containing credentials.
+- `.chezmoiignore` uses gitignore semantics only — it does NOT redact secrets from tracking.
+- GPG configuration lives in `private_dot_gnupg/` (not tracked in git by convention — chezmoi ignores `private_*`).
+- If a file should never leave this machine, prefix it `private_`.
+- Template variables like `github_token` in `.chezmoi.toml.tmpl` must remain empty strings in version control. Set via environment variables or chezmoi's `promptStringOnce`.
 
-Use this section to tell people how to report a vulnerability.
+## External dependencies
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+- **chezmoi** — dotfile manager. Installed via setup script or existing package manager.
+- **mise** — tool version manager. Tools pinned in `dot_config/mise/mise.toml`.
+- **Homebrew** — package manager for macOS/Linux. Brewfile referenced from chezmoiscripts.
+
+## CI security
+
+- GitHub Actions CI runs ShellCheck + markdownlint only
+- No secrets deployed in CI
+- No production access from CI
+
+## Reporting
+
+Personal repo — issues/PRs for concerns. Not a supported product.
