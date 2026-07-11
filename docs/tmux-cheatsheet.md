@@ -25,7 +25,7 @@ All tmux commands start with the **prefix key** — think of it like "waking up"
 **The golden rule: you NEVER hold the prefix while pressing the command key.**
 
 | Notation | What to do |
-|----------|------------|
+| ------------ | -------------------------------------------------------------- |
 | `C-a` | Press and hold **Ctrl**, tap **a**, then release **both** keys |
 | `C-a` `k` | Press `C-a` (Ctrl+a), **release both**, then press **k** |
 | `C-a` `C-k` | Press `C-a` (Ctrl+a), **release both**, then press **Ctrl+k** |
@@ -37,7 +37,7 @@ Some bindings use the `-r` (repeat) flag. This means you only press the prefix *
 ### Common Beginner Pitfalls
 
 | Symptom | What's wrong |
-|---------|-------------|
+| --------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | Text appears in your terminal instead of the command working | You forgot to press the prefix first. Press `C-a` **before** the command key. |
 | I pressed `5` instead of `Shift+5` to get `%` | The `%` symbol requires **Shift + 5**, not just `5`. The same goes for any symbol key — `$`, `"`, `&`, `?`, `{`, `}` etc. Always check if the keybinding uses a shifted character. |
 | Nothing happens when you type a keybinding | Try pressing `C-a` more deliberately — release Ctrl before pressing the next key. The two keystrokes are separate, not a chord. |
@@ -53,6 +53,7 @@ Throughout this cheatsheet, keybindings are written like `C-a k`. This always me
 2. Then press **k** (or whatever the command key is)
 
 > **Note on symbol keys:** Some keybindings use symbols that require Shift:
+>
 > - `%` = press **Shift + 5**
 > - `"` = press **Shift + '**
 > - `&` = press **Shift + 7**
@@ -68,7 +69,7 @@ Throughout this cheatsheet, keybindings are written like `C-a k`. This always me
 The **prefix key** is how you tell tmux you're about to give it a command.
 
 | Action | Key |
-|--------|-----|
+| ---------------------------- | ------------ |
 | Send prefix to tmux | `C-a` |
 | Send literal `C-a` to the app inside tmux | `C-a` `a` |
 | Default prefix (disabled) | ~~`C-b`~~ |
@@ -82,7 +83,7 @@ The **prefix key** is how you tell tmux you're about to give it a command.
 A **session** is a full tmux workspace. You can have multiple sessions running at once.
 
 | Action | Command |
-|--------|---------|
+| ---------------------------- | ---------------------- |
 | Create a new named session | `tmux new -s <name>` |
 | Detach from current session | `C-a` `d` |
 | List all sessions | `tmux ls` |
@@ -98,7 +99,7 @@ A **session** is a full tmux workspace. You can have multiple sessions running a
 **Windows** are like tabs inside a session. Numbering starts at **1** (not the default 0).
 
 | Action | Key |
-|--------|-----|
+| --------------------- | ---------------- |
 | Create new window | `C-a` `c` |
 | Next window | `C-a` `n` |
 | Previous window | `C-a` `p` |
@@ -116,28 +117,26 @@ A **session** is a full tmux workspace. You can have multiple sessions running a
 ### Splitting
 
 | Action | Key |
-|--------|-----|
+| ------------------------------ | ---------- |
 | Split horizontally (top/bottom) | `C-a` `"` |
 | Split vertically (left/right) | `C-a` `%` |
 
 ### Navigation (Vim hjkl) — repeatable
 
 | Action | Key |
-|--------|-----|
+| ---------------- | ---------- |
 | Move pane up | `C-a` `k` |
 | Move pane down | `C-a` `j` |
 | Move pane left | `C-a` `h` |
 | Move pane right | `C-a` `l` |
 | Toggle to last pane | `C-a` `;` |
 
-> **Tip:** Because these bindings use `-r` (repeat), you only need to press the prefix once, then you can tap `k`/`j`/`h`/`l` repeatedly to move across multiple panes.
-
-> **Tip:** `C-a ;` (semicolon) jumps back to the previously focused pane — super useful when switching between two panes.
+> **Tip:** Because these bindings use `-r` (repeat), you only need to press the prefix once, then you can tap `k`/`j`/`h`/`l` repeatedly to move across multiple panes. `C-a ;` (semicolon) jumps back to the previously focused pane — super useful when switching between two panes.
 
 ### Resizing — repeatable
 
 | Action | Key |
-|--------|-----|
+| ---------------- | ------------ |
 | Resize pane up | `C-a` `C-k` |
 | Resize pane down | `C-a` `C-j` |
 | Resize pane left | `C-a` `C-h` |
@@ -148,7 +147,7 @@ Each resize moves the pane border by **5 lines**. Because these also use `-r`, p
 ### Other Pane Actions
 
 | Action | Key |
-|--------|-----|
+| --------------------- | ----------- |
 | Close current pane | `C-a` `x` |
 | Toggle pane zoom (fullscreen) | `C-a` `z` |
 | Swap pane with next | `C-a` `{` / `}` |
@@ -163,7 +162,7 @@ Each resize moves the pane border by **5 lines**. Because these also use `-r`, p
 Copy mode lets you scroll through pane history and yank text. Uses **Vi keybindings**.
 
 | Action | Key |
-|--------|-----|
+| ----------------- | ------------ |
 | Enter copy mode | `C-a` `[` |
 | Exit copy mode | `Enter` or `q` |
 | Move up | `k` |
@@ -194,7 +193,7 @@ Copy mode lets you scroll through pane history and yank text. Uses **Vi keybindi
 Key settings from `~/.tmux.conf`:
 
 | Setting | Value | Purpose |
-|---------|-------|---------|
+| ------------------- | ------------------------ | ------------------------------------ |
 | `default-terminal` | `tmux-256color` | Truecolor-capable terminal type |
 | `terminal-overrides` | `,xterm-256color:RGB` | Enable truecolor for xterm |
 | `terminal-overrides` | `,alacritty:Tc` | Enable truecolor for Alacritty |
@@ -252,7 +251,7 @@ With mouse mode on you can:
 ## Quick Reference Table
 
 | What you want | Keys |
-|---------------|------|
+| --------------------- | ------------------- |
 | **Prefix** | `C-a` |
 | **Send C-a to app** | `C-a` `a` |
 | **Reload config** | `C-a` `r` |

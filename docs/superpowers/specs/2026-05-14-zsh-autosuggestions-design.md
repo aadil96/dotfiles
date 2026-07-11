@@ -38,7 +38,7 @@ refreshPeriod = "168h"
 Change the two conditional source blocks from using a relative `.zsh/` prefix to an explicit `$HOME/.zsh/` prefix:
 
 | Line | Current | Fixed |
-|------|---------|-------|
+| ------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
 | 105-106 | `.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh` | `$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh` |
 | 110-111 | `.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh` | `$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh` |
 
@@ -67,7 +67,7 @@ The running `~/.config/opencode/opencode.jsonc` has a Linear MCP server block th
 ## Files Affected
 
 | Action | File | Purpose |
-|--------|------|---------|
+| ------ | ------------------------------------------- | -------------------------------------- |
 | CREATE | `.chezmoiexternals/zsh-autosuggestions.toml` | Provision zsh-autosuggestions via git repo |
 | EDIT | `dot_zshrc.tmpl` | Fix relative `$HOME/.zsh/` paths (2 changes) |
 | EDIT | `dot_config/opencode/opencode.jsonc` | Add missing Linear MCP server config |

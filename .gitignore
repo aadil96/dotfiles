@@ -4,3 +4,4 @@ private_dot_config/agentmemory/
 runtime/
 .aeos/
 *.log
+node_modules/*

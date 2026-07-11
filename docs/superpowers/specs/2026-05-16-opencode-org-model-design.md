@@ -19,7 +19,7 @@ Evolve OpenCode from isolated coding agents into an organization-style operating
 
 ### Agent Hierarchy
 
-```
+```text
 User Goal
   │
   ▼
@@ -40,15 +40,15 @@ build (orchestrator)
 
 ### Delegation Rules
 
-| Agent    | task | May Consult      | May NOT Call           |
-| -------- | ---- | ---------------- | ---------------------- |
-| CEO      | deny | —                | Any org agent          |
-| CTO      | allow | researcher       | CEO, PM, Finance, Security, QA, DevOps |
-| PM       | allow | researcher       | Any org agent          |
-| Finance  | deny | —                | Any agent              |
-| Security | allow | security-auditor | Any org agent          |
-| QA       | allow | reviewer         | Any org agent          |
-| DevOps   | allow | sre-reviewer     | Any org agent          |
+| Agent | task | May Consult | May NOT Call |
+| -------- | ----- | ---------------- | ------------------------------------------- |
+| CEO | deny | — | Any org agent |
+| CTO | allow | researcher | CEO, PM, Finance, Security, QA, DevOps |
+| PM | allow | researcher | Any org agent |
+| Finance | deny | — | Any agent |
+| Security | allow | security-auditor | Any org agent |
+| QA | allow | reviewer | Any org agent |
+| DevOps | allow | sre-reviewer | Any org agent |
 
 **Cardinal rule:** No org agent calls another org agent. Cross-org coordination is build's responsibility.
 
@@ -80,7 +80,7 @@ task: <role-specific>  # see table above
 
 ### New Files (13) — Global, chezmoi-managed
 
-```
+```text
 dot_config/opencode/
 ├── agents/
 │   ├── ceo.md
@@ -132,7 +132,7 @@ OpenCode auto-discovers agents in both `agent/` and `agents/`.
 #### Current State
 
 | Directory | Content | Status |
-|-----------|---------|--------|
+| ---------------------------- | ---------------------------------------------------------------------------------- | -------------------- |
 | `dot_config/opencode/agent/` | `coder.md`, `researcher.md`, `reviewer.md`, `scribe.md` | Pre-existing, historical |
 | `dot_config/opencode/agents/` | `ceo.md`, `cto.md`, `pm.md`, `finance.md`, `security.md`, `qa.md`, `devops.md` | New in Phase 1 |
 
@@ -146,6 +146,7 @@ OpenCode auto-discovers agents in both `agent/` and `agents/`.
 #### Future Migration
 
 If consolidation is ever warranted:
+
 - Migrate everything to `agents/`
 - Remove `agent/`
 - Add compatibility notes in chezmoi templates
@@ -452,7 +453,7 @@ Platform and infrastructure specialist. Plans deployment strategy, observability
 
 ### 9. Org-Routing Skill — `dot_config/opencode/skills/org-routing/SKILL.md`
 
-```markdown
+````markdown
 ---
 name: org-routing
 description: >-
@@ -469,7 +470,7 @@ roles should be consulted before delegating implementation.
 ## When to Consult Each Role
 
 | Role | Trigger | Question to Answer |
-|------|---------|-------------------|
+| ------ | --------- | ------------------- |
 | CEO | Strategic initiative, major scope change, fundamental priority conflict | "Is this within scope? What priority?" |
 | CTO | Architecture change, stack selection, scalability | "Is this technically sound?" |
 | PM | Requirements unclear, needs refinement | "What exactly should be built?" |
@@ -482,7 +483,7 @@ roles should be consulted before delegating implementation.
 
 ## Decision Flow
 
-```
+```text
 Request received
   │
   ├── Is scope/priority unclear? ──► Consult CEO
@@ -507,7 +508,8 @@ Request received
 - Consult roles in parallel when they're independent
 - Skip roles whose domain is not relevant
 - Cross-org coordination is YOUR job — org agents don't call each other
-```
+
+````
 
 ---
 
@@ -536,7 +538,7 @@ This skill defines shared rules that ALL organization agents follow.
 ## Separation of Duties
 
 | Layer | Role | Responsibility |
-|-------|------|---------------|
+| ------- | ------ | --------------- |
 | Strategy | CEO | Priorities, scope, go/no-go |
 | Product | PM | Requirements, acceptance criteria |
 | Architecture | CTO | Tech decisions, system design |
@@ -623,7 +625,7 @@ description: >-
 When choosing a technology, evaluate:
 
 | Criterion | Question |
-|-----------|---------|
+| ----------- | --------- |
 | Problem fit | Does it solve the actual problem? |
 | Ecosystem | Is there community, docs, tooling? |
 | Maintenance | Is it actively maintained? |
@@ -657,7 +659,7 @@ description: >-
 ## Threat Modeling (STRIDE)
 
 | Category | What to Check |
-|----------|---------------|
+| ---------- | --------------- |
 | Spoofing | Authentication strength, session management |
 | Tampering | Data integrity, input validation |
 | Repudiation | Logging, audit trails |
@@ -716,7 +718,7 @@ description: >-
 
 ### Infrastructure Costs
 | Factor | Question |
-|--------|---------|
+| -------- | --------- |
 | Compute | What resources are needed (CPU, memory, storage)? |
 | Network | Data transfer costs, bandwidth requirements |
 | Services | Managed service costs vs self-hosted |
@@ -725,7 +727,7 @@ description: >-
 ### Build vs Buy Decision
 
 | Factor | Build | Buy |
-|--------|-------|-----|
+| -------- | ------- | ----- |
 | Initial Cost | Development time & resources | License/subscription fee |
 | Ongoing Cost | Maintenance, updates, ops | Renewal, tier upgrades |
 | Control | Full customization | Vendor-dependent |
@@ -752,7 +754,7 @@ description: >-
 ## Separation of Concerns
 
 | Scope | Path | Managed By | Contents |
-|-------|------|------------|----------|
+| ---------------------- | ------------------------------------------ | ---------------------------------------- | --------------------------------------------------------------- |
 | **Global organization** | `~/.config/opencode/agents/` | chezmoi (`dot_config/opencode/agents/`) | ceo, cto, pm, finance, security, qa, devops |
 | **Global skills** | `~/.config/opencode/skills/` | chezmoi (`dot_config/opencode/skills/`) | org-routing, org-governance, decision-framework, architecture-principles, security-policies, cost-optimization |
 | **Global config** | `~/.config/opencode/opencode.json` | chezmoi (`dot_config/opencode/opencode.json`) | Minimal: share, username |
@@ -767,7 +769,7 @@ description: >-
 ## Potential Conflicts
 
 | # | Conflict | Mitigation |
-|---|----------|------------|
+| --- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | 1 | security org agent overlaps with security-auditor | Clear role boundary: policy/strategy (org) vs implementation audit (execution) |
 | 2 | devops org agent overlaps with sre-reviewer | Clear role boundary: deployment/observability strategy (org) vs config review (execution) |
 | 3 | Build prompt duplicated across .opencode/opencode.jsonc and profiles/ws/opencode.jsonc | Only touch .opencode/opencode.jsonc. Profile build will be out of sync but functions independently |
@@ -783,7 +785,7 @@ Implemented separately after Phase 1 is stable.
 
 ### New Files (Project-Local)
 
-```
+```text
 .opencode/
 ├── project.md
 ├── stack.md
@@ -851,6 +853,7 @@ Implemented separately after Phase 1 is stable.
 ## Phase 3: Iteration
 
 After implementation:
+
 1. Observe real usage
 2. Adjust org agent prompts based on gaps
 3. Add project-specific skills if needed
@@ -861,7 +864,7 @@ After implementation:
 ## Appendix: Existing Skills Reference
 
 | Skill | Status | Used By |
-|-------|--------|---------|
+| ---------------------- | ---------------- | ------------------- |
 | code-philosophy | Source of truth | coder, reviewer, CTO |
 | code-review | Source of truth | reviewer, QA |
 | plan-review | Source of truth | reviewer (plan reviews) |

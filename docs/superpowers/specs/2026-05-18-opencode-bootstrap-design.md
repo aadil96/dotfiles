@@ -28,7 +28,7 @@ Transform the organization operating model (Phase 4) into a reusable platform th
 ### Ownership Boundaries
 
 | Layer | Owns | Location |
-|-------|------|----------|
+| ---------------------- | -------------------------------------------------------- | --------------------------------------------- |
 | User | Intent, parameter input | — |
 | OpenCode command | Interaction, display, calling script API | `opencode.json` command registration |
 | Shell script | Generation logic, template resolution, validation, discovery | `~/.config/opencode/tools/opencode-init` |
@@ -38,7 +38,7 @@ Transform the organization operating model (Phase 4) into a reusable platform th
 
 ### Init Flow
 
-```
+```text
 opencode init
     ↓
 OpenCode command prompt (interaction only)
@@ -72,7 +72,7 @@ opencode-init <archetype> [--components ...] [--output ...]
 
 ### Script CLI API
 
-```
+```text
 opencode-init --list-archetypes                    → human-readable list
 opencode-init --list-archetypes --json             → JSON array
 opencode-init --list-components <archetype>        → human-readable list
@@ -98,7 +98,7 @@ Exit codes:
 
 ### Inheritance Hierarchy
 
-```
+```text
 common
 ├── library
 │   └── cli-tool
@@ -111,7 +111,7 @@ common
 ### Inheritance Meaning
 
 | Archetype | Meaning |
-|-----------|---------|
+| ---------------- | -------------------------------------------------------------------------------- |
 | common | Base for all archetypes. Provides project.md, stack.md, feature + bug workflows. |
 | library | Reusable package, minimal deployment concerns. |
 | cli-tool | Library + executable interface. |
@@ -122,7 +122,7 @@ common
 
 ### Inheritance Resolution Order
 
-```
+```text
 common
     ↓
 parent archetypes (root → leaf, if extends chain)
@@ -137,7 +137,7 @@ final scaffold generation
 ### Merge Rules
 
 | Type | Strategy |
-|------|----------|
+| ----------------------------------------------- | ----------------------------------------------------- |
 | Objects (yaml) | Deep merge — child values override parents |
 | Arrays (org_participants, skills, workflows) | Union + deduplicate |
 | File templates (project.md, stack.md) | Child overrides parent |
@@ -213,7 +213,7 @@ adds:
 ### Available Components
 
 | Component | Adds Workflows | Adds Skills | Adds Stack Sections | Generates Code |
-|-----------|---------------|-------------|---------------------|----------------|
+| ----------- | --------------- | ------------- | --------------------- | ---------------- |
 | auth | security-review | security-policies (recommended) | Authentication | No |
 | payments | — | — | Payments/Billing | No |
 | observability | incident-response | — | Monitoring, Logging | No |
@@ -249,7 +249,7 @@ Implementation code generation is a future extension point.
 
 ### File Tree (chezmoi-managed)
 
-```
+```text
 dot_config/opencode/
 ├── opencode.json                            ← modified: add init command
 ├── templates/
@@ -302,7 +302,7 @@ generator_min_version: 1
 
 ### Generated Project Tree
 
-```
+```text
 <project>/
 ├── .opencode/
 │   ├── project.md
@@ -356,7 +356,7 @@ The `template_manifest_hash` enables future `opencode upgrade` to detect templat
 ### Validation Errors
 
 | Error | Message | Exit Code |
-|-------|---------|-----------|
+| ------------------- | ------------------------------------------------------------------ | --------- |
 | Archetype not found | `Archetype '<name>' not found` | 1 |
 | Circular inheritance | `Circular inheritance detected: a → b → c → a` | 1 |
 | Component not found | `Component '<name>' not found` | 1 |
@@ -369,7 +369,7 @@ The `template_manifest_hash` enables future `opencode upgrade` to detect templat
 Running `opencode init` twice should not silently overwrite.
 
 | Flag | Behavior |
-|------|----------|
+| ---------------- | ----------------------------------------------------------------------------------- |
 | (none) | Fail with exit code 2 if any generated file exists |
 | `--force` | Overwrite all existing files |
 | `--merge` | Smart merge: skip identical files, update generated sections, preserve user-modified sections, show diff + require confirmation on conflicts |
@@ -454,7 +454,7 @@ opencode init --migrate frontend-app --output .
 ## Key Decisions
 
 | Decision | Choice | Rationale |
-|----------|--------|-----------|
+| --------------- | --------------------------------------------- | --------------------------------------------------------------- |
 | Script location | `~/.config/opencode/tools/opencode-init` | `bin/` implies global PATH utility; this is an internal org tool |
 | Skill references | Reuse global `~/.config/opencode/skills/` | No template copies = single source of truth, no drift |
 | Inheritance model | Capability extension | backend-service extends common, not library — different concerns |
