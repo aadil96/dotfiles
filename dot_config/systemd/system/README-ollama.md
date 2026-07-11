@@ -22,7 +22,7 @@ sudo systemctl restart ollama
 ## Environment Variables
 
 | Variable | Value | Purpose |
-|----------|-------|---------|
+| ----------------------- | --------------- | ------------------------------------ |
 | OLLAMA_CONTEXT_LENGTH | 8192 | Max context window |
 | OLLAMA_FLASH_ATTENTION | 1 | Enable flash attention (faster inference) |
 | OLLAMA_HOST | 127.0.0.1:11434 | Bind to localhost only |

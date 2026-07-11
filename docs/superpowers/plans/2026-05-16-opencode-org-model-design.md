@@ -13,7 +13,7 @@
 ## Context & Decisions
 
 | Decision | Rationale |
-|----------|-----------|
+| -------- | --------- |
 | EM excluded from v1 | Deferred to Phase 3 based on observed need |
 | CEO strategic-only | Only consulted for strategic events, not normal feature flow |
 | Build wiring deferred | `.opencode/opencode.jsonc` not modified in Phase 1 |

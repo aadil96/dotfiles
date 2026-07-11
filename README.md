@@ -11,7 +11,7 @@ This repository contains my personal dotfiles, managed with [chezmoi](https://ww
 
 ## Repository Structure
 
-```
+```text
 ├── .chezmoi.toml.tmpl         # chezmoi configuration (templated)
 ├── .chezmoiexternals/         # chezmoi-managed external resources (tools, fonts, configs)
 ├── .chezmoiscripts/           # chezmoi hook scripts (e.g., install packages)
@@ -35,6 +35,7 @@ Clone the repo and run the setup script:
 ```
 
 This will:
+
 - Set your shell to zsh (if available)
 - Install chezmoi (if not present)
 - Apply all dotfiles to your home directory
