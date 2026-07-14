@@ -20,6 +20,10 @@ if [[ -d $HOME/.krew ]] ; then
   export PATH=$HOME/.krew/bin:$PATH
 fi
 
+if [[ -d $HOME/.cargo/bin ]] ; then
+  export PATH=$HOME/.cargo/bin:$PATH
+fi
+
 # edit PATH
 
 
@@ -32,6 +36,11 @@ fi
 # enable brew if found on linux
 if [ -f /home/linuxbrew/.linuxbrew/bin/brew ] ; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# ensure zsh's function directory in fpath (fixes stale env inheritance from tmux)
+if [[ -n "$HOMEBREW_PREFIX" && -d "$HOMEBREW_PREFIX/share/zsh/functions" ]]; then
+  fpath=("$HOMEBREW_PREFIX/share/zsh/functions" $fpath)
 fi
 
 if command -v mise > /dev/null ; then
