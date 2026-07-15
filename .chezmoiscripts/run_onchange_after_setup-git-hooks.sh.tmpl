@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# chezmoi: run_onchange_after_setup-git-hooks.sh.tmpl
+# Installs pre-commit security hook via git template directory
+set -euo pipefail
+
+GIT_TEMPLATE_DIR="{{ .chezmoi.homeDir }}/.git-template/hooks"
+mkdir -p "$GIT_TEMPLATE_DIR"
+
+# Copy pre-commit hook from chezmoi-managed bin directory
+cp "{{ .chezmoi.homeDir }}/.local/bin/pre-commit-security-scan.sh" "$GIT_TEMPLATE_DIR/pre-commit"
+chmod +x "$GIT_TEMPLATE_DIR/pre-commit"
+
+# Install to git template (affects future git init/clone)
+# Does NOT set core.hooksPath — that would override per-repo hooks (husky, etc.)
+echo "Git hook installed to template: $GIT_TEMPLATE_DIR"
+echo "New repos: run 'git init' to reinstall hooks from template."
+echo "Or manually: cp {{ .chezmoi.homeDir }}/.local/bin/pre-commit-security-scan.sh .git/hooks/pre-commit"
