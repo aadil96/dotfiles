@@ -46,14 +46,17 @@ mise exec -- chezmoi apply           # Run via mise if chezmoi not on PATH
 
 ## Key files to read
 
-| Purpose | File |
-| --------- | ------ |
-| chezmoi config + template vars | `.chezmoi.toml.tmpl` |
-| Tool versions | `dot_config/mise/mise.toml` |
-| OpenCode config | `.opencode/ocx.jsonc` |
-| Shell config | `dot_bashrc.tmpl`, `dot_zshrc.tmpl` |
-| Bootstrap logic | `setup` |
-| Branch rules | `BRANCHING.md` |
+| Purpose | File | Notes |
+| --------- | ------ | ----- |
+| chezmoi config + template vars | `.chezmoi.toml.tmpl` | |
+| Tool versions | `dot_config/mise/mise.toml` | |
+| OpenCode config | `.opencode/ocx.jsonc` | |
+| Shell config | `dot_bashrc.tmpl`, `dot_zshrc.tmpl` | |
+| Bootstrap logic | `setup` | |
+| Branch rules | `BRANCHING.md` | |
+| GPG agent config | `private_dot_gnupg/private_gpg-agent.conf` | Allows preset passphrase |
+| GPG signing preset | `dot_local/bin/executable_gpg-sign-preset.tmpl` | Silent preset at login/shell start |
+| GPG systemd service | `dot_config/systemd/user/gpg-sign-preset.service` | Presets passphrase after graphical login |
 
 ## Git safety
 
