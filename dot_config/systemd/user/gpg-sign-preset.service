@@ -1,6 +1,5 @@
 [Unit]
 Description=Preset GPG signing passphrase into gpg-agent
-After=graphical-session.target
 
 [Service]
 Type=oneshot
