@@ -11,6 +11,9 @@ if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
         export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 
+# preset GPG signing passphrase for non-interactive commits (agents)
+[ -x "$HOME/.local/bin/gpg-sign-preset" ] && "$HOME/.local/bin/gpg-sign-preset" >/dev/null 2>&1 || true
+
 if command -v mise >/dev/null; then
   eval "$(mise activate bash)"
 fi

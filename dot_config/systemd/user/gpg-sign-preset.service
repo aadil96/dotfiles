@@ -1,0 +1,9 @@
+[Unit]
+Description=Preset GPG signing passphrase into gpg-agent
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/gpg-sign-preset
+
+[Install]
+WantedBy=default.target

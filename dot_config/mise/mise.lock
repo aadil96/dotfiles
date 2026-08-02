@@ -39,6 +39,10 @@ url = "https://github.com/aristocratos/btop/releases/download/v1.4.4/btop-aarch6
 checksum = "sha256:fec7d1b59c671290a0f80d5a32617ea6d60412485fc04318fd194b9550ff6b49"
 url = "https://github.com/aristocratos/btop/releases/download/v1.4.4/btop-x86_64-linux-musl.tbz"
 
+[[tools.bun]]
+version = "1.3.14"
+backend = "core:bun"
+
 [[tools.chezmoi]]
 version = "2.68.1"
 backend = "aqua:twpayne/chezmoi"
@@ -186,13 +190,8 @@ checksum = "sha256:17bb2a19d25887cebd3b0ee2d3a3fdf56791eb0df15cf34b068fac56212f6
 url = "https://github.com/cli/cli/releases/download/v2.82.1/gh_2.82.1_windows_amd64.zip"
 
 [[tools."github:anomalyco/opencode"]]
-version = "1.15.4"
+version = "1.18.4"
 backend = "github:anomalyco/opencode"
-
-[tools."github:anomalyco/opencode"."platforms.linux-x64"]
-checksum = "sha256:3a314f4e400487b15b4f76897a957e86359e0bf53e50289edf7d64bc8af29d0b"
-url = "https://github.com/anomalyco/opencode/releases/download/v1.15.4/opencode-linux-x64-baseline.tar.gz"
-url_api = "https://api.github.com/repos/anomalyco/opencode/releases/assets/422624174"
 
 [[tools."github:nushell/nushell"]]
 version = "0.108.0"
@@ -397,6 +396,10 @@ backend = "ubi:supabase/cli"
 
 [tools."ubi:supabase/cli".options]
 exe = "supabase"
+
+[[tools.uv]]
+version = "0.11.28"
+backend = "aqua:astral-sh/uv"
 
 [[tools.zellij]]
 version = "0.43.0"

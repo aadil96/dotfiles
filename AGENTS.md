@@ -40,20 +40,24 @@ mise exec -- chezmoi apply           # Run via mise if chezmoi not on PATH
 ## Security
 
 - `private_*` prefix = never commit to git
-- GPG config in `private_dot_gnupg/` (not tracked)
+- GPG config in `dot_gnupg/`
 - `.chezmoiignore` uses gitignore semantics only — does NOT redact secrets
 - Never hardcode secrets; use `.chezmoi.toml.tmpl` env vars or prompts
 
 ## Key files to read
 
-| Purpose | File |
-| --------- | ------ |
-| chezmoi config + template vars | `.chezmoi.toml.tmpl` |
-| Tool versions | `dot_config/mise/mise.toml` |
-| OpenCode config | `.opencode/ocx.jsonc` |
-| Shell config | `dot_bashrc.tmpl`, `dot_zshrc.tmpl` |
-| Bootstrap logic | `setup` |
-| Branch rules | `BRANCHING.md` |
+| Purpose | File | Notes |
+| --------- | ------ | ----- |
+| chezmoi config + template vars | `.chezmoi.toml.tmpl` | |
+| Tool versions | `dot_config/mise/mise.toml` | |
+| OpenCode config | `.opencode/ocx.jsonc` | |
+| Shell config | `dot_bashrc.tmpl`, `dot_zshrc.tmpl` | |
+| Bootstrap logic | `setup` | |
+| Branch rules | `BRANCHING.md` | |
+| GPG agent config | `dot_gnupg/gpg-agent.conf` | Allows preset passphrase |
+| GPG crypto settings | `dot_gnupg/gpg.conf` | Digest/cipher preferences |
+| GPG signing preset | `dot_local/bin/executable_gpg-sign-preset.tmpl` | Silent preset at login/shell start |
+| GPG systemd service | `dot_config/systemd/user/gpg-sign-preset.service` | Presets passphrase at login |
 
 ## Git safety
 

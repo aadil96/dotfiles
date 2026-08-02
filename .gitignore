@@ -5,3 +5,5 @@ runtime/
 .aeos/
 *.log
 node_modules/*
+private_*
+SESSION_STATE.md

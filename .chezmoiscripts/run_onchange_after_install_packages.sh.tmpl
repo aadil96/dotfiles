@@ -7,3 +7,13 @@ MISE_BIN_PATH="{{ if $m := lookPath "mise" }}{{ $m }}{{ else if $l := lookPath (
 
 $MISE_BIN_PATH trust {{ .chezmoi.homeDir }}/.config/mise/mise.toml
 $MISE_BIN_PATH install
+
+# install system packages for GPG signing preset (gpg-preset-passphrase + secret-tool)
+if command -v apt-get >/dev/null 2>&1; then
+    missing=""
+    command -v gpg-preset-passphrase >/dev/null 2>&1 || missing="$missing gpg-agent"
+    command -v secret-tool >/dev/null 2>&1 || missing="$missing libsecret-tools"
+    if [ -n "$missing" ]; then
+        sudo apt-get install -y $missing
+    fi
+fi

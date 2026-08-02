@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# chezmoi template: preset GPG signing passphrase into gpg-agent
+set -euo pipefail
+
+key="{{ .gpg_signing_key }}"
+[ -n "$key" ] || exit 0
+
+gpg_preset_passphrase=""
+command -v gpg-preset-passphrase >/dev/null 2>&1 && gpg_preset_passphrase="gpg-preset-passphrase" || { libexec=$(gpgconf --list-dirs libexecdir 2>/dev/null); [ -x "$libexec/gpg-preset-passphrase" ] && gpg_preset_passphrase="$libexec/gpg-preset-passphrase"; }
+[ -n "$gpg_preset_passphrase" ] || exit 0
+
+command -v secret-tool >/dev/null 2>&1 || exit 0
+
+grip="$(gpg --batch --with-colons --with-keygrip -K "$key" 2>/dev/null | awk -F: -v key="$key" '$1=="fpr" && $10 ~ key{f=1; next} f && $1=="grp"{print $10; exit}')"
+[ -n "$grip" ] || exit 0
+
+pass="$(secret-tool lookup service gpg-signing key "$key" 2>/dev/null)" || exit 0
+printf '%s' "$pass" | "$gpg_preset_passphrase" --preset "$grip" 2>/dev/null || true
