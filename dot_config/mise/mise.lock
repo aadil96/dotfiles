@@ -273,35 +273,35 @@ version = "0.11.6"
 backend = "asdf:neovim"
 
 [[tools.node]]
-version = "23.11.0"
+version = "26.6.0"
 backend = "core:node"
 
 [tools.node."platforms.linux-arm64"]
-checksum = "sha256:12b29a87a7ccd7e1b97392d1e1533470d596578dad900430cff403e404fe72a7"
-url = "https://nodejs.org/dist/v23.11.0/node-v23.11.0-linux-arm64.tar.gz"
+checksum = "sha256:51c59de738843677a3c97bccbdbf9895141cb308bf25a95daeafd1aade09f0d5"
+url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-linux-arm64.tar.gz"
 
 [tools.node."platforms.linux-x64"]
-checksum = "sha256:66f768a7f2d89ecdda8fe1e33ee71ac04ed9180111cbf1c5fb944655fe7c90c7"
-url = "https://nodejs.org/dist/v23.11.0/node-v23.11.0-linux-x64.tar.gz"
+checksum = "sha256:714f352a7539c5ce09af15e440cbaadbe935bb23ba23fcee66b066d00a063822"
+url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-linux-x64.tar.gz"
 
 [tools.node."platforms.macos-arm64"]
-checksum = "sha256:635990b46610238e3c008cd01480c296e0c2bfe7ec59ea9a8cd789d5ac621bb0"
-url = "https://nodejs.org/dist/v23.11.0/node-v23.11.0-darwin-arm64.tar.gz"
+checksum = "sha256:75480cd43b6fcb35d8e772dd18983fbd9f691b2f03b1c94393206098e9944b5e"
+url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-darwin-arm64.tar.gz"
 
 [tools.node."platforms.macos-x64"]
-checksum = "sha256:a5782655748d4602c1ee1ee62732e0a16d29d3e4faac844db395b0fbb1c9dab8"
-url = "https://nodejs.org/dist/v23.11.0/node-v23.11.0-darwin-x64.tar.gz"
+checksum = "sha256:de075ffc09f33cc4b44ed38e1e4b2ef71f699b986f6d5952329da4973220726d"
+url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-darwin-x64.tar.gz"
 
 [tools.node."platforms.windows-x64"]
-checksum = "sha256:42749f1e4583907ab92bac4b4bdb031201a0b3f7b028ea6b6e0d5bb40e433ae9"
-url = "https://nodejs.org/dist/v23.11.0/node-v23.11.0-win-x64.zip"
+checksum = "sha256:aa81c8552f251ff280134985ccdaf16d336e2961b1e2c3eeb7b7b2221509f723"
+url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-win-x64.zip"
 
 [[tools."npm:@agentmemory/agentmemory"]]
-version = "0.9.18"
+version = "0.9.28"
 backend = "npm:@agentmemory/agentmemory"
 
 [[tools."npm:@agentmemory/mcp"]]
-version = "0.9.27"
+version = "0.9.28"
 backend = "npm:@agentmemory/mcp"
 
 [[tools."npm:@google/gemini-cli"]]
@@ -312,13 +312,23 @@ backend = "npm:@google/gemini-cli"
 version = "0.65.2"
 backend = "npm:@juliusbrussee/caveman-code"
 
+[[tools."npm:@opencode-ai/cli"]]
+version = "next"
+backend = "npm:@opencode-ai/cli"
+
+[tools."npm:@opencode-ai/cli".options]
+allow_builds = '["@opencode-ai/cli"]'
+
 [[tools."npm:aicommits"]]
 version = "3.1.2"
 backend = "npm:aicommits"
 
-[[tools."npm:iii-sdk"]]
-version = "0.12.0"
-backend = "npm:iii-sdk"
+[[tools."npm:openclaw"]]
+version = "2026.9.2"
+backend = "npm:openclaw"
+
+[tools."npm:openclaw".options]
+allow_builds = '["openclaw"]'
 
 [[tools."npm:wrangler"]]
 version = "4.88.0"
