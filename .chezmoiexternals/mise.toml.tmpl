@@ -1,4 +1,8 @@
+{{- /* Only fetch when the binary is missing so a self-updated mise is not downgraded by a stale cache */ -}}
+{{- if not (stat (printf "%s/.local/bin/mise" (env "HOME"))) }}
 [".local/bin/mise"]
-type = "file"
-executable = true
-url = "https://mise.jdx.dev/mise-latest-{{.chezmoi.os}}-{{.chezmoi.arch}}"
+    type = "file"
+    executable = true
+    url = "https://mise.jdx.dev/mise-latest-{{.chezmoi.os}}-{{.chezmoi.arch}}"
+    refreshPeriod = "168h"
+{{- end }}

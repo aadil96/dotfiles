@@ -21,6 +21,7 @@
 
 - Run `./setup` first — it bootstraps chezmoi and applies all dotfiles
 - Verify `set -euo pipefail` is set in any new shell scripts you add
+- If `chezmoi apply` asks `sudo` to reinstall `gpg-agent`, verify `gpgconf --list-dirs libexecdir`; `gpg-preset-passphrase` may already be installed there without being on `PATH`.
 
 ### chezmoi init fails with "not a directory"
 
@@ -73,6 +74,7 @@
 
 - Run `chezmoi apply --refresh-externals` to force refresh
 - External resources defined in `.chezmoiexternal.toml`
+- Symptom: `mise ERROR mise version X.Y.Z is required, but you are using A.B.C` where `A.B.C < X.Y.Z`. The chezmoi external cached an older `mise-latest` artifact and overwrote a newer mise binary during apply. Fix: `chezmoi apply --refresh-externals` (forces re-download of all externals), or run `mise self-update` to let mise manage its own binary again.
 
 ### Dev Container not building
 
