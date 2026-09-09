@@ -41,11 +41,11 @@
 
 ### agentmemory appears to lose memories
 
-- Do not delete `/home/aadil/data/state_store.db`; it contains the persistent observations and memories.
+- Do not delete `$HOME/data/state_store.db`; it contains the persistent observations and memories.
 - Verify the selected version: `mise which agentmemory` should resolve to `@agentmemory/agentmemory/0.9.28`.
 - Verify the service: `systemctl --user status agentmemory.service`; it should use agentmemory `0.9.28` and its pinned iii engine `0.11.2`.
 - If mise falls back to `0.9.18`, update both `~/.config/mise/mise.lock` and the chezmoi source lockfile, then restart: `systemctl --user restart agentmemory.service`.
-- The standalone `/home/aadil/.local/bin/iii` binary is not required. Agentmemory uses `/home/aadil/.agentmemory/bin/iii` at `0.11.2`.
+- The standalone `~/.local/bin/iii` binary is not required. Agentmemory uses `~/.agentmemory/bin/iii` at `0.11.2`.
 - Confirm the service and dashboard: `curl -fsS http://localhost:3111/agentmemory/livez` and `curl -fsS http://localhost:3113/ >/dev/null`.
 
 ### Brewfile not applying
