@@ -6,6 +6,7 @@ After=network-online.target
 
 [Service]
 Type=simple
+WorkingDirectory={{ .chezmoi.homeDir }}
 ExecStart={{ .chezmoi.homeDir }}/.local/share/mise/shims/agentmemory
 Restart=on-failure
 RestartSec=5
