@@ -11,7 +11,10 @@ $MISE_BIN_PATH install
 # install system packages for GPG signing preset (gpg-preset-passphrase + secret-tool)
 if command -v apt-get >/dev/null 2>&1; then
     missing=""
-    command -v gpg-preset-passphrase >/dev/null 2>&1 || missing="$missing gpg-agent"
+    if ! command -v gpg-preset-passphrase >/dev/null 2>&1 &&
+        [ ! -x "$(gpgconf --list-dirs libexecdir 2>/dev/null)/gpg-preset-passphrase" ]; then
+        missing="$missing gpg-agent"
+    fi
     command -v secret-tool >/dev/null 2>&1 || missing="$missing libsecret-tools"
     if [ -n "$missing" ]; then
         sudo apt-get install -y $missing
