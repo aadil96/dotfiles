@@ -501,13 +501,13 @@ version = "0.65.2"
 backend = "npm:@juliusbrussee/caveman-code"
 specifiers = ["0.65.2"]
 
-[[tools."npm:@opencode-ai/cli"]]
-version = "next"
-backend = "npm:@opencode-ai/cli"
-specifiers = ["next"]
+[[tools."npm:@opencode/cli"]]
+version = "beta"
+backend = "npm:@opencode/cli"
+specifiers = ["beta"]
 
-[tools."npm:@opencode-ai/cli".options]
-allow_builds = '["@opencode-ai/cli"]'
+[tools."npm:@opencode/cli".options]
+allow_builds = '["@opencode/cli"]'
 
 [[tools."npm:aicommits"]]
 version = "3.1.2"
