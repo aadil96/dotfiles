@@ -1,7 +1,6 @@
-tap "hashicorp/tap"
+tap "hashicorp/tap", if: OS.mac?
+brew "zsh", if: OS.mac?
+brew "hashicorp/tap/vagrant", if: OS.mac?
 
-brew "zsh"
-brew "hashicorp/tap/vagrant"
-
-cask "claude-code"
-cask "codex"
+cask "claude-code", if: OS.mac?
+cask "codex", if: OS.mac?
