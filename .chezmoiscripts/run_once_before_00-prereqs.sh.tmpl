@@ -145,6 +145,33 @@ if ! xcode-select -p >/dev/null 2>&1; then
   exit 1
 fi
 log "Xcode Command Line Tools present"
+
+# Bootstrap Homebrew so the post-apply brew hook can run on a fresh macOS.
+if ! command -v brew >/dev/null 2>&1 && [ ! -x /opt/homebrew/bin/brew ] && [ ! -x /usr/local/bin/brew ]; then
+  log "Homebrew not found; bootstrapping (NONINTERACTIVE)..."
+  if [ "$(id -u)" -ne 0 ] && ! command -v sudo >/dev/null 2>&1; then
+    log "ERROR: Homebrew bootstrap requires root but sudo is not available"
+    log "Install Homebrew manually: /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+    exit 1
+  fi
+
+  set +e
+  if [ "$(id -u)" -eq 0 ]; then
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  else
+    sudo NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  rc=$?
+  set -e
+  if [ "$rc" -ne 0 ]; then
+    log "ERROR: Homebrew bootstrap failed (exit $rc). Install manually:"
+    log "  /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+    exit 1
+  fi
+  log "Homebrew installed"
+else
+  log "Homebrew present"
+fi
 log "EXCLUDED: system packages (macOS uses Homebrew via the Brewfile)"
 
 {{ else }}
