@@ -1,0 +1,48 @@
+#!/bin/bash
+# gpg hash: {{ .gpg_signing_key }}{{ include "dot_config/systemd/user/gpg-sign-preset.service" | sha256sum }}
+
+# Enables the gpg-sign-preset systemd user service. Gated on all of: Linux, a
+# working user systemd, a configured signing key, the secret key being locally
+# available, and the unit file + helper script being present. Each gate logs a
+# SKIP line and exits 0 — skips are not failures, and never run against hosts
+# that cannot support the service.
+set -euo pipefail
+
+log() { printf '[portable-install] %s\n' "$*"; }
+
+{{ if eq .chezmoi.os "linux" }}
+
+if ! command -v systemctl >/dev/null 2>&1; then
+  log "SKIP: gpg-preset service (systemctl not available)"
+  exit 0
+fi
+if [ -z "${XDG_RUNTIME_DIR:-}" ]; then
+  log "SKIP: gpg-preset service (XDG_RUNTIME_DIR unset — no user systemd bus)"
+  exit 0
+fi
+if [ -z "{{ .gpg_signing_key }}" ]; then
+  log "SKIP: gpg-preset service (no signing key configured)"
+  exit 0
+fi
+if ! gpg --list-secret-keys "{{ .gpg_signing_key }}" >/dev/null 2>&1; then
+  log "SKIP: gpg-preset service (secret key not available locally)"
+  exit 0
+fi
+UNIT="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user/gpg-sign-preset.service"
+if [ ! -f "$UNIT" ]; then
+  log "SKIP: gpg-preset service (unit file missing: $UNIT)"
+  exit 0
+fi
+if [ ! -x "$HOME/.local/bin/gpg-sign-preset" ]; then
+  log "SKIP: gpg-preset service (helper not executable: $HOME/.local/bin/gpg-sign-preset)"
+  exit 0
+fi
+
+systemctl --user daemon-reload
+systemctl --user enable --now gpg-sign-preset.service
+log "gpg-sign-preset.service enabled"
+
+{{ else }}
+
+log "SKIP: gpg-preset service (not Linux)"
+{{ end }}

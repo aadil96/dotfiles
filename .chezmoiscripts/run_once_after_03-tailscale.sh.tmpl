@@ -1,0 +1,52 @@
+#!/bin/bash
+# Enrolls this machine into the tailnet. Explicit opt-in ONLY: the auth key is
+# read from the TAILSCALE_AUTHKEY environment variable at runtime and is never
+# embedded in this script or persisted by chezmoi. The tailscale binary is only
+# installed when enrolling (no TAILSCALE_AUTHKEY means no activation). ssh and
+# accept-routes are opt-in via TAILSCALE_SSH / TAILSCALE_ACCEPT_ROUTES.
+set -euo pipefail
+
+log() { printf '[tailscale] %s\n' "$*"; }
+
+{{ if eq .chezmoi.os "linux" }}
+
+if ! command -v systemctl >/dev/null 2>&1; then
+  log "not enrolled: systemctl not available"
+  exit 0
+fi
+if [ -z "${XDG_RUNTIME_DIR:-}" ]; then
+  log "not enrolled: no user systemd (XDG_RUNTIME_DIR unset)"
+  exit 0
+fi
+if [ "$(id -u)" -ne 0 ] && ! command -v sudo >/dev/null 2>&1; then
+  log "not enrolled: need root or sudo to manage tailscaled"
+  exit 1
+fi
+
+AUTHKEY="${TAILSCALE_AUTHKEY:-}"
+if [ -z "$AUTHKEY" ]; then
+  log "not enrolled: set TAILSCALE_AUTHKEY to opt in"
+  exit 0
+fi
+
+if ! command -v tailscale >/dev/null 2>&1; then
+  log "installing tailscale..."
+  curl -fsSL https://tailscale.com/install.sh | sh
+fi
+
+sudo systemctl enable --now tailscaled
+
+UP_ARGS=(up --authkey="$AUTHKEY")
+if [ "${TAILSCALE_SSH:-}" = "1" ]; then
+  UP_ARGS+=(--ssh)
+fi
+if [ "${TAILSCALE_ACCEPT_ROUTES:-}" = "1" ]; then
+  UP_ARGS+=(--accept-routes)
+fi
+sudo tailscale "${UP_ARGS[@]}"
+log "enrolled"
+
+{{ else }}
+
+log "not enrolled: not Linux"
+{{ end }}
