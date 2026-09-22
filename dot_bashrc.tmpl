@@ -5,17 +5,30 @@ if [[ -d $HOME/.local/bin ]]; then
   export PATH=$HOME/.local/bin:$PATH
 fi
 
-# setup gpg-agent ssh
-unset SSH_AGENT_PID
-if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-        export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+# setup gpg-agent ssh (only when gpgconf is available)
+if command -v gpgconf >/dev/null 2>&1; then
+  unset SSH_AGENT_PID
+  if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+          export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+  fi
 fi
 
 # preset GPG signing passphrase for non-interactive commits (agents)
 [ -x "$HOME/.local/bin/gpg-sign-preset" ] && "$HOME/.local/bin/gpg-sign-preset" >/dev/null 2>&1 || true
 
+# enable brew from any supported location (macOS + Linuxbrew)
+for _brew in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew "$HOME/.linuxbrew/bin/brew"; do
+  if [[ -f "$_brew" ]]; then
+    eval "$("$_brew" shellenv)"
+    break
+  fi
+done
+unset _brew
+
 if command -v mise >/dev/null; then
   eval "$(mise activate bash)"
+elif [[ -x "$HOME/.local/bin/mise" ]]; then
+  eval "$("$HOME/.local/bin/mise" activate bash)"
 fi
 
 # (neo)vim
