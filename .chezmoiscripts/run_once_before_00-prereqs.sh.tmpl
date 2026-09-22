@@ -82,17 +82,42 @@ else
   else
     log "installing missing packages: ${missing[*]}"
     case "$DISTRO" in
-      debian) INSTALL=(apt-get install -y "${missing[@]}") ;;
-      fedora) INSTALL=(dnf install -y "${missing[@]}") ;;
-      arch)   INSTALL=(pacman -S --noconfirm --needed "${missing[@]}") ;;
+      debian)
+        REFRESH=(apt-get update)
+        INSTALL=(apt-get install -y "${missing[@]}")
+        ;;
+      fedora)
+        REFRESH=(dnf makecache)
+        INSTALL=(dnf install -y "${missing[@]}")
+        ;;
+      arch)
+        REFRESH=(pacman -Sy)
+        INSTALL=(pacman -S --noconfirm --needed "${missing[@]}")
+        ;;
     esac
 
     if [ "$(id -u)" -ne 0 ] && ! command -v sudo >/dev/null 2>&1; then
-      log "ERROR: installing packages requires root but sudo is not available"
+      log "ERROR: package operations require root but sudo is not available"
       log "Run manually as root:"
+      log "  ${REFRESH[*]}"
       log "  ${INSTALL[*]}"
       exit 1
     fi
+
+    set +e
+    if [ "$(id -u)" -eq 0 ]; then
+      "${REFRESH[@]}"
+    else
+      sudo "${REFRESH[@]}"
+    fi
+    rc=$?
+    set -e
+    if [ "$rc" -ne 0 ]; then
+      log "ERROR: package manager refresh failed (exit $rc). Run manually:"
+      log "  ${REFRESH[*]}"
+      exit 1
+    fi
+    log "package manager index refreshed"
 
     set +e
     if [ "$(id -u)" -eq 0 ]; then
