@@ -17,6 +17,10 @@ if ! command -v systemctl >/dev/null 2>&1; then
   log "SKIP: gpg-preset service (systemctl not available)"
   exit 0
 fi
+if [[ "$(cat /proc/1/comm 2>/dev/null)" != *systemd* ]]; then
+  log "SKIP: gpg-preset service (PID 1 is not systemd — no user bus)"
+  exit 0
+fi
 if [ -z "${XDG_RUNTIME_DIR:-}" ]; then
   log "SKIP: gpg-preset service (XDG_RUNTIME_DIR unset — no user systemd bus)"
   exit 0
