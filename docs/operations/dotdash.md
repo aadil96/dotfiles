@@ -5,7 +5,7 @@ Linux-only user service that serves the dashboard on `127.0.0.1:7842`.
 ## Unit
 
 - Template: `dot_config/systemd/user/dotdash.service.tmpl` (renders only on Linux via `{{ .chezmoi.os }}` guard; empty on macOS/other)
-- Exec: `%h/.local/bin/mise exec -- node %h/.local/share/dotdash/app/server.js`
+- Exec: `%h/.local/bin/mise exec -- node <data-home>/dotdash/app/server.js`, with `<data-home>` rendered from `XDG_DATA_HOME` (default: `$HOME/.local/share`).
 - Env: `HOSTNAME=127.0.0.1`, `PORT=7842`, `NODE_ENV=production`
 - Restart: `on-failure` with `RestartSec=3`
 - Install: `WantedBy=default.target`
@@ -19,6 +19,7 @@ From `dotfiles-dashboard`:
 ```
 
 No automatic service enablement. The installer does not enable lingering.
+Use the same `XDG_DATA_HOME` when installing and applying the unit. After changing it, reinstall, reapply, reload systemd, and restart the service.
 
 ## Apply and enable
 
@@ -33,6 +34,7 @@ curl -s http://127.0.0.1:7842/api/health
 ## Verify
 
 ```sh
+python3 docs/tests/test_dotdash_service.py
 chezmoi execute-template --file dot_config/systemd/user/dotdash.service.tmpl
 systemd-analyze verify ~/.config/systemd/user/dotdash.service
 systemctl --user is-active dotdash

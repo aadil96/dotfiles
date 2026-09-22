@@ -2,6 +2,11 @@
 
 ## Common issues with this dotfiles repo
 
+### dotdash service cannot find server.js
+
+- Use the same `XDG_DATA_HOME` for the dashboard installer and `chezmoi apply`; the unit captures this path at apply time, defaulting to `$HOME/.local/share`.
+- After moving the installation, reapply the unit, run `systemctl --user daemon-reload`, then `systemctl --user restart dotdash`.
+
 ### chezmoi apply does nothing
 
 - Make sure you're in the correct source directory (`~/.local/share/chezmoi`)
