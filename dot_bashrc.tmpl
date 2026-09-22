@@ -50,4 +50,4 @@ if command -v bat >/dev/null; then
   alias cat="bat"
 fi
 
-export HOMEBREW_BUNDLE_FILE="$HOME/.config/brew/Brewfile"
+export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/brew/Brewfile"

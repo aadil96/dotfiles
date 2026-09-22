@@ -118,7 +118,7 @@ if command -v dagger > /dev/null ; then
   export DAGGER_NO_NAG=1
 fi
 
-export HOMEBREW_BUNDLE_FILE="$HOME/.config/brew/Brewfile"
+export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/brew/Brewfile"
 
 if [[ -d "$HOME/.zsh/zsh-autosuggestions" ]] ; then
   source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
