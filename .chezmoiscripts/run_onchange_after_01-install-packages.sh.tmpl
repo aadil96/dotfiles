@@ -33,7 +33,7 @@ fi
 
 "$MISE" trust "$MISE_CONFIG"
 if ! "$MISE" install; then
-  log "ERROR: mise install failed for some tools — retry: $MISE install --force"
+  log "ERROR: mise install failed for some tools — retry per tool with: $MISE install <tool>, or run $MISE install again"
   exit 1
 fi
 log "mise install complete"
