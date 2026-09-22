@@ -20,7 +20,7 @@
   chezmoi state delete-bucket --bucket=scriptState
   ```
 
-- **Warning:** this resets all `run_once` tracking, so it also re-triggers Tailscale enrollment (`run_once_after_03`). If you do not want to enroll, ensure `TAILSCALE_AUTHKEY` is unset before re-applying.
+- **Warning:** this resets all script state, so it also re-triggers Tailscale enrollment (`run_onchange_after_03`). If you do not want to enroll, ensure `TAILSCALE_AUTHKEY` is unset before re-applying.
 
 ### dotdash service cannot find server.js
 
@@ -52,7 +52,7 @@
   sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply aadil96/dotfiles
   ```
 
-- If bootstrapping from a local clone, `./setup` still works but is the legacy path.
+- If bootstrapping from a local clone, `./setup` still works but is the legacy path. Note that `./setup` writes any `TAILSCALE_AUTHKEY` into `$XDG_CONFIG_HOME/chezmoi/chezmoi.toml` (persisted), unlike the portable one-liner which keeps it env-only — prefer the one-liner; the next `chezmoi apply` re-render omits the key from the config; rotate the key if `./setup` was ever used with one.
 - Verify `set -euo pipefail` is set in any new shell scripts you add
 - If `chezmoi apply` asks `sudo` to reinstall `gpg-agent`, verify `gpgconf --list-dirs libexecdir`; `gpg-preset-passphrase` may already be installed there without being on `PATH`.
 
@@ -65,7 +65,7 @@
 
 - Check `dot_config/mise/mise.toml` for pinned versions
 - Run `mise trust` on the config file first
-- Retry a failed installation with `<mise-bin> install --force`; the mise binary lives at `~/.local/bin/mise`
+- Retry a failed installation per tool with `mise install <tool>` (or run `mise install` again); the mise binary lives at `~/.local/bin/mise`
 - If the install is skipped entirely, check whether `DOTFILES_TEST_SKIP_PACKAGES=1` is set (test-only escape hatch, not for normal installs).
 
 ### Tool excluded during install
@@ -114,7 +114,7 @@
 - Tailscale enrollment is explicit opt-in: set `TAILSCALE_AUTHKEY` at install time to enroll. It is a runtime env var only — never persisted or written to generated files.
 - Without `TAILSCALE_AUTHKEY`, the Tailscale binary is not installed and no enrollment happens.
 - `TAILSCALE_SSH=1` and `TAILSCALE_ACCEPT_ROUTES=1` opt into remote SSH access / advertised routes on `tailscale up`; both are off by default.
-- Enrollment runs via the `run_once_after_03` hook. After fixing the auth key, re-trigger it: `chezmoi state delete-bucket --bucket=scriptState` (this also re-triggers other `run_once` hooks).
+- Enrollment runs via the `run_onchange_after_03` hook, gated on systemd as PID 1. After fixing the auth key, re-trigger it: `chezmoi state delete-bucket --bucket=scriptState` (this also re-triggers other hooks) or change the hook file, then re-apply with `TAILSCALE_AUTHKEY` set (the key is read at runtime, never written to disk).
 - Nightly enrollments are intentionally not automatic — do not set remote SSH or accepted-routes flags unless you want them.
 
 ### CI failures (ShellCheck)

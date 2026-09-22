@@ -41,7 +41,7 @@ This installs chezmoi, clones `aadil96/dotfiles`, and applies everything:
 - Homebrew packages (macOS) or mise packages
 - Optional service activation (GPG preset, Tailscale opt-in)
 
-Interactive runs prompt for your Git `user.name` and `user.email`, plus an optional GPG key fingerprint (skipped when already provided via env or saved config). Hooks run in order: prerequisite checks/install (`run_once_before_00-prereqs`) → managed config + externals (apply) → Homebrew (`run_onchange_after_00`) → mise packages (`run_onchange_after_01`) → service activation (GPG preset `run_onchange_after_02`, Tailscale `run_once_after_03`). Binaries are detected at execution time, so freshly installed tools are found.
+Interactive runs prompt for your Git `user.name` and `user.email`, plus an optional GPG key fingerprint (skipped when already provided via env or saved config). Hooks run in order: prerequisite checks/install (`run_once_before_00-prereqs`) → managed config + externals (apply) → Homebrew (`run_onchange_after_00`) → mise packages (`run_onchange_after_01`) → service activation (GPG preset `run_onchange_after_02`, Tailscale `run_onchange_after_03`). Binaries are detected at execution time, so freshly installed tools are found.
 
 Prerequisites:
 
@@ -59,7 +59,7 @@ DOTFILES_NONINTERACTIVE=1 GIT_USER_NAME="Ada Lovelace" GIT_USER_EMAIL="ada@examp
 
 Unattended runs never prompt: missing `GIT_USER_NAME`/`GIT_USER_EMAIL` aborts with a clear error, and existing home-file conflicts stop the install instead of force-overwriting (the installer never passes `--force`).
 
-`setup` remains available for local clone-based bootstrap and is unchanged, but the curl one-liner above is the documented entrypoint for new machines. Note that `./setup` installs Homebrew on Linux, which is no longer part of the supported toolset.
+`setup` remains available for local clone-based bootstrap and is unchanged, but the curl one-liner above is the documented entrypoint for new machines. Note that `./setup` installs Homebrew on Linux, which is no longer part of the supported toolset. Legacy `./setup` also writes any `TAILSCALE_AUTHKEY` into `$XDG_CONFIG_HOME/chezmoi/chezmoi.toml` (persisted), unlike the portable one-liner which keeps it env-only — prefer the one-liner; the next `chezmoi apply` re-render omits the key from the config; rotate the key if `./setup` was ever used with one.
 
 ### Environment variables
 
