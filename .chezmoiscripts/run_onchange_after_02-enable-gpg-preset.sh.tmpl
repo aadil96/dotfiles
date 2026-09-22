@@ -5,7 +5,8 @@
 # working user systemd, a configured signing key, the secret key being locally
 # available, and the unit file + helper script being present. Each gate logs a
 # SKIP line and exits 0 — skips are not failures, and never run against hosts
-# that cannot support the service.
+# that cannot support the service. When a key is configured but not present
+# locally, git signing is disabled so commits do not hang on missing keys.
 set -euo pipefail
 
 log() { printf '[portable-install] %s\n' "$*"; }
@@ -24,7 +25,10 @@ if [ -z "{{ .gpg_signing_key }}" ]; then
   log "SKIP: gpg-preset service (no signing key configured)"
   exit 0
 fi
-if ! gpg --list-secret-keys "{{ .gpg_signing_key }}" >/dev/null 2>&1; then
+if ! gpg --list-secret-keys "{{ .gpg_signing_key | quote }}" >/dev/null 2>&1; then
+  log "GPG key {{ .gpg_signing_key }} not found locally; disabling git signing"
+  git config --global --unset-all user.signingkey || true
+  git config --global --unset-all commit.gpgsign || true
   log "SKIP: gpg-preset service (secret key not available locally)"
   exit 0
 fi
