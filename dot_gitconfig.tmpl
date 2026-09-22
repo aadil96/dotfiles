@@ -1,8 +1,8 @@
 [user]
-	name = {{ .name }}
-	email = {{ .email }}
+	name = {{ .name | quote }}
+	email = {{ .email | quote }}
 {{- if .gpg_signing_key }}
-	signingkey = {{ .gpg_signing_key }}
+	signingkey = {{ .gpg_signing_key | quote }}
 {{- end }}
 
 [init]
