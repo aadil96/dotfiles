@@ -4,7 +4,8 @@
 # own package manager. Homebrew is NEVER used on Linux; macOS prerequisites are
 # limited to Xcode Command Line Tools (zsh ships with macOS). vagrant is only
 # installed where a stock repo package exists; otherwise it is logged as
-# EXCLUDED (macOS gets it via the Brewfile).
+# EXCLUDED (macOS gets it via the Brewfile). cargo+cmake are installed on
+# Linux so mise's cargo backend (cargo:caligula) can build from crates.io.
 #
 # Detection runs at execution time (command -v / package-manager queries), so
 # it always reflects the live system — nothing is baked in at template render
@@ -42,13 +43,13 @@ PKGS=()
 
 if command -v apt-get >/dev/null 2>&1; then
   DISTRO="debian"
-  PKGS=(git curl zsh gnupg ca-certificates build-essential pkg-config libssl-dev libsecret-tools)
+  PKGS=(git curl zsh gnupg ca-certificates build-essential pkg-config libssl-dev libsecret-tools cargo cmake)
 elif command -v dnf >/dev/null 2>&1; then
   DISTRO="fedora"
-  PKGS=(git curl zsh gnupg2 ca-certificates gcc gcc-c++ make pkgconf-pkg-config openssl-devel libsecret)
+  PKGS=(git curl zsh gnupg2 ca-certificates gcc gcc-c++ make pkgconf-pkg-config openssl-devel libsecret cargo cmake)
 elif command -v pacman >/dev/null 2>&1; then
   DISTRO="arch"
-  PKGS=(base-devel git curl zsh gnupg ca-certificates pkg-config openssl libsecret)
+  PKGS=(base-devel git curl zsh gnupg ca-certificates pkg-config openssl libsecret rust cmake)
 else
   log "EXCLUDED: system packages (no apt-get/dnf/pacman; apk and others unsupported)"
 fi
