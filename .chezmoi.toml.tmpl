@@ -11,10 +11,12 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 {{- if $noninteractive }}
   {{- $name = env "GIT_USER_NAME" }}
+  {{- if eq $name "" }}{{ $name = promptStringOnce . "name" "Git user.name" }}{{ end }}
   {{- $email = env "GIT_USER_EMAIL" }}
+  {{- if eq $email "" }}{{ $email = promptStringOnce . "email" "Git user.email" }}{{ end }}
   {{- $gpg_key = env "GPG_KEY" }}
   {{- if or (eq $name "") (eq $email "") }}
-    {{ fail "DOTFILES_NONINTERACTIVE=1 requires GIT_USER_NAME and GIT_USER_EMAIL to be set" }}
+    {{ fail "DOTFILES_NONINTERACTIVE=1 requires GIT_USER_NAME and GIT_USER_EMAIL (no saved identity found)" }}
   {{- end }}
 {{- else }}
   {{- $name = env "GIT_USER_NAME" }}
