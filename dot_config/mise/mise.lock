@@ -372,11 +372,6 @@ url = "https://github.com/cli/cli/releases/download/v2.82.1/gh_2.82.1_windows_am
 url_api = "https://api.github.com/repos/cli/cli/releases/assets/307127972"
 provenance = "github-attestations"
 
-[[tools."github:anomalyco/opencode"]]
-version = "1.18.4"
-backend = "github:anomalyco/opencode"
-specifiers = ["1.18.4"]
-
 [[tools."github:nushell/nushell"]]
 version = "0.108.0"
 backend = "github:nushell/nushell"
@@ -538,9 +533,9 @@ backend = "npm:@juliusbrussee/caveman-code"
 specifiers = ["0.65.2"]
 
 [[tools."npm:@opencode/cli"]]
-version = "beta"
+version = "2.0.14"
 backend = "npm:@opencode/cli"
-specifiers = ["beta"]
+specifiers = ["2.0.14"]
 
 [tools."npm:@opencode/cli".options]
 allow_builds = '["@opencode/cli"]'

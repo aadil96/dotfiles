@@ -2,6 +2,11 @@
 
 ## Common issues with this dotfiles repo
 
+### dotdash service cannot find server.js
+
+- Use the same `XDG_DATA_HOME` for the dashboard installer and `chezmoi apply`; the unit captures this path at apply time, defaulting to `$HOME/.local/share`.
+- After moving the installation, reapply the unit, run `systemctl --user daemon-reload`, then `systemctl --user restart dotdash`.
+
 ### chezmoi apply does nothing
 
 - Make sure you're in the correct source directory (`~/.local/share/chezmoi`)
@@ -34,11 +39,13 @@
 - Run `mise trust` on the config file first
 - Try `mise install --force` to retry failed installations
 
-### `opencode2` command not found after migrating from OpenCode v1
+### `opencode` still launches OpenCode v1
 
-- OpenCode v2 is a separate beta CLI; v1 remains `opencode` and v2 runs as `opencode2`.
-- Run `mise install npm:@opencode-ai/cli@next`, then verify with `mise which opencode2` and `opencode2 --version`.
-- Keep `allow_builds = ["@opencode-ai/cli"]` on the mise tool entry because the package's reviewed postinstall script selects the platform binary.
+- Stable OpenCode v2 comes from `npm:@opencode/cli`, pinned to `2.0.14`. It provides `opencode` and the compatibility command `opencode2`.
+- Remove the legacy `github:anomalyco/opencode` tool entry from mise config and lockfile so v1 cannot take precedence on `PATH`.
+- Apply the mise config and lockfile, run `mise install npm:@opencode/cli@2.0.14`, then open a new terminal. Verify with `mise which opencode` and `opencode --version`.
+- Keep `allow_builds = ["@opencode/cli"]`; the package's postinstall script selects the platform binary.
+- V2 zsh completion uses `opencode --completions zsh`; remove the old v1 yargs completion block when migrating.
 
 ### agentmemory appears to lose memories
 

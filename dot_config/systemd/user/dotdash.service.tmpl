@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=%h/.local/bin/mise exec -- node %h/.local/share/dotdash/app/server.js
+ExecStart=%h/.local/bin/mise exec -- node {{ joinPath (env "XDG_DATA_HOME" | default (joinPath .chezmoi.homeDir ".local/share")) "dotdash/app/server.js" | replace "%" "%%" | replace "$" "$$" | quote }}
 Environment=HOSTNAME=127.0.0.1
 Environment=PORT=7842
 Environment=NODE_ENV=production
