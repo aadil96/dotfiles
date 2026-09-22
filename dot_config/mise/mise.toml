@@ -24,7 +24,7 @@ go = "1.25.6"
 deno = "2.7.14"
 "npm:wrangler" = "4.88.0"
 "github:anomalyco/opencode" = "1.18.4"
-"npm:@opencode-ai/cli" = { version = "next", allow_builds = ["@opencode-ai/cli"] }
+"npm:@opencode/cli" = { version = "beta", allow_builds = ["@opencode/cli"] }
 "npm:@google/gemini-cli" = "0.41.2"
 "npm:aicommits" = "3.1.2"
 "npm:openclaw" = { version = "latest", allow_builds = ["openclaw"] }
