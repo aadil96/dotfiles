@@ -2,6 +2,26 @@
 
 ## Common issues with this dotfiles repo
 
+### Install failed partway
+
+- Just re-run the install one-liner; apply is idempotent and hooks skip completed work:
+
+  ```sh
+  sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply aadil96/dotfiles
+  ```
+
+- If a prerequisite check failed, fix the underlying issue (missing package, unavailable sudo, no network) and re-run. The `run_once_before_00-prereqs` hook re-checks prerequisites and skips what is already satisfied.
+
+### Re-running a one-shot hook (run_once)
+
+- One-shot hooks (`run_once_*`) run exactly once and skip on later applies. To force a hook to run again, reset chezmoi's script state:
+
+  ```sh
+  chezmoi state delete-bucket --bucket=scriptState
+  ```
+
+- **Warning:** this resets all `run_once` tracking, so it also re-triggers Tailscale enrollment (`run_once_after_03`). If you do not want to enroll, ensure `TAILSCALE_AUTHKEY` is unset before re-applying.
+
 ### dotdash service cannot find server.js
 
 - Use the same `XDG_DATA_HOME` for the dashboard installer and `chezmoi apply`; the unit captures this path at apply time, defaulting to `$HOME/.local/share`.
@@ -19,25 +39,52 @@
 
 ### Private files not appearing
 
-- Files prefixed `private_` are excluded from git — they only exist locally
-- Do NOT copy `private_*` files to other machines
+- The `private_` prefix controls target file permissions (installed as 0600); it does **not** exclude files from Git.
+- Whether a `private_*` file is tracked by Git is decided by `.gitignore` / `.chezmoiignore` patterns, not by the prefix. This repo's `.gitignore` lists `private_*`, so such files are kept out of Git.
+- If a secret file is missing locally, the `.gitignore` pattern or the file itself changed — check `git status` (tracked status) and `chezmoi status` (installed status) before assuming the file was skipped.
+- Long-term: do not rely on the `private_` prefix for secret management; keep secrets out of the repo entirely.
 
 ### Shell scripts failing on new machine
 
-- Run `./setup` first — it bootstraps chezmoi and applies all dotfiles
+- Run the install one-liner first — it bootstraps chezmoi and applies all dotfiles:
+
+  ```sh
+  sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply aadil96/dotfiles
+  ```
+
+- If bootstrapping from a local clone, `./setup` still works but is the legacy path.
 - Verify `set -euo pipefail` is set in any new shell scripts you add
 - If `chezmoi apply` asks `sudo` to reinstall `gpg-agent`, verify `gpgconf --list-dirs libexecdir`; `gpg-preset-passphrase` may already be installed there without being on `PATH`.
 
 ### chezmoi init fails with "not a directory"
 
 - Ensure the source directory exists: `~/.local/share/chezmoi`
-- If cloning fresh: `chezmoi init --apply https://github.com/aadil/dotfiles.git`
+- If cloning fresh: `chezmoi init --apply https://github.com/aadil96/dotfiles.git`
 
 ### mise install fails
 
 - Check `dot_config/mise/mise.toml` for pinned versions
 - Run `mise trust` on the config file first
-- Try `mise install --force` to retry failed installations
+- Retry a failed installation with `<mise-bin> install --force`; the mise binary lives at `~/.local/bin/mise`
+- If the install is skipped entirely, check whether `DOTFILES_TEST_SKIP_PACKAGES=1` is set (test-only escape hatch, not for normal installs).
+
+### Tool excluded during install
+
+- Compatibility exclusions are reported, not hidden: install logs `[portable-install] EXCLUDED: <tool>: <reason>` for any tool skipped because the platform does not support it.
+- Example: `vagrant` comes from native packages where available (Arch); on Debian/Ubuntu/Fedora it is excluded because third-party repos are not added automatically.
+- Re-run the installer and inspect the log output if you expect a tool and do not see it.
+
+### systemd units not installed (container/WSL)
+
+- systemd units under `dot_config/systemd/**` are only installed when Linux has a working systemd service manager (`.chezmoiignore.tmpl` checks that PID 1 is systemd).
+- Containers and WSL without systemd skip systemd units and service activation but still complete installation.
+- Check with `ps -p 1 -o comm=`; if it is not `systemd`, units are intentionally skipped.
+
+### Git signing not enabled
+
+- Git signing is only enabled when a key is explicitly configured (`GPG_KEY` or saved config) and locally present.
+- The gpg-preset systemd service only enables when `gpg --list-secret-keys` finds the configured key; otherwise the service is skipped.
+- Set `GPG_KEY` at install time (or in saved config) and ensure the secret key exists locally, then re-apply.
 
 ### `opencode` still launches OpenCode v1
 
@@ -58,14 +105,17 @@
 
 ### Brewfile not applying
 
+- Homebrew is macOS-only in the portable install; the Brewfile formulas/casks are guarded by `if: OS.mac?` and do not run on Linux.
 - Run `brew bundle --file ~/.config/brew/Brewfile`
-- The chezmoiscript `run_onchange_after_install_brew.sh.tmpl` triggers on Brewfile changes
+- The brew hook (`run_onchange_after_00`) triggers on Brewfile changes
 
 ### Tailscale not connecting
 
-- `.chezmoiscripts/run_once_after_install_tailscale.sh.tmpl` handles install + auth
-- If no auth key set, run manually: `tailscale up --authkey=<key> --accept-routes --ssh`
-- Run once only — delete chezmoi state to re-trigger
+- Tailscale enrollment is explicit opt-in: set `TAILSCALE_AUTHKEY` at install time to enroll. It is a runtime env var only — never persisted or written to generated files.
+- Without `TAILSCALE_AUTHKEY`, the Tailscale binary is not installed and no enrollment happens.
+- `TAILSCALE_SSH=1` and `TAILSCALE_ACCEPT_ROUTES=1` opt into remote SSH access / advertised routes on `tailscale up`; both are off by default.
+- Enrollment runs via the `run_once_after_03` hook. After fixing the auth key, re-trigger it: `chezmoi state delete-bucket --bucket=scriptState` (this also re-triggers other `run_once` hooks).
+- Nightly enrollments are intentionally not automatic — do not set remote SSH or accepted-routes flags unless you want them.
 
 ### CI failures (ShellCheck)
 
