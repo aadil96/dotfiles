@@ -30,6 +30,7 @@ Invariants that must never regress:
 - Hooks keep phase order: conflict guard → prereqs → brew → mise → service activation.
 - systemd units stay gated on Linux + working systemd (PID 1); containers/WSL without systemd still complete.
 - `setup`, zsh login-shell, and package-manager rules unchanged.
+- After any `.chezmoi.toml.tmpl` change, the on-disk config must be regenerated (`chezmoi init`) or every run warns `config file template has changed`; keep template changes deterministic (env/saved-state driven) so regeneration converges to a single render.
 
 Before merging any change touching the above: run `tests/template-checks/check.sh` and (when Docker is available) `tests/sandbox/run.sh --distro ubuntu`; a breaking hook/config/env change without this verification is review-blocking.
 

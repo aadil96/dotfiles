@@ -40,6 +40,13 @@
 - Make sure you're in the correct source directory (`~/.local/share/chezmoi`)
 - Run `chezmoi status` to see what would change before applying
 
+### chezmoi warns: config file template has changed
+
+- **Symptom:** every `chezmoi` invocation prints `chezmoi: warning: config file template has changed, run chezmoi init to regenerate config file` before its normal output.
+- **Cause:** chezmoi re-renders `.chezmoi.toml.tmpl` on every run and compares it with the config template state saved at the last `chezmoi init`. The warning means the template changed since the config was last written, so `~/.config/chezmoi/chezmoi.toml` is stale and every run re-renders to something different. A common trigger: the template dropped a setting the old config still contains (for example the old `tailscale_authkey`), or `TAILSCALE_AUTHKEY` was persisted into the config by the legacy `setup` path.
+- **Fix:** regenerate the config: `chezmoi init`. This re-renders `~/.config/chezmoi/chezmoi.toml` from the current template and refreshes chezmoi's saved config state. It touches no other home files and preserves saved prompt answers (`[data] name`/`email`/`gpg_signing_key`).
+- **Note:** `chezmoi apply` does **not** regenerate the config file — the config is chezmoi's own, not a managed apply target. Only `chezmoi init` (or the install one-liner, which runs `init --apply`) rewrites it, so a stale config keeps warning until you run `chezmoi init`.
+
 ### Template variables missing
 
 - Check `.chezmoi.toml.tmpl` for available variables
