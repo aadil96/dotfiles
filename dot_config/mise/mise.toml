@@ -27,7 +27,7 @@ deno = "2.7.14"
 "npm:@google/gemini-cli" = "0.41.2"
 "npm:aicommits" = "3.1.2"
 "npm:openclaw" = { version = "latest", allow_builds = ["openclaw"] }
-"npm:@agentmemory/agentmemory" = "0.9.28"
+"npm:@agentmemory/agentmemory" = { version = "0.9.28", trust_policy_excludes = ["@agentmemory/agentmemory@0.9.28", "protobufjs@6.11.6"] }
 # Exact-version Aube exceptions: these releases match the upstream maintainer and signed npm registry metadata, but lack provenance attestations.
 "npm:@agentmemory/mcp" = { version = "0.9.28", trust_policy_excludes = ["@agentmemory/mcp@0.9.28", "@agentmemory/agentmemory@0.9.29"] }
 tmux = "latest"

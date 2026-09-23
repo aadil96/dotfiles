@@ -547,10 +547,34 @@ version = "0.9.28"
 backend = "npm:@agentmemory/agentmemory"
 specifiers = ["0.9.28"]
 
+[[tools."npm:@agentmemory/agentmemory"]]
+version = "0.9.28"
+backend = "npm:@agentmemory/agentmemory"
+specifiers = ["0.9.28"]
+
+[tools."npm:@agentmemory/agentmemory".options]
+trust_policy_excludes = '["@agentmemory/agentmemory@0.9.28"]'
+
+[[tools."npm:@agentmemory/agentmemory"]]
+version = "0.9.28"
+backend = "npm:@agentmemory/agentmemory"
+specifiers = ["0.9.28"]
+
+[tools."npm:@agentmemory/agentmemory".options]
+trust_policy_excludes = '["@agentmemory/agentmemory@0.9.28", "protobufjs@6.11.6"]'
+
 [[tools."npm:@agentmemory/mcp"]]
 version = "0.9.28"
 backend = "npm:@agentmemory/mcp"
 specifiers = ["0.9.28"]
+
+[[tools."npm:@agentmemory/mcp"]]
+version = "0.9.28"
+backend = "npm:@agentmemory/mcp"
+specifiers = ["0.9.28"]
+
+[tools."npm:@agentmemory/mcp".options]
+trust_policy_excludes = '["@agentmemory/agentmemory@0.9.29", "@agentmemory/mcp@0.9.28"]'
 
 [[tools."npm:@google/gemini-cli"]]
 version = "0.41.2"
