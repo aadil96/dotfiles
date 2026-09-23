@@ -4,7 +4,8 @@
 setup
 README.md
 docs/**
-dot_config/zsh/local.zsh
-dot_config/opencode/bun.lockb
-dot_config/opencode/package-lock.json
-{{ if not $systemd_ok }}dot_config/systemd/**{{ end }}
+tests/**
+.config/zsh/local.zsh
+.config/opencode/bun.lockb
+.config/opencode/package-lock.json
+{{ if not $systemd_ok }}.config/systemd/**{{ end }}
