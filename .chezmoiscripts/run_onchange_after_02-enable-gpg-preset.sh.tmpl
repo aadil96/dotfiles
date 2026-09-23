@@ -36,7 +36,9 @@ if ! gpg --list-secret-keys "{{ .gpg_signing_key | quote }}" >/dev/null 2>&1; th
   log "SKIP: gpg-preset service (secret key not available locally)"
   exit 0
 fi
-UNIT="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user/gpg-sign-preset.service"
+# chezmoi maps dot_config/** to $HOME/.config regardless of XDG_CONFIG_HOME —
+# fixed target, not XDG-following (verified in the sandbox).
+UNIT="$HOME/.config/systemd/user/gpg-sign-preset.service"
 if [ ! -f "$UNIT" ]; then
   log "SKIP: gpg-preset service (unit file missing: $UNIT)"
   exit 0

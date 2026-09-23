@@ -50,4 +50,6 @@ if command -v bat >/dev/null; then
   alias cat="bat"
 fi
 
-export HOMEBREW_BUNDLE_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/brew/Brewfile"
+# chezmoi maps dot_*/dot_config/** to $HOME/.config regardless of
+# XDG_CONFIG_HOME (fixed target, not XDG-following).
+export HOMEBREW_BUNDLE_FILE="$HOME/.config/brew/Brewfile"

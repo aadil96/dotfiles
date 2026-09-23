@@ -100,7 +100,10 @@ else
   fail "rerun failed without actionable sudo/permission error (exit $RRC)"
 fi
 
-DIFF_OUT="$("$CHEZ" diff 2>/dev/null)" || true
+# --exclude=scripts: the plain `run_before_00-conflicts` guard's script target is
+# run-but-never-materialized by chezmoi v2.72, so `chezmoi diff` reports it as a
+# perpetual new file; excluding scripts asserts real-file differences only.
+DIFF_OUT="$("$CHEZ" diff --exclude=scripts 2>/dev/null)" || true
 [ -z "$DIFF_OUT" ] || fail "chezmoi diff reports managed-file differences after rerun"
 
 echo "PASS: macos core install verification"

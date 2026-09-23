@@ -25,7 +25,9 @@ if [ -z "$MISE" ]; then
   exit 1
 fi
 
-MISE_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/mise/mise.toml"
+# chezmoi maps the dot_config/** source prefix to $HOME/.config regardless of
+# XDG_CONFIG_HOME — fixed target, not XDG-following (verified in the sandbox).
+MISE_CONFIG="$HOME/.config/mise/mise.toml"
 if [ ! -f "$MISE_CONFIG" ]; then
   log "ERROR: mise config not found: $MISE_CONFIG"
   exit 1
