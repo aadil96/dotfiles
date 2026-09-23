@@ -48,7 +48,7 @@ chezmoi_bin() {
 set +e
 DOTFILES_NONINTERACTIVE=1 GIT_USER_NAME="CI Test" GIT_USER_EMAIL="ci@example.com" \
 DOTFILES_TEST_SKIP_PACKAGES=1 container=true \
-  sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply --source "$SOURCE" >"$LOG" 2>&1
+  sh -c "$(curl -fsLS https://get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply --source "$SOURCE" >"$LOG" 2>&1
 RC=$?
 set -e
 echo "install exit=$RC"
@@ -93,7 +93,7 @@ set -e
 set +e
 DOTFILES_NONINTERACTIVE=1 GIT_USER_NAME="CI Test" GIT_USER_EMAIL="ci@example.com" \
 DOTFILES_TEST_SKIP_PACKAGES=1 container=true \
-  sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply --source "$SOURCE" >"$LOG" 2>&1
+  sh -c "$(curl -fsLS https://get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply --source "$SOURCE" >"$LOG" 2>&1
 RRC=$?
 set -e
 if [ "$RRC" -eq 0 ] || grep -qiE 'sudo|permission' "$LOG"; then
