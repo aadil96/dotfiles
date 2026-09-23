@@ -12,6 +12,14 @@
 
 - If a prerequisite check failed, fix the underlying issue (missing package, unavailable sudo, no network) and re-run. The `run_once_before_00-prereqs` hook re-checks prerequisites and skips what is already satisfied.
 
+### Existing home files stop the install (conflict guard)
+
+- Before anything is written, the `run_before_00-conflicts` hook compares every managed target that already exists on disk with what the install would write. A differing file is a conflict: the install stops instead of silently overwriting your config.
+- **Unattended** (`DOTFILES_NONINTERACTIVE=1` or non-interactive shell): the install aborts with `[portable-install] CONFLICT: refusing to overwrite N existing file(s)` followed by one line per path. Nothing was modified.
+- **Interactive**: you are asked per file: `Overwrite <path>? [y/N]`. Answering `y`/`yes` proceeds (the file is then overwritten with your consent); anything else aborts.
+- **Recovery**: move or back up the conflicting file(s) listed in the message (or merge your changes into the managed version), then re-run the install one-liner. Nothing is ever deleted or moved automatically; the guard only reports.
+- Externals (mise, devpod, fonts, opencode config, zsh-autosuggestions) are excluded from the conflict scan — they are expected to refresh.
+
 ### Re-running a one-shot hook (run_once)
 
 - One-shot hooks (`run_once_*`) run exactly once and skip on later applies. To force a hook to run again, reset chezmoi's script state:

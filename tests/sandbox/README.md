@@ -68,7 +68,7 @@ Verified per install (install-test.sh):
 - `~/.local/bin/mise` resolves; full lane checks `mise which`
 - `zsh -ic true` and `bash -ic true` start without rc-file errors
 - plain containers: no systemd units, no tailscale, gpg-preset skip logged
-- rerun exits 0 and `chezmoi diff` reports no managed-file differences
+- rerun exits 0 and `chezmoi diff --exclude=scripts` reports no managed-file differences (script targets of plain `run_before_`/`run_after_` hooks are run-but-not-materialized in chezmoi v2.72 and would otherwise show as perpetual new files)
 
 Negative paths (negative-tests.sh):
 

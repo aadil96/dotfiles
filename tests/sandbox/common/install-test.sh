@@ -90,7 +90,10 @@ assert_captured_ok 'rerun: second install completes' "$INSTALL_LOG"
 
 # rerun: no managed-file differences — `chezmoi diff --exit-code` was removed in
 # chezmoi v2.72.2, so compare rendered diff output against empty instead.
-run_capture "$CHK" tester 'export PATH="$HOME/.local/bin:$HOME/bin:$PATH"; out="$(chezmoi diff)"; [ -z "$out" ]'
+# --exclude=scripts: the plain `run_before_00-conflicts` guard's script target is
+# run-but-never-materialized by chezmoi v2.72, so `chezmoi diff` reports it as a
+# perpetual "new file"; excluding scripts asserts real-file differences only.
+run_capture "$CHK" tester 'export PATH="$HOME/.local/bin:$HOME/bin:$PATH"; out="$(chezmoi diff --exclude=scripts)"; [ -z "$out" ]'
 assert_captured_ok 'rerun: no managed-file differences' "$CHK"
 
 run_capture "$CHK" tester 'git config --global user.name'

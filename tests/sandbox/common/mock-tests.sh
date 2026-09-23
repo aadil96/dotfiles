@@ -29,7 +29,10 @@ prepare_repo_copy tester
 # the rendered hook under stubs must disable signing when the key is absent -------
 run_capture "$MOCK" tester "$(install_cmd "$(unattended_envs 'Mock User' mock@example.com GPG_KEY=$FAKE_KEY)")"
 assert_captured_ok 'install with GPG_KEY set completes' "$MOCK"
-run_capture "$CHK" tester 'export PATH="$HOME/.local/bin:$HOME/bin:$PATH"; out="$(chezmoi diff)"; [ -z "$out" ]'
+# --exclude=scripts: the plain `run_before_00-conflicts` guard's script target is
+# run-but-never-materialized by chezmoi v2.72, so `chezmoi diff` reports it as a
+# perpetual "new file"; excluding scripts asserts real-file differences only.
+run_capture "$CHK" tester 'export PATH="$HOME/.local/bin:$HOME/bin:$PATH"; out="$(chezmoi diff --exclude=scripts)"; [ -z "$out" ]'
 assert_captured_ok 'install with GPG_KEY set: apply leaves no diffs' "$CHK"
 if grep -q 'SKIP: gpg-preset service' "$MOCK"; then
   _sa_pass 'GPG_KEY set: gpg-preset hook logged a skip in this container'
