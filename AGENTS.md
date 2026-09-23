@@ -7,12 +7,31 @@ Personal dotfiles for a zsh/bash + Neovim + mise setup. Managed by [chezmoi](htt
 ## Quick commands
 
 ```sh
-./setup                              # Bootstrap: install chezmoi, apply dotfiles
+sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply aadil96/dotfiles   # Supported install entrypoint — keep working
+./setup                              # Legacy Bootstrap (local clone; document, don't extend)
 chezmoi apply                        # Apply all dotfiles to $HOME
 chezmoi update                       # Pull latest changes and re-apply
 mise exec -- chezmoi apply           # Run via mise if chezmoi not on PATH
 tests/sandbox/run.sh                 # Disposable-container install verification (Docker; never on host)
 ```
+
+## One-command install (invariant)
+
+The curl one-liner above is the ONLY supported install path for new machines. `setup` is legacy and must not be the docs' default or be extended.
+
+Any change to templates, hooks, `.chezmoiscripts/`, `.chezmoi.toml.tmpl`, `.chezmoiignore.tmpl`, shell rcs, or Brewfile/mise config MUST keep this install working. Breaking it is a merge blocker.
+
+Invariants that must never regress:
+
+- Unattended mode (`DOTFILES_NONINTERACTIVE=1`) never prompts and fails clearly when `GIT_USER_NAME`/`GIT_USER_EMAIL` are missing.
+- Env resolution order: environment override → saved configuration → interactive prompt.
+- `GPG_KEY`, `TAILSCALE_AUTHKEY` remain optional; absent means no activation. Tailscale credentials stay runtime-env-only — never persisted in config or embedded in generated scripts; never in argv (`TS_AUTHKEY` env).
+- No force-overwrite: unattended installs stop on conflicting existing home files (conflict guard runs before apply); interactive installs prompt.
+- Hooks keep phase order: conflict guard → prereqs → brew → mise → service activation.
+- systemd units stay gated on Linux + working systemd (PID 1); containers/WSL without systemd still complete.
+- `setup`, zsh login-shell, and package-manager rules unchanged.
+
+Before merging any change touching the above: run `tests/template-checks/check.sh` and (when Docker is available) `tests/sandbox/run.sh --distro ubuntu`; a breaking hook/config/env change without this verification is review-blocking.
 
 ## Repo structure
 
@@ -50,6 +69,7 @@ tests/sandbox/run.sh                 # Disposable-container install verification
 | Purpose | File | Notes |
 | --------- | ------ | ----- |
 | chezmoi config + template vars | `.chezmoi.toml.tmpl` | |
+| Install contract + env vars | docs/portable-install-plan.md, README.md | One-command install invariants |
 | Tool versions | `dot_config/mise/mise.toml` | |
 | OpenCode config | `.opencode/ocx.jsonc` | |
 | Shell config | `dot_bashrc.tmpl`, `dot_zshrc.tmpl` | |
