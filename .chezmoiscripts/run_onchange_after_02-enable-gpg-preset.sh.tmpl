@@ -29,7 +29,7 @@ if [ -z "{{ .gpg_signing_key }}" ]; then
   log "SKIP: gpg-preset service (no signing key configured)"
   exit 0
 fi
-if ! gpg --list-secret-keys "{{ .gpg_signing_key | quote }}" >/dev/null 2>&1; then
+if ! gpg --list-secret-keys {{ .gpg_signing_key | quote }} >/dev/null 2>&1; then
   log "GPG key {{ .gpg_signing_key }} not found locally; disabling git signing"
   git config --global --unset-all user.signingkey || true
   git config --global --unset-all commit.gpgsign || true

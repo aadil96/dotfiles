@@ -2,7 +2,7 @@
 # chezmoi template: preset GPG signing passphrase into gpg-agent
 set -euo pipefail
 
-key="{{ .gpg_signing_key | quote }}"
+key={{ .gpg_signing_key | quote }}
 [ -n "$key" ] || exit 0
 
 gpg_preset_passphrase=""
