@@ -25,7 +25,11 @@ if [ -z "$BREW" ]; then
   exit 0
 fi
 
-BREWFILE="${XDG_CONFIG_HOME:-$HOME/.config}/brew/Brewfile"
+# Brewfile lives at chezmoi's fixed dot_config mapping ($HOME/.config/brew/),
+# NOT under XDG_CONFIG_HOME — chezmoi maps source `dot_config/**` to
+# $HOME/.config regardless of XDG. Using the XDG-derived path here would miss
+# the applied Brewfile on machines with a custom XDG_CONFIG_HOME.
+BREWFILE="$HOME/.config/brew/Brewfile"
 if ! "$BREW" bundle --file "$BREWFILE"; then
   log "ERROR: brew bundle failed. Retry manually:"
   log "  $BREW bundle --file \"$BREWFILE\""
