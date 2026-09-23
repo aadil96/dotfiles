@@ -44,7 +44,7 @@ jobs:
           sh -c "$(curl -fsLS https://get.chezmoi.io)"
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           echo "$HOME/bin" >> "$GITHUB_PATH"
-          chezmoi --version
+          "$HOME/.local/bin/chezmoi" --version
 
       - name: Render + syntax-check all templates
         run: tests/template-checks/check.sh

@@ -121,11 +121,6 @@ url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.14/bun-windows-
 checksum = "sha256:538f9c846355d9e847b2671bc00c47da4229a0befb24df3282b739770f3b475f"
 url = "https://github.com/oven-sh/bun/releases/download/bun-v1.3.14/bun-windows-x64-baseline.zip"
 
-[[tools."cargo:caligula"]]
-version = "0.5.0"
-backend = "cargo:caligula"
-specifiers = ["0.5.0"]
-
 [[tools.chezmoi]]
 version = "2.72.1"
 backend = "aqua:twpayne/chezmoi"
@@ -371,6 +366,41 @@ checksum = "sha256:17bb2a19d25887cebd3b0ee2d3a3fdf56791eb0df15cf34b068fac56212f6
 url = "https://github.com/cli/cli/releases/download/v2.82.1/gh_2.82.1_windows_amd64.zip"
 url_api = "https://api.github.com/repos/cli/cli/releases/assets/307127972"
 provenance = "github-attestations"
+
+[[tools."github:ifd3f/caligula"]]
+version = "0.5.0"
+backend = "github:ifd3f/caligula"
+specifiers = ["0.5.0"]
+
+[tools."github:ifd3f/caligula"."platforms.linux-arm64"]
+checksum = "sha256:9dd0cea2080bfa51e5b9a50c8048632e9767c1b269784e6902663566f53dbf75"
+url = "https://github.com/ifd3f/caligula/releases/download/v0.5.0/caligula-aarch64-linux"
+url_api = "https://api.github.com/repos/ifd3f/caligula/releases/assets/426556654"
+
+[tools."github:ifd3f/caligula"."platforms.linux-x64"]
+checksum = "sha256:470da9381d2ac44bbd54485ac8c8afcc23fd2aecbce98cd1aba815d1ef5ed3ed"
+url = "https://github.com/ifd3f/caligula/releases/download/v0.5.0/caligula-x86_64-linux"
+url_api = "https://api.github.com/repos/ifd3f/caligula/releases/assets/426556672"
+
+[tools."github:ifd3f/caligula"."platforms.linux-x64-baseline"]
+checksum = "sha256:470da9381d2ac44bbd54485ac8c8afcc23fd2aecbce98cd1aba815d1ef5ed3ed"
+url = "https://github.com/ifd3f/caligula/releases/download/v0.5.0/caligula-x86_64-linux"
+url_api = "https://api.github.com/repos/ifd3f/caligula/releases/assets/426556672"
+
+[tools."github:ifd3f/caligula"."platforms.linux-x64-musl-baseline"]
+checksum = "sha256:470da9381d2ac44bbd54485ac8c8afcc23fd2aecbce98cd1aba815d1ef5ed3ed"
+url = "https://github.com/ifd3f/caligula/releases/download/v0.5.0/caligula-x86_64-linux"
+url_api = "https://api.github.com/repos/ifd3f/caligula/releases/assets/426556672"
+
+[tools."github:ifd3f/caligula"."platforms.macos-arm64"]
+checksum = "sha256:5fef54f50b209ce0fcd6883432a2dd96119a211ef5f441902aa078719ae6ac28"
+url = "https://github.com/ifd3f/caligula/releases/download/v0.5.0/caligula-aarch64-darwin"
+url_api = "https://api.github.com/repos/ifd3f/caligula/releases/assets/426556642"
+
+[tools."github:ifd3f/caligula"."platforms.macos-x64"]
+checksum = "sha256:0e8528d6c4d375bf14cd3e8be3ab76b5cda9a464e9c39cc7f41769153f26ad29"
+url = "https://github.com/ifd3f/caligula/releases/download/v0.5.0/caligula-x86_64-darwin"
+url_api = "https://api.github.com/repos/ifd3f/caligula/releases/assets/426556662"
 
 [[tools."github:nushell/nushell"]]
 version = "0.108.0"

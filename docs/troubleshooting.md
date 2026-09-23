@@ -10,6 +10,7 @@
   sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply aadil96/dotfiles
   ```
 
+- A first install can take several minutes while it downloads chezmoi, externals, and configured tools. The bootstrap may show little output while a download is in progress; allow it to finish and check network access if it stops progressing.
 - If a prerequisite check failed, fix the underlying issue (missing package, unavailable sudo, no network) and re-run. The `run_once_before_00-prereqs` hook re-checks prerequisites and skips what is already satisfied.
 
 ### Existing home files stop the install (conflict guard)
@@ -83,10 +84,16 @@
 - Retry a failed installation per tool with `mise install <tool>` (or run `mise install` again); the mise binary lives at `~/.local/bin/mise`
 - If the install is skipped entirely, check whether `DOTFILES_TEST_SKIP_PACKAGES=1` is set (test-only escape hatch, not for normal installs).
 
+### Full sandbox install times out while fetching mise tools
+
+- The full Ubuntu sandbox installs every pinned tool. The install test wraps bootstrap in a 1,200-second timeout; slow or stalled npm downloads can exhaust that limit.
+- Check the sandbox job log for the last `mise ... fetching` line and confirm registry/network access before retrying. For local diagnosis, run `SANDBOX_SOURCE=worktree tests/sandbox/run.sh --distro ubuntu --full`.
+- A timed-out install may also miss later hook log messages, causing dependent assertions to fail. Treat those as follow-on failures until the install itself completes; fast-lane success does not verify package installation.
+
 ### Tool excluded during install
 
 - Compatibility exclusions are reported, not hidden: install logs `[portable-install] EXCLUDED: <tool>: <reason>` for any tool skipped because the platform does not support it.
-- Example: `vagrant` comes from native packages where available (Arch); on Debian/Ubuntu/Fedora it is excluded because third-party repos are not added automatically.
+- Example: `vagrant` is excluded when absent from configured official repositories; third-party repos are not added automatically.
 - Re-run the installer and inspect the log output if you expect a tool and do not see it.
 
 ### systemd units not installed (container/WSL)

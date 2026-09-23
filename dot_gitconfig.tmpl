@@ -24,8 +24,8 @@
 	process = git-lfs filter-process
 {{- if .gpg_signing_key }}
 
-[commit]
-    gpgsign = true
+[include]
+	path = {{ joinPath .chezmoi.homeDir ".config/git/portable-signing.conf" | quote }}
 
 [gpg]
     program = gpg

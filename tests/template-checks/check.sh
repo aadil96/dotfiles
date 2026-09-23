@@ -17,7 +17,7 @@
 #   3. bash -n every rendered .sh output and every dot_bashrc.tmpl /
 #      dot_zshrc.tmpl render.
 # Also asserts .chezmoiignore.tmpl renders, and (optional nicety) runs
-# shellcheck -S error over the rendered hook scripts when shellcheck exists.
+# Run `shellcheck -S error` over rendered hook scripts when available.
 #
 # Prints `Verdict: PASS` or `Verdict: FAIL` with the failing file list.
 set -euo pipefail
@@ -126,7 +126,7 @@ for f in "${TMPLS[@]}"; do
         FAILED_FILES+=("$rel (bash -n failed: $(tail -1 "$out.syn" 2>/dev/null))")
         continue
       fi
-      # shellcheck pass is scoped to rendered HOOK scripts (.sh.tmpl): rc files
+      # Static analysis is scoped to rendered HOOK scripts (.sh.tmpl): rc files
       # are shebang-less by design and would trip SC2148.
       case "$rel" in
         *.sh.tmpl) cp "$out" "$SHELL_DIR/$(printf '%s' "$rel" | tr '/.' '__').sh" ;;

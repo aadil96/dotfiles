@@ -21,10 +21,13 @@ if [ "$(uname -s)" != "Darwin" ]; then
 fi
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-SOURCE="$(mktemp -d)"
-LOG="$(mktemp)"
-CHK="$(mktemp)"
-trap 'rm -rf "$SOURCE" "$LOG" "$CHK"' EXIT
+TMP="$(mktemp -d)"
+SOURCE="$TMP/source"
+LOG="$TMP/install.log"
+CHK="$TMP/check.log"
+export HOME="$TMP/home"
+mkdir -p "$SOURCE" "$HOME"
+trap 'rm -rf "$TMP"' EXIT
 
 git -C "$REPO_ROOT" archive HEAD | tar -x -C "$SOURCE"
 chmod 755 "$SOURCE"

@@ -28,10 +28,11 @@ deno = "2.7.14"
 "npm:aicommits" = "3.1.2"
 "npm:openclaw" = { version = "latest", allow_builds = ["openclaw"] }
 "npm:@agentmemory/agentmemory" = "0.9.28"
-"npm:@agentmemory/mcp" = "0.9.28"
+# Exact-version Aube exceptions: these releases match the upstream maintainer and signed npm registry metadata, but lack provenance attestations.
+"npm:@agentmemory/mcp" = { version = "0.9.28", trust_policy_excludes = ["@agentmemory/mcp@0.9.28", "@agentmemory/agentmemory@0.9.29"] }
 tmux = "latest"
 uv = "latest"
-"cargo:caligula" = "0.5.0"
+"github:ifd3f/caligula" = "0.5.0"
 "npm:@juliusbrussee/caveman-code" = "0.65.2"
 bun = "latest"
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2016
 # tests/sandbox/common/mock-tests.sh — service opt-in tests using command STUBS
 # only. NEVER performs a real Tailscale enrollment, never touches a real
 # systemd, and never imports personal GPG keys.
@@ -14,6 +15,8 @@
 #     as --authkey=), --ssh/--accept-routes appear only when opted in.
 set -euo pipefail
 
+# shellcheck source=/opt/sandbox/common/assert.sh
+# shellcheck disable=SC1091
 source /opt/sandbox/common/assert.sh
 
 MOCK=/tmp/mock-tests.log
@@ -29,6 +32,8 @@ prepare_repo_copy tester
 # the rendered hook under stubs must disable signing when the key is absent -------
 run_capture "$MOCK" tester "$(install_cmd "$(unattended_envs 'Mock User' mock@example.com GPG_KEY=$FAKE_KEY)")"
 assert_captured_ok 'install with GPG_KEY set completes' "$MOCK"
+run_capture "$CHK" tester 'git config --get commit.gpgsign'
+assert_captured_fail 'absent local GPG key: signing disabled without systemd' "$CHK"
 # --exclude=scripts: the plain `run_before_00-conflicts` guard's script target is
 # run-but-never-materialized by chezmoi v2.72, so `chezmoi diff` reports it as a
 # perpetual "new file"; excluding scripts asserts real-file differences only.
@@ -72,6 +77,8 @@ EOF
 cat > "$STUB/sudo" <<EOF
 #!/bin/bash
 # fake sudo: drop -E (we preserve the environment anyway) and exec the command
+echo "SUDO: \$*" >> "$STUBLOG"
+echo "SUDO_TS_AUTHKEY=\${TS_AUTHKEY:-<unset>}" >> "$STUBLOG"
 args=()
 for a in "\$@"; do [ "\$a" = "-E" ] || args+=("\$a"); done
 exec "\${args[@]}"
@@ -99,6 +106,8 @@ assert_captured_ok 'mock tailscale: hook runs with authkey set' "$CHK"
 CALLS="$(cat "$STUBLOG")"
 assert_contains 'mock tailscale: stub tailscale up invoked' 'TAILSCALE: up' "$CALLS"
 assert_contains 'mock tailscale: TS_AUTHKEY passed via env' 'TS_AUTHKEY=tskey-test-abc' "$CALLS"
+assert_contains 'mock tailscale: sudo receives authkey through environment' 'SUDO_TS_AUTHKEY=tskey-test-abc' "$CALLS"
+assert_contains 'mock tailscale: sudo argv excludes authkey value' 'SUDO: -E tailscale up' "$CALLS"
 assert_not_contains 'mock tailscale: no --ssh by default' '--ssh' "$CALLS"
 assert_not_contains 'mock tailscale: no --accept-routes by default' '--accept-routes' "$CALLS"
 assert_not_contains 'mock tailscale: authkey never in argv' '--authkey=' "$CALLS"
@@ -122,24 +131,26 @@ run_capture "$CHK" tester 'mkdir -p "$HOME/.local/bin" && printf "#!/bin/bash\ne
 assert_captured_ok 'mock gpg-preset: unit + helper placed' "$CHK"
 
 # disable path: stubs WITHOUT fake gpg — real gpg cannot find the fabricated key,
-# so the hook must disable git signing.
+# so the hook must leave signing disabled without changing managed .gitconfig.
 : > "$STUBLOG"
 run_capture "$CHK" tester 'export PATH="/tmp/stubs:$PATH"; XDG_RUNTIME_DIR=/tmp/xdg-runtime DOTFILES_TEST_SKIP_PACKAGES=1 bash /tmp/hook02.sh'
 assert_captured_ok 'mock gpg-preset disable: hook runs under stubs (real gpg, key absent)' "$CHK"
-if grep -q 'disabling git signing' "$CHK"; then
-  _sa_pass 'mock gpg-preset disable: absent key disables git signing'
+if grep -q 'git signing remains disabled' "$CHK"; then
+  _sa_pass 'mock gpg-preset disable: absent key leaves signing disabled'
 else
-  _sa_fail 'mock gpg-preset disable: "disabling git signing" message missing'
+  _sa_fail 'mock gpg-preset disable: signing-disabled message missing'
 fi
 run_capture "$CHK" tester 'git config --global --get commit.gpgsign'
-assert_captured_fail 'mock gpg-preset disable: gpgsign removed from .gitconfig' "$CHK"
+assert_captured_fail 'mock gpg-preset disable: no signing include created' "$CHK"
 
 # enable path: fake gpg reports the key exists -> service gets enabled.
 : > "$STUBLOG"
 run_capture "$CHK" tester 'export PATH="/tmp/stubs/gpg-only:/tmp/stubs:$PATH"; XDG_RUNTIME_DIR=/tmp/xdg-runtime DOTFILES_TEST_SKIP_PACKAGES=1 bash /tmp/hook02.sh'
 assert_captured_ok 'mock gpg-preset enable: hook runs under stubs (fake gpg, key present)' "$CHK"
+run_capture "$CHK" tester 'git config --get commit.gpgsign'
+assert_eq 'mock gpg-preset enable: signing enabled only for local key' 'true' "$(cat "$CHK")"
 CALLS="$(cat "$STUBLOG")"
 assert_contains 'mock gpg-preset enable: service enabled via systemctl stub' 'SYSTEMCTL: --user enable --now gpg-sign-preset.service' "$CALLS"
-assert_not_contains 'mock gpg-preset enable: no disable message in enable run' 'disabling git signing' "$CHK"
+assert_not_contains 'mock gpg-preset enable: no disable message in enable run' 'signing remains disabled' "$CHK"
 
 finish_suite 'mock-tests'

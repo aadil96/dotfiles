@@ -2,7 +2,7 @@
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 {{- /* Collect configuration values: env override -> saved config (promptStringOnce) -> interactive prompt.
-        DOTFILES_NONINTERACTIVE=1 forces env-only resolution. $remote gates COMPATIBILITY only
+        DOTFILES_NONINTERACTIVE=1 reads env then saved data and never prompts. $remote gates COMPATIBILITY only
         ([data] remote, [git] autoCommit/autoPush); it never decides whether prompts happen. */ -}}
 {{- $noninteractive := eq (env "DOTFILES_NONINTERACTIVE") "1" -}}
 {{- $name := "" -}}
@@ -11,10 +11,11 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 {{- if $noninteractive }}
   {{- $name = env "GIT_USER_NAME" }}
-  {{- if eq $name "" }}{{ $name = promptStringOnce . "name" "Git user.name" }}{{ end }}
+  {{- if and (eq $name "") (hasKey . "name") }}{{ $name = index . "name" }}{{ end }}
   {{- $email = env "GIT_USER_EMAIL" }}
-  {{- if eq $email "" }}{{ $email = promptStringOnce . "email" "Git user.email" }}{{ end }}
+  {{- if and (eq $email "") (hasKey . "email") }}{{ $email = index . "email" }}{{ end }}
   {{- $gpg_key = env "GPG_KEY" }}
+  {{- if and (eq $gpg_key "") (hasKey . "gpg_signing_key") }}{{ $gpg_key = index . "gpg_signing_key" }}{{ end }}
   {{- if or (eq $name "") (eq $email "") }}
     {{ fail "DOTFILES_NONINTERACTIVE=1 requires GIT_USER_NAME and GIT_USER_EMAIL (no saved identity found)" }}
   {{- end }}

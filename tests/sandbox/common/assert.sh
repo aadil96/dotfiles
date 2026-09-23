@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2016
 # tests/sandbox/common/assert.sh — tiny assertion + environment helpers shared by
 # every in-container suite. Source this file, do not execute it.
 #

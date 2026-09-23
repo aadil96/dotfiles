@@ -6,10 +6,39 @@
 # available, and the unit file + helper script being present. Each gate logs a
 # SKIP line and exits 0 — skips are not failures, and never run against hosts
 # that cannot support the service. When a key is configured but not present
-# locally, git signing is disabled so commits do not hang on missing keys.
+# locally, git signing stays disabled so commits do not fail on missing keys.
 set -euo pipefail
 
 log() { printf '[portable-install] %s\n' "$*"; }
+
+SIGNING_CONFIG="$HOME/.config/git/portable-signing.conf"
+EXPECTED_SIGNING_CONFIG=$'# Managed by dotfiles GPG key check.\n[commit]\n\tgpgsign = true\n'
+
+if [ -z "{{ .gpg_signing_key }}" ]; then
+  if [ -f "$SIGNING_CONFIG" ] && cmp -s <(printf '%s' "$EXPECTED_SIGNING_CONFIG") "$SIGNING_CONFIG"; then
+    rm "$SIGNING_CONFIG"
+  fi
+  log "SKIP: gpg-preset service (no signing key configured)"
+  exit 0
+fi
+if ! command -v gpg >/dev/null 2>&1 || ! gpg --list-secret-keys {{ .gpg_signing_key | quote }} >/dev/null 2>&1; then
+  log "GPG key {{ .gpg_signing_key }} not found locally; git signing remains disabled"
+  if [ -f "$SIGNING_CONFIG" ] && cmp -s <(printf '%s' "$EXPECTED_SIGNING_CONFIG") "$SIGNING_CONFIG"; then
+    rm "$SIGNING_CONFIG"
+  fi
+  log "SKIP: gpg-preset service (secret key not available locally)"
+  exit 0
+fi
+
+mkdir -p "$(dirname "$SIGNING_CONFIG")"
+if [ -e "$SIGNING_CONFIG" ]; then
+  if ! cmp -s <(printf '%s' "$EXPECTED_SIGNING_CONFIG") "$SIGNING_CONFIG"; then
+    log "SKIP: git signing config already exists and differs; leaving it unchanged"
+    exit 0
+  fi
+else
+  printf '%s' "$EXPECTED_SIGNING_CONFIG" > "$SIGNING_CONFIG"
+fi
 
 {{ if eq .chezmoi.os "linux" }}
 
@@ -23,17 +52,6 @@ if [[ "$(cat /proc/1/comm 2>/dev/null)" != *systemd* ]]; then
 fi
 if [ -z "${XDG_RUNTIME_DIR:-}" ]; then
   log "SKIP: gpg-preset service (XDG_RUNTIME_DIR unset — no user systemd bus)"
-  exit 0
-fi
-if [ -z "{{ .gpg_signing_key }}" ]; then
-  log "SKIP: gpg-preset service (no signing key configured)"
-  exit 0
-fi
-if ! gpg --list-secret-keys {{ .gpg_signing_key | quote }} >/dev/null 2>&1; then
-  log "GPG key {{ .gpg_signing_key }} not found locally; disabling git signing"
-  git config --global --unset-all user.signingkey || true
-  git config --global --unset-all commit.gpgsign || true
-  log "SKIP: gpg-preset service (secret key not available locally)"
   exit 0
 fi
 # chezmoi maps dot_config/** to $HOME/.config regardless of XDG_CONFIG_HOME —

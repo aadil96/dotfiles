@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2016
 # tests/sandbox/common/negative-tests.sh — failure-path suite.
 #
 # Covers missing identity, unavailable sudo, existing-config conflict, custom
@@ -10,22 +11,21 @@
 # per-file with `Overwrite <file>? [y/N]` and abort on any decline.
 set -euo pipefail
 
+# shellcheck source=/opt/sandbox/common/assert.sh
+# shellcheck disable=SC1091
 source /opt/sandbox/common/assert.sh
 
 NEG=/tmp/negative-tests.log
 CHK=/tmp/negative-tests-check.log
 
 # --- missing identity -----------------------------------------------------------
-# DOTFILES_NONINTERACTIVE=1 without GIT_USER_NAME/GIT_USER_EMAIL must FAIL.
-# NOTE: on a fresh non-TTY run chezmoi's promptStringOnce fallback errors out
-# first ("could not open a new TTY"), so the assertion accepts either the
-# explicit `fail` message naming GIT_USER_NAME (saved identity present) or the
-# TTY error — both are non-zero, non-silent failures. See README.
+# DOTFILES_NONINTERACTIVE=1 without GIT_USER_NAME/GIT_USER_EMAIL must fail
+# clearly without trying to open a prompt.
 reset_home tester
 prepare_repo_copy tester
 
 run_capture "$NEG" tester "$(install_cmd 'DOTFILES_NONINTERACTIVE=1 DOTFILES_TEST_SKIP_PACKAGES=1')"
-if [ "$CAPTURED_RC" -ne 0 ] && { grep -q 'GIT_USER_NAME' "$NEG" || grep -qiE 'dev/tty|TTY|prompt' "$NEG"; }; then
+if [ "$CAPTURED_RC" -ne 0 ] && grep -q 'DOTFILES_NONINTERACTIVE=1 requires GIT_USER_NAME and GIT_USER_EMAIL' "$NEG"; then
   _sa_pass 'missing identity fails with actionable message'
 else
   _sa_fail "missing identity (exit $CAPTURED_RC): $(report_capture "$NEG")"

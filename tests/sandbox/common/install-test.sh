@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2016
 # tests/sandbox/common/install-test.sh — primary in-container suite.
 #
 # Exercises the real portable installer end to end as the disposable `tester`
@@ -14,6 +15,8 @@
 # (--full, DOTFILES_TEST_SKIP_PACKAGES=0) additionally checks `mise which`.
 set -euo pipefail
 
+# shellcheck source=/opt/sandbox/common/assert.sh
+# shellcheck disable=SC1091
 source /opt/sandbox/common/assert.sh
 
 INSTALL_LOG=/tmp/install-test-install.log

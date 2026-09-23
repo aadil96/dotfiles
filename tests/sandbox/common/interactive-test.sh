@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2016
 # tests/sandbox/common/interactive-test.sh — fresh interactive install through a
 # pseudo-terminal (run.sh --interactive; separate fresh run per distro).
 #
@@ -12,6 +13,8 @@
 # Asserts the pty answers landed in ~/.gitconfig and no signing was configured.
 set -euo pipefail
 
+# shellcheck source=/opt/sandbox/common/assert.sh
+# shellcheck disable=SC1091
 source /opt/sandbox/common/assert.sh
 
 LOG=/tmp/interactive-test.log
