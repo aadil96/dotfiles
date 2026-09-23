@@ -74,8 +74,9 @@ Negative paths (negative-tests.sh):
 
 - missing identity fails (non-zero, actionable message)
 - unavailable sudo fails or completes-with-exclusions — never silent success
-- pre-existing `~/.zshrc` conflict: behavioral probe, results reported verbatim
-  (see "Conflict behavior" below)
+- pre-existing `~/.zshrc` conflict: the pre-apply guard refuses overwrite —
+  unattended runs exit 1 with the file list, interactive runs prompt
+  per-file `[y/N]`; the sentinel is never silently overwritten
 - custom `XDG_CONFIG_HOME`: chezmoi's own config lands under the XDG dir,
   while `dot_config/**` maps to the fixed `$HOME/.config` — the brew hook reads
   the chezmoi-mapped Brewfile there (not the XDG dir)
@@ -89,14 +90,16 @@ as PID 1, fake `systemctl`/`sudo`/`tailscale`/`gpg` record invocations. Asserts:
   `TAILSCALE_ACCEPT_ROUTES` are set
 - gpg-preset service is enabled only when the key is locally available
 
-## Conflict behavior (recorded, 2026-09-23)
+## Conflict behavior (shipped)
 
-The existing-config conflict test was observed **overwriting** the sentinel:
-`CONFLICT_BEHAVIOR=OVERWRITE` — chezmoi v2.72 apply replaced a pre-existing
-unmanaged `~/.zshrc` without `--force` and without prompting in a non-TTY run.
-The suite therefore FAILs this test by design until the installer adds a guard
-that stops unattended installs rather than force-overwriting. Do not mark it
-PASS while the overwrite behavior persists.
+The installer ships a pre-apply guard (`run_before_00-conflicts.sh.tmpl`) that
+stops instead of overwriting. On an unattended run (non-TTY or
+`DOTFILES_NONINTERACTIVE=1`) that would overwrite an existing file with
+different content, it exits 1, prints the conflicting file list, and leaves the
+recovery hint ("Move or back up the file(s) above, then re-run the install.")
+— the pre-existing files are never touched. Interactive installs prompt
+per-file with `Overwrite <file>? [y/N]` and abort on any decline. The negative
+test asserts the sentinel survives and the install exits non-zero.
 
 ## Notes / honest reporting
 

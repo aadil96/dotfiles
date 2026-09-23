@@ -121,7 +121,7 @@ for f in "${TMPLS[@]}"; do
   fi
 
   case "$rel" in
-    *.sh.tmpl | dot_bashrc.tmpl | dot_zshrc.tmpl)
+    *.sh.tmpl | dot_bashrc.tmpl | dot_zshrc.tmpl | dot_local/bin/executable_gpg-sign-preset.tmpl)
       if ! bash -n "$out" 2>"$out.syn"; then
         FAILED_FILES+=("$rel (bash -n failed: $(tail -1 "$out.syn" 2>/dev/null))")
         continue

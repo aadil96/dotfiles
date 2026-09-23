@@ -4,10 +4,10 @@
 # Covers missing identity, unavailable sudo, existing-config conflict, custom
 # XDG paths, and absent systemd / absent GPG. Each scenario resets the relevant
 # home first so a fresh install is exercised. The existing-config conflict test
-# RECORDS the installer's actual behavior — if the sentinel is silently
-# overwritten it reports CONFLICT_BEHAVIOR=OVERWRITE and FAILS (the plan
-# requires the installer to stop rather than force overwrites; a guard is still
-# needed until this changes).
+# asserts the shipped guard: a pre-apply hook refuses to overwrite — on an
+# unattended non-TTY run it exits 1 with the conflicting file list and a
+# recovery hint, leaving the sentinel untouched; interactive runs prompt
+# per-file with `Overwrite <file>? [y/N]` and abort on any decline.
 set -euo pipefail
 
 source /opt/sandbox/common/assert.sh

@@ -18,6 +18,10 @@
 # that already exists as a regular file, compares its content with the rendered
 # source via `cmp`. Named targets of chezmoi externals (parsed from
 # .chezmoiexternal*.toml) are excluded — externals are expected to refresh.
+#
+# Performance note: this hook shells out to `chezmoi cat` once per managed
+# target. That cost is deliberate — the guard runs during install/apply only,
+# never in a hot path, and skipping it would reintroduce silent overwrites.
 set -euo pipefail
 
 log() { printf '[portable-install] %s\n' "$*"; }
