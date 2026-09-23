@@ -11,6 +11,7 @@ Personal dotfiles for a zsh/bash + Neovim + mise setup. Managed by [chezmoi](htt
 chezmoi apply                        # Apply all dotfiles to $HOME
 chezmoi update                       # Pull latest changes and re-apply
 mise exec -- chezmoi apply           # Run via mise if chezmoi not on PATH
+tests/sandbox/run.sh                 # Disposable-container install verification (Docker; never on host)
 ```
 
 ## Repo structure
@@ -58,6 +59,7 @@ mise exec -- chezmoi apply           # Run via mise if chezmoi not on PATH
 | GPG crypto settings | `dot_gnupg/gpg.conf` | Digest/cipher preferences |
 | GPG signing preset | `dot_local/bin/executable_gpg-sign-preset.tmpl` | Silent preset at login/shell start |
 | GPG systemd service | `dot_config/systemd/user/gpg-sign-preset.service` | Presets passphrase at login |
+| Sandbox install tests | `tests/sandbox/run.sh` | Disposable-container verification (Ubuntu/Debian/Fedora/Arch; Docker required) |
 
 ## Git safety
 
