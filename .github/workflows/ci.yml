@@ -41,7 +41,7 @@ jobs:
 
       - name: Install chezmoi
         run: |
-          sh -c "$(curl -fsLS https://get.chezmoi.io)"
+          sh -c "$(curl -fsLS https://get.chezmoi.io)" -- -b "$HOME/.local/bin"
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           echo "$HOME/bin" >> "$GITHUB_PATH"
           "$HOME/.local/bin/chezmoi" --version
