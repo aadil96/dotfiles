@@ -1,27 +1,31 @@
 {{- $remote := or (env "CODESPACES" | not | not) (env "SSH_CONNECTION" | not | not) (env "KUBERNETES_SERVICE_HOST" | not | not) (env "container" | not | not) (env "REMOTE_CONTAINERS" | not | not) (env "DEVPOD" | not | not) (stat "/.dockerenv" | not | not) -}}
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
-{{- /* Collect configuration values */ -}}
+{{- /* Collect configuration values: env override -> saved config (promptStringOnce) -> interactive prompt.
+        DOTFILES_NONINTERACTIVE=1 reads env then saved data and never prompts. $remote gates COMPATIBILITY only
+        ([data] remote, [git] autoCommit/autoPush); it never decides whether prompts happen. */ -}}
+{{- $noninteractive := eq (env "DOTFILES_NONINTERACTIVE") "1" -}}
 {{- $name := "" -}}
 {{- $email := "" -}}
 {{- $gpg_key := "" -}}
-{{- $ts_key := "" -}}
 
-{{- if $remote }}
-  {{- /* Non-interactive: use env vars or config data */ -}}
-  {{- $name = env "GIT_USER_NAME" | default .name -}}
-  {{- $email = env "GIT_USER_EMAIL" | default .email -}}
-  {{- $gpg_key = env "GPG_KEY" | default .gpg_signing_key -}}
-  {{- $ts_key = env "TAILSCALE_AUTHKEY" | default .tailscale_authkey -}}
+{{- if $noninteractive }}
+  {{- $name = env "GIT_USER_NAME" }}
+  {{- if and (eq $name "") (hasKey . "name") }}{{ $name = index . "name" }}{{ end }}
+  {{- $email = env "GIT_USER_EMAIL" }}
+  {{- if and (eq $email "") (hasKey . "email") }}{{ $email = index . "email" }}{{ end }}
+  {{- $gpg_key = env "GPG_KEY" }}
+  {{- if and (eq $gpg_key "") (hasKey . "gpg_signing_key") }}{{ $gpg_key = index . "gpg_signing_key" }}{{ end }}
   {{- if or (eq $name "") (eq $email "") }}
-    {{- fail "GIT_USER_NAME and GIT_USER_EMAIL must be set in remote/container environment" -}}
+    {{ fail "DOTFILES_NONINTERACTIVE=1 requires GIT_USER_NAME and GIT_USER_EMAIL (no saved identity found)" }}
   {{- end }}
 {{- else }}
-  {{- /* Interactive: prompt for values (stored in chezmoi state) */ -}}
-  {{- $name = promptStringOnce . "name" "Git user.name" -}}
-  {{- $email = promptStringOnce . "email" "Git user.email" -}}
-  {{- $gpg_key = promptStringOnce . "gpg_signing_key" "GPG key fingerprint" -}}
-  {{- $ts_key = promptStringOnce . "tailscale_authkey" "Tailscale auth key (leave blank to skip)" -}}
+  {{- $name = env "GIT_USER_NAME" }}
+  {{- if eq $name "" }}{{ $name = promptStringOnce . "name" "Git user.name" }}{{ end }}
+  {{- $email = env "GIT_USER_EMAIL" }}
+  {{- if eq $email "" }}{{ $email = promptStringOnce . "email" "Git user.email" }}{{ end }}
+  {{- $gpg_key = env "GPG_KEY" }}
+  {{- if eq $gpg_key "" }}{{ $gpg_key = promptStringOnce . "gpg_signing_key" "GPG key fingerprint (leave blank to skip)" }}{{ end }}
 {{- end }}
 
 [data]
@@ -34,7 +38,6 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   aeos_dir = "$HOME/.aeos"
   anchor_bin_dir = "$HOME/.local/bin"
   aeos_ssh_user = "vagrant"
-  tailscale_authkey = {{ $ts_key | quote }}
 
 {{- if not $remote }}
 [git]

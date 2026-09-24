@@ -1,0 +1,11 @@
+{{- $systemd_ok := and (eq .chezmoi.os "linux") (lookPath "systemctl") (regexMatch "(?i)systemd" (trim (include "/proc/1/comm"))) -}}
+.oh-my-zsh/cache/**
+**/*.zwc
+setup
+README.md
+docs/**
+tests/**
+.config/zsh/local.zsh
+.config/opencode/bun.lockb
+.config/opencode/package-lock.json
+{{ if not $systemd_ok }}.config/systemd/**{{ end }}

@@ -23,22 +23,30 @@ fi
 # edit PATH
 
 
-# setup gpg-agent ssh
-unset SSH_AGENT_PID
-if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-        export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+# setup gpg-agent ssh (only when gpgconf is available)
+if command -v gpgconf >/dev/null 2>&1; then
+  unset SSH_AGENT_PID
+  if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+          export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+  fi
 fi
 
 # preset GPG signing passphrase for non-interactive commits (agents)
 [ -x "$HOME/.local/bin/gpg-sign-preset" ] && "$HOME/.local/bin/gpg-sign-preset" >/dev/null 2>&1 || true
 
-# enable brew if found on linux
-if [ -f /home/linuxbrew/.linuxbrew/bin/brew ] ; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
+# enable brew from any supported location (macOS + Linuxbrew)
+for _brew in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew "$HOME/.linuxbrew/bin/brew"; do
+  if [[ -f "$_brew" ]]; then
+    eval "$("$_brew" shellenv)"
+    break
+  fi
+done
+unset _brew
 
 if command -v mise > /dev/null ; then
   eval "$(mise activate zsh)"
+elif [[ -x "$HOME/.local/bin/mise" ]]; then
+  eval "$("$HOME/.local/bin/mise" activate zsh)"
 fi
 
 autoload -Uz compinit && compinit
@@ -110,6 +118,8 @@ if command -v dagger > /dev/null ; then
   export DAGGER_NO_NAG=1
 fi
 
+# chezmoi maps dot_*/dot_config/** to $HOME/.config regardless of
+# XDG_CONFIG_HOME (fixed target, not XDG-following).
 export HOMEBREW_BUNDLE_FILE="$HOME/.config/brew/Brewfile"
 
 if [[ -d "$HOME/.zsh/zsh-autosuggestions" ]] ; then
@@ -136,7 +146,9 @@ if command -v opencode > /dev/null ; then
 fi
 
 
-export GPG_TTY=$(tty)
+if [[ -t 0 ]]; then
+  export GPG_TTY=$(tty)
+fi
 
 export TERM=xterm-256color
 export COLORTERM=truecolor

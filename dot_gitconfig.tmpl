@@ -1,6 +1,9 @@
 [user]
-	name = {{ .name }}
-	email = {{ .email }}
+	name = {{ .name | quote }}
+	email = {{ .email | quote }}
+{{- if .gpg_signing_key }}
+	signingkey = {{ .gpg_signing_key | quote }}
+{{- end }}
 
 [init]
 	defaultBranch = main
@@ -19,15 +22,14 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+{{- if .gpg_signing_key }}
 
-[commit]
-    gpgsign = true
+[include]
+	path = {{ joinPath .chezmoi.homeDir ".config/git/portable-signing.conf" | quote }}
 
 [gpg]
     program = gpg
-
-[user]
-    signingkey = {{ .gpg_signing_key }}
+{{- end }}
 
 [credential "https://github.com"]
 	helper =

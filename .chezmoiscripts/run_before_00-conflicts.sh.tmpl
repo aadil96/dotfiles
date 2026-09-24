@@ -1,0 +1,137 @@
+#!/bin/bash
+# chezmoi template: pre-apply conflict guard (runs on EVERY apply, before apply).
+#
+# Preserves existing home-file conflicts: if a managed target already exists on
+# disk with content that differs from what this apply would write, the install
+# stops instead of silently overwriting the user's file. Interactive runs prompt
+# for consent per file; unattended runs (DOTFILES_NONINTERACTIVE=1 or non-TTY)
+# abort with the conflicting paths. This hook never deletes, moves, or backs up
+# any file — it only reports and (optionally) prompts.
+#
+# Detection mechanism (probed against chezmoi v2.72.x, 2026-09): a nested
+# `chezmoi diff` is NOT safe inside a hook — the outer apply holds the
+# persistent-state lock and nested `diff`/`status`/`target-path` die with
+# "timeout obtaining persistent state lock". The read-only commands that DO run
+# lock-free are `chezmoi managed` (lists the exact managed TARGET paths, honor-
+# ing .chezmoiignore) and `chezmoi cat <target>` (renders the would-be content
+# of one target). So this hook enumerates managed targets and, for each target
+# that already exists as a regular file, compares its content with the rendered
+# source via `cmp`. Named targets of chezmoi externals (parsed from
+# .chezmoiexternal*.toml) are excluded — externals are expected to refresh.
+#
+# Performance note: this hook shells out to `chezmoi cat` once per managed
+# target. That cost is deliberate — the guard runs during install/apply only,
+# never in a hot path, and skipping it would reintroduce silent overwrites.
+set -euo pipefail
+
+log() { printf '[portable-install] %s\n' "$*"; }
+
+# --- locate the chezmoi executable (hook env is authoritative) ---------------
+CHEZ="${CHEZMOI_EXECUTABLE:-}"
+if [ -z "$CHEZ" ]; then
+  CHEZ="$(command -v chezmoi 2>/dev/null || true)"
+fi
+if [ -z "$CHEZ" ] || [ ! -x "$CHEZ" ]; then
+  log "ERROR: cannot locate chezmoi to check for conflicting files"
+  exit 1
+fi
+
+DEST="${CHEZMOI_DEST_DIR:-$HOME}"
+
+# --- collect chezmoi external target paths (never conflict on refreshables) ---
+external_targets=()
+if [ -n "${CHEZMOI_SOURCE_DIR:-}" ]; then
+  while IFS= read -r ext_file; do
+    [ -f "$ext_file" ] || continue
+    while IFS= read -r key; do
+      [ -n "$key" ] && external_targets+=("$key")
+    done < <(sed -n 's/^[[:space:]]*\["\([^"]*\)"\].*/\1/p' "$ext_file")
+  done < <(printf '%s\n' "$CHEZMOI_SOURCE_DIR/.chezmoiexternal.toml" "$CHEZMOI_SOURCE_DIR"/.chezmoiexternals/* 2>/dev/null)
+fi
+
+is_external_target() {
+  local target="$1"
+  local candidate
+  for candidate in "${external_targets[@]}"; do
+    # exact key match, or any child path under the key
+    if [ "$target" = "$candidate" ] || [ "${target#"$candidate"/}" != "$target" ]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+# --- enumerate conflicts: managed target exists AND differs from render -------
+managed_list=""
+set +e
+managed_list="$("$CHEZ" managed 2>/dev/null)"
+managed_rc=$?
+set -e
+if [ "$managed_rc" -ne 0 ]; then
+  log "ERROR: cannot list managed files (chezmoi managed exit $managed_rc); refusing to continue"
+  log "Your files were NOT modified."
+  exit 1
+fi
+
+conflicts=()
+rendered="$(mktemp)"
+trap 'rm -f "$rendered"' EXIT
+
+while IFS= read -r target; do
+  [ -n "$target" ] || continue
+  if is_external_target "$target"; then
+    continue
+  fi
+  # directories, hook-script targets, and externals are never overwrite targets
+  if [ ! -f "$DEST/$target" ]; then
+    continue
+  fi
+  if ! "$CHEZ" cat "$DEST/$target" >"$rendered" 2>/dev/null; then
+    log "ERROR: cannot render $DEST/$target to verify it; refusing to continue"
+    log "Your files were NOT modified."
+    exit 1
+  fi
+  if ! cmp -s "$rendered" "$DEST/$target"; then
+    conflicts+=("$DEST/$target")
+  fi
+done <<< "$managed_list"
+
+[ "${#conflicts[@]}" -eq 0 ] && exit 0
+
+# --- conflicts found -----------------------------------------------------------
+interactive=0
+if [ "${DOTFILES_NONINTERACTIVE:-}" != "1" ] && [ -t 0 ]; then
+  interactive=1
+fi
+
+if [ "$interactive" -eq 1 ]; then
+  log "found ${#conflicts[@]} existing file(s) that this install would overwrite:"
+  for f in "${conflicts[@]}"; do
+    log "  $f"
+  done
+  for f in "${conflicts[@]}"; do
+    printf '[portable-install] Overwrite %s? [y/N] ' "$f"
+    if ! IFS= read -r answer; then
+      log "ABORT: no answer received; nothing was overwritten"
+      exit 1
+    fi
+    case "$answer" in
+      y | Y | yes | YES) ;;
+      *)
+        log "ABORT: declining; nothing was overwritten"
+        log "Move or back up the conflicting file(s), then re-run the install."
+        exit 1
+        ;;
+    esac
+  done
+  log "overwriting ${#conflicts[@]} file(s) with your consent"
+  exit 0
+fi
+
+log "CONFLICT: refusing to overwrite ${#conflicts[@]} existing file(s):"
+for f in "${conflicts[@]}"; do
+  log "  $f"
+done
+log "Move or back up the file(s) above, then re-run the install."
+log "Your files were NOT modified."
+exit 1
