@@ -88,6 +88,8 @@
 
 - The full Ubuntu lane installs every pinned tool once in `install-test.sh`; the negative and mock suites skip package installation because they test unrelated guard and hook behavior. Fast-lane success alone does not verify package installation.
 - Each bootstrap has a 1,200-second timeout. The GitHub Actions job has a separate 75-minute limit. A completed install followed by rerun conflicts or API errors is a test failure, not an install timeout; inspect the first `FAIL:` line and the install log.
+- Mise may add downloaded artifact checksums or normalize duplicate entries in `mise.lock`. Compare the installed `/home/tester/.config/mise/mise.lock` with the source lock and commit the stable generated lock when entries change.
+- Sandbox suite scripts run as root, but installer commands run as `tester`. For lock checks, use `/home/tester` paths; `$HOME` in the suite script points to `/root`.
 - For local diagnosis, run `SANDBOX_SOURCE=worktree tests/sandbox/run.sh --distro ubuntu --full`. Check the last `mise ... fetching` line and registry/network access when the bootstrap itself times out.
 - GitHub API rate limits can block release lookups even after `mise install` has begun. Set `MISE_GITHUB_TOKEN` in the host environment before running the full sandbox; the runner passes it into Docker only when set. Never paste the token into command arguments or logs.
 
