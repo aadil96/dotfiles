@@ -30,6 +30,17 @@ prepare_repo_copy tester
 run_capture "$INSTALL_LOG" tester "$(install_cmd "$(unattended_envs 'Test User' test@example.com)")"
 assert_captured_ok 'unattended install' "$INSTALL_LOG"
 
+if [ "${DOTFILES_TEST_SKIP_PACKAGES:-}" != "1" ]; then
+  source_lock="$HOME/dotfiles/dot_config/mise/mise.lock"
+  installed_lock="$HOME/.config/mise/mise.lock"
+  if cmp -s "$source_lock" "$installed_lock"; then
+    _sa_pass 'full lane: mise install preserves managed lockfile'
+  else
+    delta="$(diff -u "$source_lock" "$installed_lock" | tail -12 | tr '\n' ' ')"
+    _sa_fail "full lane: mise install changed managed lockfile: $delta"
+  fi
+fi
+
 # --- 2. verification ------------------------------------------------------------
 
 # git identity

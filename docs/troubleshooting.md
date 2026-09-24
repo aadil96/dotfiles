@@ -84,11 +84,12 @@
 - Retry a failed installation per tool with `mise install <tool>` (or run `mise install` again); the mise binary lives at `~/.local/bin/mise`
 - If the install is skipped entirely, check whether `DOTFILES_TEST_SKIP_PACKAGES=1` is set (test-only escape hatch, not for normal installs).
 
-### Full sandbox install times out while fetching mise tools
+### Full sandbox lane fails after mise install
 
-- The full Ubuntu sandbox installs every pinned tool. The install test wraps bootstrap in a 1,200-second timeout; slow or stalled npm downloads can exhaust that limit.
-- Check the sandbox job log for the last `mise ... fetching` line and confirm registry/network access before retrying. For local diagnosis, run `SANDBOX_SOURCE=worktree tests/sandbox/run.sh --distro ubuntu --full`.
-- A timed-out install may also miss later hook log messages, causing dependent assertions to fail. Treat those as follow-on failures until the install itself completes; fast-lane success does not verify package installation.
+- The full Ubuntu lane installs every pinned tool once in `install-test.sh`; the negative and mock suites skip package installation because they test unrelated guard and hook behavior. Fast-lane success alone does not verify package installation.
+- Each bootstrap has a 1,200-second timeout. The GitHub Actions job has a separate 75-minute limit. A completed install followed by rerun conflicts or API errors is a test failure, not an install timeout; inspect the first `FAIL:` line and the install log.
+- For local diagnosis, run `SANDBOX_SOURCE=worktree tests/sandbox/run.sh --distro ubuntu --full`. Check the last `mise ... fetching` line and registry/network access when the bootstrap itself times out.
+- GitHub API rate limits can block release lookups even after `mise install` has begun. Set `MISE_GITHUB_TOKEN` in the host environment before running the full sandbox; the runner passes it into Docker only when set. Never paste the token into command arguments or logs.
 
 ### Tool excluded during install
 

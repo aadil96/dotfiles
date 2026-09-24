@@ -95,7 +95,8 @@ for d in "${SELECTED[@]}"; do
   fi
 
   SKIP_ENV=(-e DOTFILES_TEST_SKIP_PACKAGES=1)
-  [ "$FULL" -eq 1 ] && SKIP_ENV=(-e DOTFILES_TEST_SKIP_PACKAGES=0)
+  [ "$FULL" -eq 1 ] && SKIP_ENV=(-e DOTFILES_TEST_SKIP_PACKAGES=0 -e DOTFILES_SANDBOX_FULL_INSTALL=1)
+  [ "$FULL" -eq 1 ] && [ -n "${MISE_GITHUB_TOKEN:-}" ] && SKIP_ENV+=(-e MISE_GITHUB_TOKEN)
 
   log="/tmp/sandbox-$d.log"
   echo "==> running on $d: ${SUITES[*]} $( [ "$FULL" -eq 1 ] && echo '(--full)' )"

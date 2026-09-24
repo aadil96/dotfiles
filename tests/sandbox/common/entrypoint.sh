@@ -26,7 +26,11 @@ for suite in "$@"; do
   fi
   printf '\n================ SUITE: %s ================\n' "$(basename "$path")"
   set +e
-  bash "$path"
+  if [ "${DOTFILES_SANDBOX_FULL_INSTALL:-}" = "1" ] && [ "$(basename "$path")" != "install-test.sh" ]; then
+    DOTFILES_TEST_SKIP_PACKAGES=1 bash "$path"
+  else
+    bash "$path"
+  fi
   rc=$?
   set -e
   if [ "$rc" -ne 0 ]; then
