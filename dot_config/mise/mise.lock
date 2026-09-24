@@ -1218,6 +1218,9 @@ specifiers = ["2.98.2"]
 [tools."ubi:supabase/cli".options]
 exe = "supabase"
 
+[tools."ubi:supabase/cli"."platforms.linux-x64-supabase-supabase"]
+checksum = "blake3:4ee09658325afc02987a4e4be09341412e7ad05d5977c8f1b765737c488ebb67"
+
 [[tools.uv]]
 version = "0.11.28"
 backend = "aqua:astral-sh/uv"
