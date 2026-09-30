@@ -135,6 +135,12 @@
 - Run `brew bundle --file ~/.config/brew/Brewfile`
 - The brew hook (`run_onchange_after_00`) triggers on Brewfile changes
 
+### brew bundle fails on Linux (untrusted tap)
+
+- **Symptom:** the `run_onchange_after_00-install-brew` hook exits non-zero on Linux with `Error: Refusing to load cask hashicorp/tap/hashicorp-vagrant from untrusted tap hashicorp/tap.`, which aborts the `run_onchange_after` chain so later hooks (`01-install-packages`, `02-enable-gpg-preset`, `03-tailscale`) never run.
+- **Cause:** `brew bundle` resolves taps and casks *before* applying the per-line `if: OS.mac?` guards in the Brewfile, and Homebrew does not honor a per-line `trusted: true` in this case. Every Brewfile entry is macOS-only, so there is nothing for Linux to install.
+- **Fix:** the hook now exits early on non-macOS (`uname -s != Darwin`), so `brew bundle` never runs off macOS. If you intentionally use Homebrew on Linux, run `brew trust hashicorp/tap` or add the tap to your trusted list, then re-run `brew bundle --file ~/.config/brew/Brewfile` manually.
+
 ### Tailscale not connecting
 
 - Tailscale enrollment is explicit opt-in: set `TAILSCALE_AUTHKEY` at install time to enroll. It is a runtime env var only — never persisted or written to generated files.

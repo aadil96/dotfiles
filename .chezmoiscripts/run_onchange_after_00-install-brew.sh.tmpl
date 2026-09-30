@@ -1,14 +1,21 @@
 #!/bin/bash
 # brew hash: {{ include "dot_config/brew/Brewfile" | sha256sum }}
 
-# Install Homebrew packages with brew bundle. Brewfile content is macOS-guarded
-# (see dot_config/brew/Brewfile), so on Linux with Homebrew installed this
-# installs nothing extra; Linux machines without brew are skipped entirely.
-# Detection is runtime-only (command -v, then known install locations) — never
-# lookPath baked in at template render time.
+# Install Homebrew packages with brew bundle. Every Brewfile entry is
+# macOS-guarded (see dot_config/brew/Brewfile), but `brew bundle` resolves taps
+# and casks *before* applying the per-line `if: OS.mac?` guards, so on non-macOS
+# it fails (e.g. "Refusing to load cask ... from untrusted tap") instead of
+# installing nothing. Skip non-macOS entirely. Detection is runtime-only
+# (uname -s, command -v, then known install locations) — never lookPath baked in
+# at template render time.
 set -euo pipefail
 
 log() { printf '[portable-install] %s\n' "$*"; }
+
+if [ "$(uname -s 2>/dev/null || true)" != "Darwin" ]; then
+  log "EXCLUDED: brew bundle is macOS-only (every Brewfile entry is OS.mac?-guarded)"
+  exit 0
+fi
 
 BREW="$(command -v brew 2>/dev/null || true)"
 if [ -z "$BREW" ]; then
