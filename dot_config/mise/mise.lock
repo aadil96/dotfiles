@@ -1022,9 +1022,9 @@ backend = "npm:@juliusbrussee/caveman-code"
 specifiers = ["0.65.2"]
 
 [[tools."npm:@opencode/cli"]]
-version = "2.0.14"
+version = "2.0.20"
 backend = "npm:@opencode/cli"
-specifiers = ["2.0.14"]
+specifiers = ["2.0.20"]
 
 [tools."npm:@opencode/cli".options]
 allow_builds = '["@opencode/cli"]'
