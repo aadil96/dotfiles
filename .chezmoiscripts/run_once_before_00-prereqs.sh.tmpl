@@ -1,0 +1,171 @@
+#!/bin/bash
+# chezmoi template: portable prerequisite check/install (run once, before apply)
+# Installs native system packages required by the dotfiles using the distro's
+# own package manager. Homebrew is NEVER used on Linux; macOS prerequisites are
+# limited to Xcode Command Line Tools (zsh ships with macOS). vagrant is only
+# installed where a stock repo package exists; otherwise it is logged as
+# EXCLUDED (macOS gets it via the Brewfile). cmake is installed on Linux for
+# native package builds.
+#
+# Detection runs at execution time (command -v / package-manager queries), so
+# it always reflects the live system — nothing is baked in at template render
+# time via lookPath.
+set -euo pipefail
+
+log() { printf '[portable-install] %s\n' "$*"; }
+
+# pkg_present: returns 0 if a package is installed — binary probe first, then
+# the distro package manager query for packages with no representative binary.
+pkg_present() {
+  local pkg="$1"
+  case "$pkg" in
+    gnupg | gnupg2)            command -v gpg >/dev/null 2>&1 && return 0 ;;
+    ca-certificates)           command -v update-ca-certificates >/dev/null 2>&1 && return 0 ;;
+    build-essential | base-devel) command -v make >/dev/null 2>&1 && command -v gcc >/dev/null 2>&1 && return 0 ;;
+    gcc-c++)                   command -v g++ >/dev/null 2>&1 && return 0 ;;
+    libsecret-tools)           command -v secret-tool >/dev/null 2>&1 && return 0 ;;
+    pkg-config | pkgconf-pkg-config) command -v pkg-config >/dev/null 2>&1 && return 0 ;;
+    openssl)                   command -v openssl >/dev/null 2>&1 && return 0 ;;
+    *)                         command -v "$pkg" >/dev/null 2>&1 && return 0 ;;
+  esac
+  case "$DISTRO" in
+    debian) dpkg -s "$pkg" >/dev/null 2>&1 ;;
+    fedora) rpm -q "$pkg" >/dev/null 2>&1 ;;
+    arch)   pacman -Q "$pkg" >/dev/null 2>&1 ;;
+    *)      return 1 ;;
+  esac
+}
+
+{{ if eq .chezmoi.os "linux" }}
+
+DISTRO="unknown"
+PKGS=()
+
+if command -v apt-get >/dev/null 2>&1; then
+  DISTRO="debian"
+  PKGS=(git curl zsh gnupg ca-certificates build-essential pkg-config libssl-dev libsecret-tools cmake)
+elif command -v dnf >/dev/null 2>&1; then
+  DISTRO="fedora"
+  PKGS=(git curl zsh gnupg2 ca-certificates gcc gcc-c++ make pkgconf-pkg-config openssl-devel libsecret cmake)
+elif command -v pacman >/dev/null 2>&1; then
+  DISTRO="arch"
+  PKGS=(base-devel git curl zsh gnupg ca-certificates pkg-config openssl libsecret cmake)
+else
+  log "EXCLUDED: system packages (no apt-get/dnf/pacman; apk and others unsupported)"
+fi
+
+# vagrant: stock-repo packages only; third-party repos are skipped
+case "$DISTRO" in
+  arch)
+    log "EXCLUDED: vagrant (not available in configured official repositories)"
+    ;;
+  debian | fedora)
+    log "EXCLUDED: vagrant (no stock package in official repos; hashicorp repo is third-party)"
+    ;;
+  unknown)
+    log "EXCLUDED: vagrant (no supported native package manager)"
+    ;;
+esac
+
+if [ "${#PKGS[@]}" -eq 0 ]; then
+  log "no packages to install"
+else
+  missing=()
+  for pkg in "${PKGS[@]}"; do
+    if ! pkg_present "$pkg"; then
+      missing+=("$pkg")
+    fi
+  done
+
+  if [ "${#missing[@]}" -eq 0 ]; then
+    log "all required packages present"
+  else
+    log "installing missing packages: ${missing[*]}"
+    case "$DISTRO" in
+      debian)
+        REFRESH=(apt-get update)
+        INSTALL=(apt-get install -y "${missing[@]}")
+        ;;
+      fedora)
+        REFRESH=(dnf makecache)
+        INSTALL=(dnf install -y "${missing[@]}")
+        ;;
+      arch)
+        REFRESH=(pacman -Sy)
+        INSTALL=(pacman -S --noconfirm --needed "${missing[@]}")
+        ;;
+    esac
+
+    if [ "$(id -u)" -ne 0 ] && ! command -v sudo >/dev/null 2>&1; then
+      log "ERROR: package operations require root but sudo is not available"
+      log "Run manually as root:"
+      log "  ${REFRESH[*]}"
+      log "  ${INSTALL[*]}"
+      exit 1
+    fi
+
+    set +e
+    if [ "$(id -u)" -eq 0 ]; then
+      "${REFRESH[@]}"
+    else
+      sudo "${REFRESH[@]}"
+    fi
+    rc=$?
+    set -e
+    if [ "$rc" -ne 0 ]; then
+      log "ERROR: package manager refresh failed (exit $rc). Run manually:"
+      log "  ${REFRESH[*]}"
+      exit 1
+    fi
+    log "package manager index refreshed"
+
+    set +e
+    if [ "$(id -u)" -eq 0 ]; then
+      "${INSTALL[@]}"
+    else
+      sudo "${INSTALL[@]}"
+    fi
+    rc=$?
+    set -e
+    if [ "$rc" -ne 0 ]; then
+      log "ERROR: package install failed (exit $rc). Run manually:"
+      log "  ${INSTALL[*]}"
+      exit 1
+    fi
+    log "packages installed"
+  fi
+fi
+
+{{ else if eq .chezmoi.os "darwin" }}
+
+# macOS: zsh ships with macOS; only Xcode Command Line Tools are required.
+if ! xcode-select -p >/dev/null 2>&1; then
+  log "ERROR: Xcode Command Line Tools not installed"
+  log "Install with: xcode-select --install"
+  exit 1
+fi
+log "Xcode Command Line Tools present"
+
+# Bootstrap Homebrew so the post-apply brew hook can run on a fresh macOS.
+if ! command -v brew >/dev/null 2>&1 && [ ! -x /opt/homebrew/bin/brew ] && [ ! -x /usr/local/bin/brew ]; then
+  log "Homebrew not found; bootstrapping (NONINTERACTIVE)..."
+  set +e
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  rc=$?
+  set -e
+  if [ "$rc" -ne 0 ]; then
+    log "ERROR: Homebrew bootstrap failed (exit $rc). Install manually:"
+    log "  /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+    exit 1
+  fi
+  log "Homebrew installed"
+else
+  log "Homebrew present"
+fi
+log "EXCLUDED: system packages (macOS uses Homebrew via the Brewfile)"
+
+{{ else }}
+
+log "EXCLUDED: system packages (unsupported OS: {{ .chezmoi.os }})"
+
+{{ end }}

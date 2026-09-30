@@ -1,0 +1,41 @@
+#!/bin/bash
+# packages hash: {{ include "dot_config/mise/mise.toml" | sha256sum }}
+
+# Installs all mise-managed tools (see dot_config/mise/mise.toml) once the
+# config file changes. Mise binary must already exist at $HOME/.local/bin/mise
+# (placed by the chezmoi external) or on PATH.
+#
+# Escape hatch: DOTFILES_TEST_SKIP_PACKAGES=1 skips this step entirely — used
+# by the sandbox test harness/CI for time-bounded lanes.
+set -euo pipefail
+
+log() { printf '[portable-install] %s\n' "$*"; }
+
+if [ "${DOTFILES_TEST_SKIP_PACKAGES:-}" = "1" ]; then
+  log "SKIP: mise install skipped (DOTFILES_TEST_SKIP_PACKAGES=1)"
+  exit 0
+fi
+
+MISE="$HOME/.local/bin/mise"
+if [ ! -x "$MISE" ]; then
+  MISE="$(command -v mise 2>/dev/null || true)"
+fi
+if [ -z "$MISE" ]; then
+  log "ERROR: mise not found (expected at \$HOME/.local/bin/mise via the chezmoi external)"
+  exit 1
+fi
+
+# chezmoi maps the dot_config/** source prefix to $HOME/.config regardless of
+# XDG_CONFIG_HOME — fixed target, not XDG-following (verified in the sandbox).
+MISE_CONFIG="$HOME/.config/mise/mise.toml"
+if [ ! -f "$MISE_CONFIG" ]; then
+  log "ERROR: mise config not found: $MISE_CONFIG"
+  exit 1
+fi
+
+"$MISE" trust "$MISE_CONFIG"
+if ! "$MISE" install; then
+  log "ERROR: mise install failed for some tools — retry per tool with: $MISE install <tool>, or run $MISE install again"
+  exit 1
+fi
+log "mise install complete"

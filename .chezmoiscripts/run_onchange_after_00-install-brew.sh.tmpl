@@ -1,0 +1,38 @@
+#!/bin/bash
+# brew hash: {{ include "dot_config/brew/Brewfile" | sha256sum }}
+
+# Install Homebrew packages with brew bundle. Brewfile content is macOS-guarded
+# (see dot_config/brew/Brewfile), so on Linux with Homebrew installed this
+# installs nothing extra; Linux machines without brew are skipped entirely.
+# Detection is runtime-only (command -v, then known install locations) — never
+# lookPath baked in at template render time.
+set -euo pipefail
+
+log() { printf '[portable-install] %s\n' "$*"; }
+
+BREW="$(command -v brew 2>/dev/null || true)"
+if [ -z "$BREW" ]; then
+  for candidate in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew "$HOME/.linuxbrew/bin/brew"; do
+    if [ -x "$candidate" ]; then
+      BREW="$candidate"
+      break
+    fi
+  done
+fi
+
+if [ -z "$BREW" ]; then
+  log "EXCLUDED: Homebrew (not installed)"
+  exit 0
+fi
+
+# Brewfile lives at chezmoi's fixed dot_config mapping ($HOME/.config/brew/),
+# NOT under XDG_CONFIG_HOME — chezmoi maps source `dot_config/**` to
+# $HOME/.config regardless of XDG. Using the XDG-derived path here would miss
+# the applied Brewfile on machines with a custom XDG_CONFIG_HOME.
+BREWFILE="$HOME/.config/brew/Brewfile"
+if ! "$BREW" bundle --file "$BREWFILE"; then
+  log "ERROR: brew bundle failed. Retry manually:"
+  log "  $BREW bundle --file \"$BREWFILE\""
+  exit 1
+fi
+log "brew bundle complete"

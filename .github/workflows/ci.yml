@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: ShellCheck
         uses: reviewdog/action-shellcheck@v1
         with:
@@ -25,8 +25,6 @@ jobs:
           reporter: github-check
           path: "."
           pattern: "*.sh"
-          exclude: |
-            ./scripts/tests/*
 
       - name: markdownlint
         uses: reviewdog/action-markdownlint@v0
@@ -34,12 +32,53 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-check
 
-  test:
-    name: Test
+  template-checks:
+    name: Template checks
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Run test suite
+
+      - name: Install chezmoi
         run: |
-          echo "No test suite configured — skipping"
+          sh -c "$(curl -fsLS https://get.chezmoi.io)" -- -b "$HOME/.local/bin"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          echo "$HOME/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/chezmoi" --version
+
+      - name: Render + syntax-check all templates
+        run: tests/template-checks/check.sh
+
+  sandbox:
+    name: Sandbox (${{ matrix.distro }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        distro: [ubuntu, debian, fedora, arch]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run sandbox install suite
+        run: tests/sandbox/run.sh --distro ${{ matrix.distro }}
+
+  sandbox-full:
+    name: Sandbox full (ubuntu, mise install)
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run sandbox full lane
+        run: tests/sandbox/run.sh --distro ubuntu --full
+
+  macos:
+    name: macOS (partial coverage)
+    runs-on: macos-14
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run macOS core install verification
+        run: tests/sandbox/macos-run.sh

@@ -1,8 +1,12 @@
 {{- /* Only fetch when the binary is missing so a self-updated mise is not downgraded by a stale cache */ -}}
 {{- if not (stat (printf "%s/.local/bin/mise" (env "HOME"))) }}
+{{- $os := .chezmoi.os -}}
+{{- if eq $os "darwin" -}}
+{{- $os = "macos" -}}
+{{- end }}
 [".local/bin/mise"]
     type = "file"
     executable = true
-    url = "https://mise.jdx.dev/mise-latest-{{.chezmoi.os}}-{{.chezmoi.arch}}"
+    url = "https://mise.jdx.dev/mise-latest-{{$os}}-{{.chezmoi.arch}}"
     refreshPeriod = "168h"
 {{- end }}

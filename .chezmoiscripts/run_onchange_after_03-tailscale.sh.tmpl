@@ -1,0 +1,57 @@
+#!/bin/bash
+# tailscale: runtime TAILSCALE_AUTHKEY opt-in; re-run via `chezmoi state delete-bucket --bucket=scriptState`
+# Enrolls this machine into the tailnet. Explicit opt-in ONLY: the auth key is
+# read from the TAILSCALE_AUTHKEY environment variable at runtime and is never
+# embedded in this script or persisted by chezmoi. The tailscale binary is only
+# installed when enrolling (no TAILSCALE_AUTHKEY means no activation). ssh and
+# accept-routes are opt-in via TAILSCALE_SSH / TAILSCALE_ACCEPT_ROUTES.
+# tailscaled is a SYSTEM service, so enrollment is gated on systemd running as
+# PID 1 — a user bus (XDG_RUNTIME_DIR) is not required. The authkey travels in
+# the TS_AUTHKEY env var (never argv) to keep it out of /proc.
+set -euo pipefail
+
+log() { printf '[tailscale] %s\n' "$*"; }
+
+{{ if eq .chezmoi.os "linux" }}
+
+AUTHKEY="${TAILSCALE_AUTHKEY:-}"
+if [ -z "$AUTHKEY" ]; then
+  log "not enrolled: set TAILSCALE_AUTHKEY to opt in"
+  exit 0
+fi
+
+# tailscaled is a SYSTEM service: it needs systemd as PID 1, not a user bus.
+if ! command -v systemctl >/dev/null 2>&1 || [[ "$(cat /proc/1/comm 2>/dev/null)" != *systemd* ]]; then
+  log "not enrolled: systemd is not PID 1 on this host"
+  log "Manual enrollment:"
+  log "  sudo systemctl enable --now tailscaled"
+  log "  sudo -E TS_AUTHKEY=\"\$AUTHKEY\" tailscale up"
+  exit 0
+fi
+
+if [ "$(id -u)" -ne 0 ] && ! command -v sudo >/dev/null 2>&1; then
+  log "not enrolled: need root or sudo to manage tailscaled"
+  exit 1
+fi
+
+if ! command -v tailscale >/dev/null 2>&1; then
+  log "installing tailscale..."
+  curl -fsSL https://tailscale.com/install.sh | sh
+fi
+
+sudo systemctl enable --now tailscaled
+
+UP_ARGS=(up)
+if [ "${TAILSCALE_SSH:-}" = "1" ]; then
+  UP_ARGS+=(--ssh)
+fi
+if [ "${TAILSCALE_ACCEPT_ROUTES:-}" = "1" ]; then
+  UP_ARGS+=(--accept-routes)
+fi
+TS_AUTHKEY="$AUTHKEY" sudo -E tailscale "${UP_ARGS[@]}"
+log "enrolled"
+
+{{ else }}
+
+log "not enrolled: not Linux"
+{{ end }}

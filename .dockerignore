@@ -1,0 +1,8 @@
+# Sandbox image builds (tests/sandbox/*/Dockerfile) context: keep the repo copy
+# lean — never ship node_modules or .git into the image.
+node_modules
+.git
+*.log
+data/
+runtime/
+.aeos/
