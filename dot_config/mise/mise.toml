@@ -20,7 +20,7 @@ lazygit = "0.57.0"
 cloudflared = "2026.10.3"
 "aqua:neovim" = "0.11.6"
 go = "1.25.6"
-"ubi:supabase/cli" = { version = "2.98.2", exe = "supabase" }
+"github:supabase/cli" = "2.98.2"
 deno = "2.7.14"
 "npm:wrangler" = "4.88.0"
 "npm:@opencode/cli" = { version = "latest", auto_update = "24h", allow_builds = ["@opencode/cli"] }
