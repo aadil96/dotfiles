@@ -84,7 +84,6 @@
 - Retry a failed installation per tool with `mise install <tool>` (or run `mise install` again); the mise binary lives at `~/.local/bin/mise`
 - If the install is skipped entirely, check whether `DOTFILES_TEST_SKIP_PACKAGES=1` is set (test-only escape hatch, not for normal installs).
 
-
 ### OpenCode automatic updates
 
 - OpenCode uses `version = "latest"` and `auto_update = "24h"` in the global mise configuration. Mise checks at tool launches through shims/`mise exec`, or in the background at prompts in an activated shell. This is usage-triggered, not a daily scheduled job.
