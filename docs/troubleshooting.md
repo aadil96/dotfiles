@@ -148,6 +148,12 @@
 - This is a **local installed-package patch**, not an upstream fix or a dotfiles-managed patch. Reinstalling or replacing the package can remove it. Inspect `journalctl --user -u agentmemory.service` for the exact readiness error before repeating the repair. Review a newer release before carrying the patch forward.
 - Agentmemory uses its private `$HOME/.agentmemory/bin/iii`. If doctor finds a separate binary on `PATH`, choose **Skip** when the running process already uses the private copy. That warning alone does not justify reinstalling the engine.
 - Mise rejected 0.9.30 because the release lacked provenance present on earlier releases. The repair checked publisher identity, upstream `v0.9.30`, npm tarball checksums, package versions, and the MCP entrypoint against source before adding exact-version `trust_policy_excludes` for the reviewed packages. Do not disable trust checks globally or copy exceptions blindly to another release.
+- `@agentmemory/mcp@0.9.30` depends on `@agentmemory/agentmemory` with the range `~0.9.30`. A fresh install therefore resolves the newest 0.9.x core, not 0.9.30. Existing machines are unaffected because their machine-local aube lock keeps the version they already installed. On 2026-11-07 a fresh install failed with `trust downgrade for @agentmemory/agentmemory@0.9.32`. Before `@agentmemory/agentmemory@0.9.32` was added to the MCP tool's excludes, these checks matched:
+  - upstream tag `v0.9.32` points to the npm `gitHead` (`0da38f1`);
+  - the GitHub release by `rohitg00` predates the npm publish by the same `rohitghumare` account that published 0.9.30;
+  - the packed tarball integrity matches the registry.
+
+  The resulting MCP (core 0.9.32) worked against a 0.9.30 server. The next core release can fail the same way. Check that release the same way before adding another exact-version exclude.
 
 ### agentmemory doctor reports missing Gemini embeddings
 

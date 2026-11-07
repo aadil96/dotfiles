@@ -29,7 +29,7 @@ deno = "2.7.14"
 "npm:openclaw" = { version = "latest", allow_builds = ["openclaw"] }
 "npm:@agentmemory/agentmemory" = { version = "0.9.30", trust_policy_excludes = ["@agentmemory/agentmemory@0.9.30", "@agentmemory/agentmemory@0.9.28", "protobufjs@6.11.6"] }
 # Exact-version Aube exceptions: these releases match the upstream maintainer and signed npm registry metadata, but lack provenance attestations.
-"npm:@agentmemory/mcp" = { version = "0.9.30", trust_policy_excludes = ["@agentmemory/mcp@0.9.30", "@agentmemory/agentmemory@0.9.30", "@agentmemory/mcp@0.9.28", "@agentmemory/agentmemory@0.9.29"] }
+"npm:@agentmemory/mcp" = { version = "0.9.30", trust_policy_excludes = ["@agentmemory/mcp@0.9.30", "@agentmemory/agentmemory@0.9.30", "@agentmemory/agentmemory@0.9.32", "@agentmemory/mcp@0.9.28", "@agentmemory/agentmemory@0.9.29"] }
 tmux = "latest"
 uv = "latest"
 "github:ifd3f/caligula" = "0.5.0"
