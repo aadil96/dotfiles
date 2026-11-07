@@ -13,7 +13,7 @@ lsd = "1.1.5"
 node = "26.6.0"
 ripgrep = "14.1.1"
 starship = "1.23.0"
-"github:nushell/nushell" = { version = "0.108.0", exe = "nu" }
+"github:nushell/nushell" = { version = "0.108.0", filter_bins = "nu" }
 zellij = "0.43.0"
 zoxide = "0.9.8"
 lazygit = "0.57.0"
