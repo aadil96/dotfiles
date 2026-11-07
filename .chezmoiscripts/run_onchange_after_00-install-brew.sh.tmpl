@@ -1,11 +1,11 @@
 #!/bin/bash
 # brew hash: {{ include "dot_config/brew/Brewfile" | sha256sum }}
 
-# Install Homebrew packages with brew bundle. Every Brewfile entry is
-# macOS-guarded (see dot_config/brew/Brewfile), but `brew bundle` resolves taps
-# and casks *before* applying the per-line `if: OS.mac?` guards, so on non-macOS
-# it fails (e.g. "Refusing to load cask ... from untrusted tap") instead of
-# installing nothing. Skip non-macOS entirely. Detection is runtime-only
+# Install Homebrew packages with brew bundle. The whole Brewfile sits in one
+# `if OS.mac?` block (see dot_config/brew/Brewfile); per-line guards were not
+# enough because `brew bundle` resolved taps and casks before applying them
+# (e.g. "Refusing to load cask ... from untrusted tap"). This hook also skips
+# non-macOS entirely, so nothing runs off macOS. Detection is runtime-only
 # (uname -s, command -v, then known install locations) — never lookPath baked in
 # at template render time.
 set -euo pipefail
