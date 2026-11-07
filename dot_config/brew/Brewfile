@@ -1,6 +1,9 @@
-tap "hashicorp/tap", if: OS.mac?
-brew "zsh", if: OS.mac?
-cask "hashicorp/tap/hashicorp-vagrant", trusted: true, if: OS.mac?
+# Guard before Homebrew resolves macOS-only taps and casks.
+if OS.mac?
+  tap "hashicorp/tap"
+  brew "zsh"
+  cask "hashicorp/tap/hashicorp-vagrant", trusted: true
 
-cask "claude-code", if: OS.mac?
-cask "codex", if: OS.mac?
+  cask "claude-code"
+  cask "codex"
+end

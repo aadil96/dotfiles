@@ -68,10 +68,12 @@ backend = "aqua:sharkdp/bat"
 specifiers = ["0.25.0"]
 
 [tools.bat."platforms.linux-arm64"]
+checksum = "sha256:d155df218dc2d662da191e2dacddc71c90197b62ebe7e2923a659e5dd055d5cb"
 url = "https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-aarch64-unknown-linux-gnu.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218683011"
 
 [tools.bat."platforms.linux-arm64-musl"]
+checksum = "sha256:ee0f12cf6006a79cf4ccf75d2ddcf9f6ba124644503244b1af909c2f72a2a9f7"
 url = "https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-aarch64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218682971"
 
@@ -81,34 +83,42 @@ url = "https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218683426"
 
 [tools.bat."platforms.linux-x64-baseline"]
+checksum = "sha256:31bbbcc0d9f5abe16399425c98ffbf21aaa0ce190c7b75d4f32297696ff32b81"
 url = "https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_64-unknown-linux-gnu.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218683426"
 
 [tools.bat."platforms.linux-x64-musl"]
+checksum = "sha256:93f47d76abe328c402ef712e9ac92aa6d5bc84d5adcbcaf0bbc5665e5275a941"
 url = "https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218683486"
 
 [tools.bat."platforms.linux-x64-musl-baseline"]
+checksum = "sha256:93f47d76abe328c402ef712e9ac92aa6d5bc84d5adcbcaf0bbc5665e5275a941"
 url = "https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218683486"
 
 [tools.bat."platforms.macos-arm64"]
+checksum = "sha256:b3ed5a7515545445881f1036f0cc1b708c2b86cbce01c1b4033f38e0cfcc7b3c"
 url = "https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218682484"
 
 [tools.bat."platforms.macos-x64"]
+checksum = "sha256:b974aa834b6b65610090aed2bc7310d11c6f500105696d23a130aee24fd8380f"
 url = "https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218683606"
 
 [tools.bat."platforms.macos-x64-baseline"]
+checksum = "sha256:b974aa834b6b65610090aed2bc7310d11c6f500105696d23a130aee24fd8380f"
 url = "https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218683606"
 
 [tools.bat."platforms.windows-x64"]
+checksum = "sha256:1d5ced071ba9c765e16f4065877c178cefcfd2fe9581e9ddc92af265b73991bd"
 url = "https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218683627"
 
 [tools.bat."platforms.windows-x64-baseline"]
+checksum = "sha256:1d5ced071ba9c765e16f4065877c178cefcfd2fe9581e9ddc92af265b73991bd"
 url = "https://github.com/sharkdp/bat/releases/download/v0.25.0/bat-v0.25.0-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218683627"
 
@@ -268,64 +278,64 @@ url_api = "https://api.github.com/repos/twpayne/chezmoi/releases/assets/53665369
 provenance = "cosign"
 
 [[tools.cloudflared]]
-version = "2025.11.1"
+version = "2026.10.3"
 backend = "aqua:cloudflare/cloudflared"
-specifiers = ["2025.11.1"]
+specifiers = ["2026.10.3"]
 
 [tools.cloudflared."platforms.linux-arm64"]
-checksum = "sha256:9979dc152097a29b6de4d1ef13e2f1821c67a6f096f88cc18f0fd25106305d3a"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-arm64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795132"
+checksum = "sha256:89297ebfb9e8c99c0dc013a1140601453cf3798d8306c5591651f4a3f5210be8"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-arm64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662571615"
 
 [tools.cloudflared."platforms.linux-arm64-musl"]
-checksum = "sha256:9979dc152097a29b6de4d1ef13e2f1821c67a6f096f88cc18f0fd25106305d3a"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-arm64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795132"
+checksum = "sha256:89297ebfb9e8c99c0dc013a1140601453cf3798d8306c5591651f4a3f5210be8"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-arm64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662571615"
 
 [tools.cloudflared."platforms.linux-x64"]
-checksum = "sha256:991dffd8889ee9f0147b6b48933da9e4407e68ea8c6d984f55fa2d3db4bb431d"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-amd64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795111"
+checksum = "sha256:053b80b0a23031a038fdbf3c073f59f82b8f1f152aa67971d7383ffafc0dbab0"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-amd64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662570969"
 
 [tools.cloudflared."platforms.linux-x64-baseline"]
-checksum = "sha256:991dffd8889ee9f0147b6b48933da9e4407e68ea8c6d984f55fa2d3db4bb431d"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-amd64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795111"
+checksum = "sha256:053b80b0a23031a038fdbf3c073f59f82b8f1f152aa67971d7383ffafc0dbab0"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-amd64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662570969"
 
 [tools.cloudflared."platforms.linux-x64-musl"]
-checksum = "sha256:991dffd8889ee9f0147b6b48933da9e4407e68ea8c6d984f55fa2d3db4bb431d"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-amd64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795111"
+checksum = "sha256:053b80b0a23031a038fdbf3c073f59f82b8f1f152aa67971d7383ffafc0dbab0"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-amd64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662570969"
 
 [tools.cloudflared."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:991dffd8889ee9f0147b6b48933da9e4407e68ea8c6d984f55fa2d3db4bb431d"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-amd64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795111"
+checksum = "sha256:053b80b0a23031a038fdbf3c073f59f82b8f1f152aa67971d7383ffafc0dbab0"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-amd64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662570969"
 
 [tools.cloudflared."platforms.macos-arm64"]
-checksum = "sha256:45cfbb59a720f60b873906aa6469f8c4058f26be6d351c3e2920bc9cb4714273"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-darwin-arm64.tgz"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795202"
+checksum = "sha256:1165d14b6f6360a3b8c283d7d1100024d6ec7cd9bc9e32519e96150645f3ec55"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-darwin-arm64.tgz"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662573250"
 
 [tools.cloudflared."platforms.macos-x64"]
-checksum = "sha256:155a288fef19dba08f0c7145c16a207baf137462d8a1289a78bf8564f9e51244"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-darwin-amd64.tgz"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795229"
+checksum = "sha256:81b7b85f2376815c4f59b1aa323887b62e16ce8b67555c2e1577dc23f2a82000"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-darwin-amd64.tgz"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662572905"
 
 [tools.cloudflared."platforms.macos-x64-baseline"]
-checksum = "sha256:155a288fef19dba08f0c7145c16a207baf137462d8a1289a78bf8564f9e51244"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-darwin-amd64.tgz"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795229"
+checksum = "sha256:81b7b85f2376815c4f59b1aa323887b62e16ce8b67555c2e1577dc23f2a82000"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-darwin-amd64.tgz"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662572905"
 
 [tools.cloudflared."platforms.windows-x64"]
-checksum = "sha256:413f9b24dc6e61a455564651524f167b8ce29ac4ccd40703dea7af93cd37ed39"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-windows-amd64.exe"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795247"
+checksum = "sha256:76b2805253d0d6ffacb092a7acfbee99e7af6917835c0c5410e23f3ef5052da2"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-windows-amd64.exe"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662573817"
 
 [tools.cloudflared."platforms.windows-x64-baseline"]
-checksum = "sha256:413f9b24dc6e61a455564651524f167b8ce29ac4ccd40703dea7af93cd37ed39"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-windows-amd64.exe"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795247"
+checksum = "sha256:76b2805253d0d6ffacb092a7acfbee99e7af6917835c0c5410e23f3ef5052da2"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-windows-amd64.exe"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662573817"
 
 [[tools.deno]]
 version = "2.7.14"
@@ -442,10 +452,12 @@ backend = "aqua:sharkdp/fd"
 specifiers = ["10.2.0"]
 
 [tools.fd."platforms.linux-arm64"]
+checksum = "sha256:6de8be7a3d8ca27954a6d1e22bc327af4cf6fc7622791e68b820197f915c422b"
 url = "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-aarch64-unknown-linux-gnu.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/187806861"
 
 [tools.fd."platforms.linux-arm64-musl"]
+checksum = "sha256:4e8e596646d047d904f2c5ca74b39dccc69978b6e1fb101094e534b0b59c1bb0"
 url = "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-aarch64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/187806608"
 
@@ -455,34 +467,42 @@ url = "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/187806462"
 
 [tools.fd."platforms.linux-x64-baseline"]
+checksum = "sha256:5f9030bcb0e1d03818521ed2e3d74fdb046480a45a4418ccff4f070241b4ed25"
 url = "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-gnu.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/187806462"
 
 [tools.fd."platforms.linux-x64-musl"]
+checksum = "sha256:d9bfa25ec28624545c222992e1b00673b7c9ca5eb15393c40369f10b28f9c932"
 url = "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/187806646"
 
 [tools.fd."platforms.linux-x64-musl-baseline"]
+checksum = "sha256:d9bfa25ec28624545c222992e1b00673b7c9ca5eb15393c40369f10b28f9c932"
 url = "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/187806646"
 
 [tools.fd."platforms.macos-arm64"]
+checksum = "sha256:ae6327ba8c9a487cd63edd8bddd97da0207887a66d61e067dfe80c1430c5ae36"
 url = "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/187806228"
 
 [tools.fd."platforms.macos-x64"]
+checksum = "sha256:991a648a58870230af9547c1ae33e72cb5c5199a622fe5e540e162d6dba82d48"
 url = "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/187806412"
 
 [tools.fd."platforms.macos-x64-baseline"]
+checksum = "sha256:991a648a58870230af9547c1ae33e72cb5c5199a622fe5e540e162d6dba82d48"
 url = "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/187806412"
 
 [tools.fd."platforms.windows-x64"]
+checksum = "sha256:92ac9e6b0a0c6ecdab638ffe210dc786403fff4c66373604cf70df27be45e4fe"
 url = "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/187806444"
 
 [tools.fd."platforms.windows-x64-baseline"]
+checksum = "sha256:92ac9e6b0a0c6ecdab638ffe210dc786403fff4c66373604cf70df27be45e4fe"
 url = "https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/sharkdp/fd/releases/assets/187806444"
 
@@ -727,6 +747,76 @@ checksum = "sha256:425a423950bbbec95f1e879fe036fd861cbbcbba9bef03398a4057f9febe7
 url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304567776"
 
+[[tools."github:supabase/cli"]]
+version = "2.98.2"
+backend = "github:supabase/cli"
+specifiers = ["2.98.2"]
+
+[tools."github:supabase/cli"."platforms.linux-arm64"]
+checksum = "sha256:d82f8533301cf24111c4a04d146cdb9c06a0496ed64c5a2f52f00a3cc55cbef7"
+checksum_source = "mise-versions"
+url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528299"
+
+[tools."github:supabase/cli"."platforms.linux-arm64-musl"]
+checksum = "sha256:d82f8533301cf24111c4a04d146cdb9c06a0496ed64c5a2f52f00a3cc55cbef7"
+checksum_source = "mise-versions"
+url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528299"
+
+[tools."github:supabase/cli"."platforms.linux-x64"]
+checksum = "sha256:0f59df9e6837e876f309e0b4f47005133c51296e85a02727b2927f33ed9adb2d"
+url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528301"
+
+[tools."github:supabase/cli"."platforms.linux-x64-baseline"]
+checksum = "sha256:0f59df9e6837e876f309e0b4f47005133c51296e85a02727b2927f33ed9adb2d"
+checksum_source = "mise-versions"
+url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528301"
+
+[tools."github:supabase/cli"."platforms.linux-x64-musl"]
+checksum = "sha256:0f59df9e6837e876f309e0b4f47005133c51296e85a02727b2927f33ed9adb2d"
+checksum_source = "mise-versions"
+url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528301"
+
+[tools."github:supabase/cli"."platforms.linux-x64-musl-baseline"]
+checksum = "sha256:0f59df9e6837e876f309e0b4f47005133c51296e85a02727b2927f33ed9adb2d"
+checksum_source = "mise-versions"
+url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528301"
+
+[tools."github:supabase/cli"."platforms.macos-arm64"]
+checksum = "sha256:d29d34b2cc1299b98ae03202309962b692993e2b1934d45870912b26af89f03d"
+checksum_source = "mise-versions"
+url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528300"
+
+[tools."github:supabase/cli"."platforms.macos-x64"]
+checksum = "sha256:d11af509b945510ba01cb33d151b5749a687bfbaacb64a1a0d832c9cd1f12d30"
+checksum_source = "mise-versions"
+url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_darwin_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528315"
+
+[tools."github:supabase/cli"."platforms.macos-x64-baseline"]
+checksum = "sha256:d11af509b945510ba01cb33d151b5749a687bfbaacb64a1a0d832c9cd1f12d30"
+checksum_source = "mise-versions"
+url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_darwin_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528315"
+
+[tools."github:supabase/cli"."platforms.windows-x64"]
+checksum = "sha256:b2c923bcceed8451d4c332545dba15e87dbf4e2505d200cd3a8e25583ef2751d"
+checksum_source = "mise-versions"
+url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_windows_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528313"
+
+[tools."github:supabase/cli"."platforms.windows-x64-baseline"]
+checksum = "sha256:b2c923bcceed8451d4c332545dba15e87dbf4e2505d200cd3a8e25583ef2751d"
+checksum_source = "mise-versions"
+url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_windows_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528313"
+
 [[tools.go]]
 version = "1.25.6"
 backend = "core:go"
@@ -902,10 +992,12 @@ backend = "aqua:lsd-rs/lsd"
 specifiers = ["1.1.5"]
 
 [tools.lsd."platforms.linux-arm64"]
+checksum = "sha256:0abe32c41374ef82fd3719a22f243c8e2bfd9435edc63512db1be183211497eb"
 url = "https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-aarch64-unknown-linux-gnu.tar.gz"
 url_api = "https://api.github.com/repos/lsd-rs/lsd/releases/assets/187198099"
 
 [tools.lsd."platforms.linux-arm64-musl"]
+checksum = "sha256:dd84c4add323288ff3dc072955e4ff2364a074a68bf9f1a6fb6556ad310c723b"
 url = "https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-aarch64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/lsd-rs/lsd/releases/assets/187198074"
 
@@ -915,34 +1007,42 @@ url = "https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-x86_64-
 url_api = "https://api.github.com/repos/lsd-rs/lsd/releases/assets/187198093"
 
 [tools.lsd."platforms.linux-x64-baseline"]
+checksum = "sha256:fd06417aa137716bf453420a038d12dc8700df77c6174756c5aacad11e1b692f"
 url = "https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-x86_64-unknown-linux-gnu.tar.gz"
 url_api = "https://api.github.com/repos/lsd-rs/lsd/releases/assets/187198093"
 
 [tools.lsd."platforms.linux-x64-musl"]
+checksum = "sha256:af10fbef2472134c676396a27ecfffb34adb107da2f95d0453a3150ced33ae47"
 url = "https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-x86_64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/lsd-rs/lsd/releases/assets/187198047"
 
 [tools.lsd."platforms.linux-x64-musl-baseline"]
+checksum = "sha256:af10fbef2472134c676396a27ecfffb34adb107da2f95d0453a3150ced33ae47"
 url = "https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-x86_64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/lsd-rs/lsd/releases/assets/187198047"
 
 [tools.lsd."platforms.macos-arm64"]
+checksum = "sha256:d39006922babb1a96806e8f3f3bc197276c807a625617091c43836d8924a0c07"
 url = "https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/lsd-rs/lsd/releases/assets/187197460"
 
 [tools.lsd."platforms.macos-x64"]
+checksum = "sha256:4245e4e8f6fc14376a1f96d210dcf7c55954afacb831c965d2759259cba516ef"
 url = "https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-x86_64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/lsd-rs/lsd/releases/assets/187197889"
 
 [tools.lsd."platforms.macos-x64-baseline"]
+checksum = "sha256:4245e4e8f6fc14376a1f96d210dcf7c55954afacb831c965d2759259cba516ef"
 url = "https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-x86_64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/lsd-rs/lsd/releases/assets/187197889"
 
 [tools.lsd."platforms.windows-x64"]
+checksum = "sha256:0260b74376ced7a699a9e86eec1b5aa4cf1ad739c30829e0b53fc1be4adeaba1"
 url = "https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/lsd-rs/lsd/releases/assets/187198396"
 
 [tools.lsd."platforms.windows-x64-baseline"]
+checksum = "sha256:0260b74376ced7a699a9e86eec1b5aa4cf1ad739c30829e0b53fc1be4adeaba1"
 url = "https://github.com/lsd-rs/lsd/releases/download/v1.1.5/lsd-v1.1.5-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/lsd-rs/lsd/releases/assets/187198396"
 
@@ -996,20 +1096,20 @@ checksum = "sha256:aa81c8552f251ff280134985ccdaf16d336e2961b1e2c3eeb7b7b2221509f
 url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-win-x64.zip"
 
 [[tools."npm:@agentmemory/agentmemory"]]
-version = "0.9.28"
+version = "0.9.30"
 backend = "npm:@agentmemory/agentmemory"
-specifiers = ["0.9.28"]
+specifiers = ["0.9.30"]
 
 [tools."npm:@agentmemory/agentmemory".options]
-trust_policy_excludes = '["@agentmemory/agentmemory@0.9.28", "protobufjs@6.11.6"]'
+trust_policy_excludes = '["@agentmemory/agentmemory@0.9.28", "@agentmemory/agentmemory@0.9.30", "protobufjs@6.11.6"]'
 
 [[tools."npm:@agentmemory/mcp"]]
-version = "0.9.28"
+version = "0.9.30"
 backend = "npm:@agentmemory/mcp"
-specifiers = ["0.9.28"]
+specifiers = ["0.9.30"]
 
 [tools."npm:@agentmemory/mcp".options]
-trust_policy_excludes = '["@agentmemory/agentmemory@0.9.29", "@agentmemory/mcp@0.9.28"]'
+trust_policy_excludes = '["@agentmemory/agentmemory@0.9.29", "@agentmemory/agentmemory@0.9.30", "@agentmemory/agentmemory@0.9.32", "@agentmemory/mcp@0.9.28", "@agentmemory/mcp@0.9.30"]'
 
 [[tools."npm:@google/gemini-cli"]]
 version = "0.41.2"
@@ -1022,9 +1122,9 @@ backend = "npm:@juliusbrussee/caveman-code"
 specifiers = ["0.65.2"]
 
 [[tools."npm:@opencode/cli"]]
-version = "2.0.14"
+version = "2.0.32"
 backend = "npm:@opencode/cli"
-specifiers = ["2.0.14"]
+specifiers = ["latest"]
 
 [tools."npm:@opencode/cli".options]
 allow_builds = '["@opencode/cli"]'
@@ -1035,7 +1135,7 @@ backend = "npm:aicommits"
 specifiers = ["3.1.2"]
 
 [[tools."npm:openclaw"]]
-version = "2026.9.3"
+version = "2026.11.1"
 backend = "npm:openclaw"
 specifiers = ["latest"]
 
@@ -1053,6 +1153,11 @@ backend = "aqua:BurntSushi/ripgrep"
 specifiers = ["14.1.1"]
 
 [tools.ripgrep."platforms.linux-arm64"]
+checksum = "sha256:c827481c4ff4ea10c9dc7a4022c8de5db34a5737cb74484d62eb94a95841ab2f"
+url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/BurntSushi/ripgrep/releases/assets/191354198"
+
+[tools.ripgrep."platforms.linux-arm64-musl"]
 checksum = "sha256:c827481c4ff4ea10c9dc7a4022c8de5db34a5737cb74484d62eb94a95841ab2f"
 url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-aarch64-unknown-linux-gnu.tar.gz"
 url_api = "https://api.github.com/repos/BurntSushi/ripgrep/releases/assets/191354198"
@@ -1093,10 +1198,12 @@ url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14
 url_api = "https://api.github.com/repos/BurntSushi/ripgrep/releases/assets/191353907"
 
 [tools.ripgrep."platforms.windows-x64"]
+checksum = "sha256:d0f534024c42afd6cb4d38907c25cd2b249b79bbe6cc1dbee8e3e37c2b6e25a1"
 url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/BurntSushi/ripgrep/releases/assets/191354245"
 
 [tools.ripgrep."platforms.windows-x64-baseline"]
+checksum = "sha256:d0f534024c42afd6cb4d38907c25cd2b249b79bbe6cc1dbee8e3e37c2b6e25a1"
 url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/BurntSushi/ripgrep/releases/assets/191354245"
 
@@ -1209,17 +1316,6 @@ url_api = "https://api.github.com/repos/tmux/tmux-builds/releases/assets/4251729
 checksum = "sha256:073f6e2c2baa7eb5d643563600ee6052ca8619f3ec5a0cfdf99c56397fb72c94"
 url = "https://github.com/tmux/tmux-builds/releases/download/v3.6b/tmux-3.6b-macos-x86_64.tar.gz"
 url_api = "https://api.github.com/repos/tmux/tmux-builds/releases/assets/425172972"
-
-[[tools."ubi:supabase/cli"]]
-version = "2.98.2"
-backend = "ubi:supabase/cli"
-specifiers = ["2.98.2"]
-
-[tools."ubi:supabase/cli".options]
-exe = "supabase"
-
-[tools."ubi:supabase/cli"."platforms.linux-x64-supabase-supabase"]
-checksum = "blake3:4ee09658325afc02987a4e4be09341412e7ad05d5977c8f1b765737c488ebb67"
 
 [[tools.uv]]
 version = "0.11.28"
@@ -1348,10 +1444,12 @@ backend = "aqua:ajeetdsouza/zoxide"
 specifiers = ["0.9.8"]
 
 [tools.zoxide."platforms.linux-arm64"]
+checksum = "sha256:078cc9cc8cedb6c45edb84c0f5bad53518c610859c73bdb3009a52b89652c103"
 url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.8/zoxide-0.9.8-aarch64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/ajeetdsouza/zoxide/releases/assets/258335142"
 
 [tools.zoxide."platforms.linux-arm64-musl"]
+checksum = "sha256:078cc9cc8cedb6c45edb84c0f5bad53518c610859c73bdb3009a52b89652c103"
 url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.8/zoxide-0.9.8-aarch64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/ajeetdsouza/zoxide/releases/assets/258335142"
 
@@ -1361,33 +1459,41 @@ url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.8/zoxide-0.9
 url_api = "https://api.github.com/repos/ajeetdsouza/zoxide/releases/assets/258335140"
 
 [tools.zoxide."platforms.linux-x64-baseline"]
+checksum = "sha256:4092ee38aa1efde42e4efb2f9c872df5388198aacae7f1a74e5eb5c3cc7f531c"
 url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.8/zoxide-0.9.8-x86_64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/ajeetdsouza/zoxide/releases/assets/258335140"
 
 [tools.zoxide."platforms.linux-x64-musl"]
+checksum = "sha256:4092ee38aa1efde42e4efb2f9c872df5388198aacae7f1a74e5eb5c3cc7f531c"
 url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.8/zoxide-0.9.8-x86_64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/ajeetdsouza/zoxide/releases/assets/258335140"
 
 [tools.zoxide."platforms.linux-x64-musl-baseline"]
+checksum = "sha256:4092ee38aa1efde42e4efb2f9c872df5388198aacae7f1a74e5eb5c3cc7f531c"
 url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.8/zoxide-0.9.8-x86_64-unknown-linux-musl.tar.gz"
 url_api = "https://api.github.com/repos/ajeetdsouza/zoxide/releases/assets/258335140"
 
 [tools.zoxide."platforms.macos-arm64"]
+checksum = "sha256:3d1ec4af7f3d351629f500b432e6c735caf3216ab3eaa76dbe8ffbc8f3006f5a"
 url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.8/zoxide-0.9.8-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/ajeetdsouza/zoxide/releases/assets/258335957"
 
 [tools.zoxide."platforms.macos-x64"]
+checksum = "sha256:cfa865ffd1ba87df2962f40ebd80c366f1d2b484f0c05b6da6b0104f50822f86"
 url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.8/zoxide-0.9.8-x86_64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/ajeetdsouza/zoxide/releases/assets/258335105"
 
 [tools.zoxide."platforms.macos-x64-baseline"]
+checksum = "sha256:cfa865ffd1ba87df2962f40ebd80c366f1d2b484f0c05b6da6b0104f50822f86"
 url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.8/zoxide-0.9.8-x86_64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/ajeetdsouza/zoxide/releases/assets/258335105"
 
 [tools.zoxide."platforms.windows-x64"]
+checksum = "sha256:15dbd23ae3d98e2a745d0e8e3f0292402f0a2269b47519b81a6e994baca5db2b"
 url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.8/zoxide-0.9.8-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/ajeetdsouza/zoxide/releases/assets/258335168"
 
 [tools.zoxide."platforms.windows-x64-baseline"]
+checksum = "sha256:15dbd23ae3d98e2a745d0e8e3f0292402f0a2269b47519b81a6e994baca5db2b"
 url = "https://github.com/ajeetdsouza/zoxide/releases/download/v0.9.8/zoxide-0.9.8-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/ajeetdsouza/zoxide/releases/assets/258335168"

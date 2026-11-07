@@ -1,4 +1,4 @@
-min_version = "2026.9.1"
+min_version = "2026.10.11"
 
 [tools]
 bat = "0.25.0"
@@ -13,23 +13,23 @@ lsd = "1.1.5"
 node = "26.6.0"
 ripgrep = "14.1.1"
 starship = "1.23.0"
-"github:nushell/nushell" = { version = "0.108.0", exe = "nu" }
+"github:nushell/nushell" = { version = "0.108.0", filter_bins = "nu" }
 zellij = "0.43.0"
 zoxide = "0.9.8"
 lazygit = "0.57.0"
-cloudflared = "2025.11.1"
+cloudflared = "2026.10.3"
 "aqua:neovim" = "0.11.6"
 go = "1.25.6"
-"ubi:supabase/cli" = { version = "2.98.2", exe = "supabase" }
+"github:supabase/cli" = "2.98.2"
 deno = "2.7.14"
 "npm:wrangler" = "4.88.0"
-"npm:@opencode/cli" = { version = "2.0.14", allow_builds = ["@opencode/cli"] }
+"npm:@opencode/cli" = { version = "latest", auto_update = "24h", allow_builds = ["@opencode/cli"] }
 "npm:@google/gemini-cli" = "0.41.2"
 "npm:aicommits" = "3.1.2"
 "npm:openclaw" = { version = "latest", allow_builds = ["openclaw"] }
-"npm:@agentmemory/agentmemory" = { version = "0.9.28", trust_policy_excludes = ["@agentmemory/agentmemory@0.9.28", "protobufjs@6.11.6"] }
+"npm:@agentmemory/agentmemory" = { version = "0.9.30", trust_policy_excludes = ["@agentmemory/agentmemory@0.9.30", "@agentmemory/agentmemory@0.9.28", "protobufjs@6.11.6"] }
 # Exact-version Aube exceptions: these releases match the upstream maintainer and signed npm registry metadata, but lack provenance attestations.
-"npm:@agentmemory/mcp" = { version = "0.9.28", trust_policy_excludes = ["@agentmemory/mcp@0.9.28", "@agentmemory/agentmemory@0.9.29"] }
+"npm:@agentmemory/mcp" = { version = "0.9.30", trust_policy_excludes = ["@agentmemory/mcp@0.9.30", "@agentmemory/agentmemory@0.9.30", "@agentmemory/agentmemory@0.9.32", "@agentmemory/mcp@0.9.28", "@agentmemory/agentmemory@0.9.29"] }
 tmux = "latest"
 uv = "latest"
 "github:ifd3f/caligula" = "0.5.0"

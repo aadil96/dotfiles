@@ -107,7 +107,8 @@ assert_captured_ok 'rerun: second install completes' "$INSTALL_LOG"
 # --exclude=scripts: the plain `run_before_00-conflicts` guard's script target is
 # run-but-never-materialized by chezmoi v2.72, so `chezmoi diff` reports it as a
 # perpetual "new file"; excluding scripts asserts real-file differences only.
-run_capture "$CHK" tester 'export PATH="$HOME/.local/bin:$HOME/bin:$PATH"; out="$(chezmoi diff --exclude=scripts)"; [ -z "$out" ]'
+# On failure, print the differing paths so report_capture's tail names them.
+run_capture "$CHK" tester 'export PATH="$HOME/.local/bin:$HOME/bin:$PATH"; out="$(chezmoi diff --exclude=scripts)"; [ -z "$out" ] || { printf "%s\n" "$out" | grep "^diff --git" | head -8; exit 1; }'
 assert_captured_ok 'rerun: no managed-file differences' "$CHK"
 
 run_capture "$CHK" tester 'git config --global user.name'
