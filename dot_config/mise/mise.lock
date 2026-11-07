@@ -268,64 +268,64 @@ url_api = "https://api.github.com/repos/twpayne/chezmoi/releases/assets/53665369
 provenance = "cosign"
 
 [[tools.cloudflared]]
-version = "2025.11.1"
+version = "2026.10.3"
 backend = "aqua:cloudflare/cloudflared"
-specifiers = ["2025.11.1"]
+specifiers = ["2026.10.3"]
 
 [tools.cloudflared."platforms.linux-arm64"]
-checksum = "sha256:9979dc152097a29b6de4d1ef13e2f1821c67a6f096f88cc18f0fd25106305d3a"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-arm64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795132"
+checksum = "sha256:89297ebfb9e8c99c0dc013a1140601453cf3798d8306c5591651f4a3f5210be8"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-arm64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662571615"
 
 [tools.cloudflared."platforms.linux-arm64-musl"]
-checksum = "sha256:9979dc152097a29b6de4d1ef13e2f1821c67a6f096f88cc18f0fd25106305d3a"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-arm64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795132"
+checksum = "sha256:89297ebfb9e8c99c0dc013a1140601453cf3798d8306c5591651f4a3f5210be8"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-arm64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662571615"
 
 [tools.cloudflared."platforms.linux-x64"]
-checksum = "sha256:991dffd8889ee9f0147b6b48933da9e4407e68ea8c6d984f55fa2d3db4bb431d"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-amd64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795111"
+checksum = "sha256:053b80b0a23031a038fdbf3c073f59f82b8f1f152aa67971d7383ffafc0dbab0"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-amd64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662570969"
 
 [tools.cloudflared."platforms.linux-x64-baseline"]
-checksum = "sha256:991dffd8889ee9f0147b6b48933da9e4407e68ea8c6d984f55fa2d3db4bb431d"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-amd64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795111"
+checksum = "sha256:053b80b0a23031a038fdbf3c073f59f82b8f1f152aa67971d7383ffafc0dbab0"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-amd64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662570969"
 
 [tools.cloudflared."platforms.linux-x64-musl"]
-checksum = "sha256:991dffd8889ee9f0147b6b48933da9e4407e68ea8c6d984f55fa2d3db4bb431d"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-amd64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795111"
+checksum = "sha256:053b80b0a23031a038fdbf3c073f59f82b8f1f152aa67971d7383ffafc0dbab0"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-amd64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662570969"
 
 [tools.cloudflared."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:991dffd8889ee9f0147b6b48933da9e4407e68ea8c6d984f55fa2d3db4bb431d"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-amd64"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795111"
+checksum = "sha256:053b80b0a23031a038fdbf3c073f59f82b8f1f152aa67971d7383ffafc0dbab0"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-linux-amd64"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662570969"
 
 [tools.cloudflared."platforms.macos-arm64"]
-checksum = "sha256:45cfbb59a720f60b873906aa6469f8c4058f26be6d351c3e2920bc9cb4714273"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-darwin-arm64.tgz"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795202"
+checksum = "sha256:1165d14b6f6360a3b8c283d7d1100024d6ec7cd9bc9e32519e96150645f3ec55"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-darwin-arm64.tgz"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662573250"
 
 [tools.cloudflared."platforms.macos-x64"]
-checksum = "sha256:155a288fef19dba08f0c7145c16a207baf137462d8a1289a78bf8564f9e51244"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-darwin-amd64.tgz"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795229"
+checksum = "sha256:81b7b85f2376815c4f59b1aa323887b62e16ce8b67555c2e1577dc23f2a82000"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-darwin-amd64.tgz"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662572905"
 
 [tools.cloudflared."platforms.macos-x64-baseline"]
-checksum = "sha256:155a288fef19dba08f0c7145c16a207baf137462d8a1289a78bf8564f9e51244"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-darwin-amd64.tgz"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795229"
+checksum = "sha256:81b7b85f2376815c4f59b1aa323887b62e16ce8b67555c2e1577dc23f2a82000"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-darwin-amd64.tgz"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662572905"
 
 [tools.cloudflared."platforms.windows-x64"]
-checksum = "sha256:413f9b24dc6e61a455564651524f167b8ce29ac4ccd40703dea7af93cd37ed39"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-windows-amd64.exe"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795247"
+checksum = "sha256:76b2805253d0d6ffacb092a7acfbee99e7af6917835c0c5410e23f3ef5052da2"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-windows-amd64.exe"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662573817"
 
 [tools.cloudflared."platforms.windows-x64-baseline"]
-checksum = "sha256:413f9b24dc6e61a455564651524f167b8ce29ac4ccd40703dea7af93cd37ed39"
-url = "https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-windows-amd64.exe"
-url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/313795247"
+checksum = "sha256:76b2805253d0d6ffacb092a7acfbee99e7af6917835c0c5410e23f3ef5052da2"
+url = "https://github.com/cloudflare/cloudflared/releases/download/2026.10.3/cloudflared-windows-amd64.exe"
+url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/662573817"
 
 [[tools.deno]]
 version = "2.7.14"
@@ -996,20 +996,20 @@ checksum = "sha256:aa81c8552f251ff280134985ccdaf16d336e2961b1e2c3eeb7b7b2221509f
 url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-win-x64.zip"
 
 [[tools."npm:@agentmemory/agentmemory"]]
-version = "0.9.28"
+version = "0.9.30"
 backend = "npm:@agentmemory/agentmemory"
-specifiers = ["0.9.28"]
+specifiers = ["0.9.30"]
 
 [tools."npm:@agentmemory/agentmemory".options]
-trust_policy_excludes = '["@agentmemory/agentmemory@0.9.28", "protobufjs@6.11.6"]'
+trust_policy_excludes = '["@agentmemory/agentmemory@0.9.28", "@agentmemory/agentmemory@0.9.30", "protobufjs@6.11.6"]'
 
 [[tools."npm:@agentmemory/mcp"]]
-version = "0.9.28"
+version = "0.9.30"
 backend = "npm:@agentmemory/mcp"
-specifiers = ["0.9.28"]
+specifiers = ["0.9.30"]
 
 [tools."npm:@agentmemory/mcp".options]
-trust_policy_excludes = '["@agentmemory/agentmemory@0.9.29", "@agentmemory/mcp@0.9.28"]'
+trust_policy_excludes = '["@agentmemory/agentmemory@0.9.29", "@agentmemory/agentmemory@0.9.30", "@agentmemory/mcp@0.9.28", "@agentmemory/mcp@0.9.30"]'
 
 [[tools."npm:@google/gemini-cli"]]
 version = "0.41.2"
@@ -1022,9 +1022,9 @@ backend = "npm:@juliusbrussee/caveman-code"
 specifiers = ["0.65.2"]
 
 [[tools."npm:@opencode/cli"]]
-version = "2.0.20"
+version = "2.0.32"
 backend = "npm:@opencode/cli"
-specifiers = ["2.0.20"]
+specifiers = ["latest"]
 
 [tools."npm:@opencode/cli".options]
 allow_builds = '["@opencode/cli"]'
@@ -1035,7 +1035,7 @@ backend = "npm:aicommits"
 specifiers = ["3.1.2"]
 
 [[tools."npm:openclaw"]]
-version = "2026.9.3"
+version = "2026.11.1"
 backend = "npm:openclaw"
 specifiers = ["latest"]
 
@@ -1053,6 +1053,11 @@ backend = "aqua:BurntSushi/ripgrep"
 specifiers = ["14.1.1"]
 
 [tools.ripgrep."platforms.linux-arm64"]
+checksum = "sha256:c827481c4ff4ea10c9dc7a4022c8de5db34a5737cb74484d62eb94a95841ab2f"
+url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/BurntSushi/ripgrep/releases/assets/191354198"
+
+[tools.ripgrep."platforms.linux-arm64-musl"]
 checksum = "sha256:c827481c4ff4ea10c9dc7a4022c8de5db34a5737cb74484d62eb94a95841ab2f"
 url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-aarch64-unknown-linux-gnu.tar.gz"
 url_api = "https://api.github.com/repos/BurntSushi/ripgrep/releases/assets/191354198"
