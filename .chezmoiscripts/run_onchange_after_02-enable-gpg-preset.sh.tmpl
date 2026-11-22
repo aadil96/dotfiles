@@ -14,15 +14,15 @@ log() { printf '[portable-install] %s\n' "$*"; }
 SIGNING_CONFIG="$HOME/.config/git/portable-signing.conf"
 EXPECTED_SIGNING_CONFIG=$'# Managed by dotfiles GPG key check.\n[commit]\n\tgpgsign = true\n'
 
-if [ -z "{{ .gpg_signing_key }}" ]; then
+if [ -z {{ .gpg_signing_key | shellQuote }} ]; then
   if [ -f "$SIGNING_CONFIG" ] && cmp -s <(printf '%s' "$EXPECTED_SIGNING_CONFIG") "$SIGNING_CONFIG"; then
     rm "$SIGNING_CONFIG"
   fi
   log "SKIP: gpg-preset service (no signing key configured)"
   exit 0
 fi
-if ! command -v gpg >/dev/null 2>&1 || ! gpg --list-secret-keys {{ .gpg_signing_key | quote }} >/dev/null 2>&1; then
-  log "GPG key {{ .gpg_signing_key }} not found locally; git signing remains disabled"
+if ! command -v gpg >/dev/null 2>&1 || ! gpg --list-secret-keys {{ .gpg_signing_key | shellQuote }} >/dev/null 2>&1; then
+  printf '[portable-install] GPG key %s not found locally; git signing remains disabled\n' {{ .gpg_signing_key | shellQuote }}
   if [ -f "$SIGNING_CONFIG" ] && cmp -s <(printf '%s' "$EXPECTED_SIGNING_CONFIG") "$SIGNING_CONFIG"; then
     rm "$SIGNING_CONFIG"
   fi
