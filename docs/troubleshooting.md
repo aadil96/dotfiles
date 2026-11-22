@@ -153,7 +153,8 @@
   - the GitHub release by `rohitg00` predates the npm publish by the same `rohitghumare` account that published 0.9.30;
   - the packed tarball integrity matches the registry.
 
-  The resulting MCP (core 0.9.32) worked against a 0.9.30 server. The next core release can fail the same way. Check that release the same way before adding another exact-version exclude.
+  The resulting MCP (core 0.9.32) worked against a 0.9.30 server. That exact-version exclude did not cover the next core release.
+- **2026-11-22:** mise 2026.11.12 fails a fresh install of `npm:@agentmemory/mcp@0.9.30` with `trust downgrade for @agentmemory/agentmemory@0.9.33 (trustPolicy=no-downgrade): earlier published version 0.7.0 had provenance attestation but this version has no trust evidence`. The `~0.9.30` range resolves the newest 0.9.x core. 0.9.30 and 0.9.33 both lack `dist.attestations` (the attestations URL is 404). 0.9.33 was not pinned: `gitHead` is null, the npm publish is only seconds from the GitHub release (too soon for `.github/workflows/publish.yml` to build and test), and there is no provenance. The publisher is still `rohitghumare`, the GitHub release is still `rohitg00`, the tarball integrity matches the registry, there are no install scripts, and `packages/mcp` `bin.mjs` is byte-identical to 0.9.30. The newest pair that still has SLSA provenance is **0.9.31**. Both attestations name `.github/workflows/publish.yml` on `refs/tags/v0.9.31` at commit `c5b8ebfb32eb6a08fe301d3bb75840f3597b66c8`, the same commit as the GitHub release. `mcp@0.9.31` depends on `@agentmemory/agentmemory@0.9.31` exactly, and its `iii-sdk` is 0.25.0. Both mise entries are pinned to 0.9.31 with no `trust_policy_excludes`. A fresh `mise install` of those two tools with mise 2026.11.12 succeeds.
 
 ### agentmemory doctor reports missing Gemini embeddings
 
