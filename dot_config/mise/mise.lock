@@ -1096,20 +1096,14 @@ checksum = "sha256:aa81c8552f251ff280134985ccdaf16d336e2961b1e2c3eeb7b7b2221509f
 url = "https://nodejs.org/dist/v26.6.0/node-v26.6.0-win-x64.zip"
 
 [[tools."npm:@agentmemory/agentmemory"]]
-version = "0.9.30"
+version = "0.9.31"
 backend = "npm:@agentmemory/agentmemory"
-specifiers = ["0.9.30"]
-
-[tools."npm:@agentmemory/agentmemory".options]
-trust_policy_excludes = '["@agentmemory/agentmemory@0.9.28", "@agentmemory/agentmemory@0.9.30", "protobufjs@6.11.6"]'
+specifiers = ["0.9.31"]
 
 [[tools."npm:@agentmemory/mcp"]]
-version = "0.9.30"
+version = "0.9.31"
 backend = "npm:@agentmemory/mcp"
-specifiers = ["0.9.30"]
-
-[tools."npm:@agentmemory/mcp".options]
-trust_policy_excludes = '["@agentmemory/agentmemory@0.9.29", "@agentmemory/agentmemory@0.9.30", "@agentmemory/agentmemory@0.9.32", "@agentmemory/mcp@0.9.28", "@agentmemory/mcp@0.9.30"]'
+specifiers = ["0.9.31"]
 
 [[tools."npm:@google/gemini-cli"]]
 version = "0.41.2"
