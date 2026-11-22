@@ -5,7 +5,8 @@
 #
 #   * runs as the runner user (no passwordless sudo) with
 #     DOTFILES_TEST_SKIP_PACKAGES=1 (fast lane) and `container=true` (the runner
-#     is a CI environment) so the config's remote detection disables autoCommit;
+#     is a CI environment, recorded as [data] remote); git autoCommit/autoPush
+#     are left unset;
 #   * accepts either a completed install or an actionable sudo/permission error
 #     (macOS prereqs/Homebrew bootstrap need sudo), reporting which path; any
 #     OTHER failure is a hard FAIL;
