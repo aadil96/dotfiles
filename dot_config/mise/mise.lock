@@ -126,6 +126,13 @@ url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/218683627"
 version = "1.4.4"
 backend = "aqua:aristocratos/btop"
 specifiers = ["1.4.4"]
+unsupported_platforms = [
+    "macos-arm64",
+    "macos-x64",
+    "macos-x64-baseline",
+    "windows-x64",
+    "windows-x64-baseline",
+]
 
 [tools.btop."platforms.linux-arm64"]
 checksum = "sha256:e8845d3f69f6a32d00258a1f79c093970666ece3d05a430c7b24a16c56577bf5"
@@ -641,6 +648,10 @@ provenance = "github-attestations"
 version = "0.5.0"
 backend = "github:ifd3f/caligula"
 specifiers = ["0.5.0"]
+unsupported_platforms = [
+    "windows-x64",
+    "windows-x64-baseline",
+]
 
 [tools."github:ifd3f/caligula"."platforms.linux-arm64"]
 checksum = "sha256:9dd0cea2080bfa51e5b9a50c8048632e9767c1b269784e6902663566f53dbf75"
@@ -1265,6 +1276,10 @@ url_api = "https://api.github.com/repos/starship/starship/releases/assets/249905
 version = "3.6b"
 backend = "aqua:tmux/tmux-builds"
 specifiers = ["latest"]
+unsupported_platforms = [
+    "windows-x64",
+    "windows-x64-baseline",
+]
 
 [tools.tmux."platforms.linux-arm64"]
 checksum = "sha256:fd4a2206c5e468dd2ee4e9a65f2d40e0762551965d7fdbe849c494ab14f513e9"
@@ -1386,6 +1401,10 @@ provenance = "github-attestations"
 version = "0.43.0"
 backend = "aqua:zellij-org/zellij"
 specifiers = ["0.43.0"]
+unsupported_platforms = [
+    "windows-x64",
+    "windows-x64-baseline",
+]
 
 [tools.zellij."platforms.linux-arm64"]
 checksum = "sha256:8b237b1dd7f0d2634e985347db8cad0cd5d67cfe01194f1b940abd89aff83e55"
