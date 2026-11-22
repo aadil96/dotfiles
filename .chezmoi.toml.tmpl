@@ -2,8 +2,9 @@
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 {{- /* Collect configuration values: env override -> saved config (promptStringOnce) -> interactive prompt.
-        DOTFILES_NONINTERACTIVE=1 reads env then saved data and never prompts. $remote gates COMPATIBILITY only
-        ([data] remote, [git] autoCommit/autoPush); it never decides whether prompts happen. */ -}}
+        DOTFILES_NONINTERACTIVE=1 reads env then saved data and never prompts. $remote is stored as
+        [data] remote and never decides whether prompts happen. Git autoCommit and autoPush stay at
+        chezmoi's default (false) so apply cannot push to protected main. */ -}}
 {{- $noninteractive := eq (env "DOTFILES_NONINTERACTIVE") "1" -}}
 {{- $name := "" -}}
 {{- $email := "" -}}
@@ -38,9 +39,3 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   aeos_dir = "$HOME/.aeos"
   anchor_bin_dir = "$HOME/.local/bin"
   aeos_ssh_user = "vagrant"
-
-{{- if not $remote }}
-[git]
-  autoCommit = true
-  autoPush = true
-{{- end }}
