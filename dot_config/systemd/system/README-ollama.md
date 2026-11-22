@@ -1,6 +1,6 @@
 # Ollama System Service
 
-This directory contains the systemd service file for Ollama, managed by chezmoi.
+This directory contains the systemd service file for Ollama. Chezmoi keeps it in the source tree and does not install it to `~/.config/systemd/system`.
 
 ## Why system service?
 
