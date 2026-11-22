@@ -111,8 +111,9 @@
 
 ### systemd units not installed (container/WSL)
 
-- systemd units under `dot_config/systemd/**` are only installed when Linux has a working systemd service manager (`.chezmoiignore.tmpl` checks that PID 1 is systemd).
-- Containers and WSL without systemd skip systemd units and service activation but still complete installation.
+- User systemd units under `dot_config/systemd/user/**` are only installed when Linux has a working systemd service manager (`.chezmoiignore.tmpl` checks that PID 1 is systemd).
+- `dot_config/systemd/system/**` (the Ollama system unit and its README) is never installed into the home directory. Copy the rendered unit from the chezmoi source into `/etc/systemd/system` as that README describes.
+- Containers and WSL without systemd skip user systemd units and service activation but still complete installation.
 - Check with `ps -p 1 -o comm=`; if it is not `systemd`, units are intentionally skipped.
 
 ### Git signing not enabled
