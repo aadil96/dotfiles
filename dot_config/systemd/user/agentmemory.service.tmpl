@@ -5,12 +5,19 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-Type=simple
+# agentmemory >= 0.9.32 starts a Worker Compose daemon and the CLI exits after it is ready.
+Type=forking
+TimeoutStartSec=180
 WorkingDirectory={{ .chezmoi.homeDir }}
 ExecStart={{ .chezmoi.homeDir }}/.local/share/mise/shims/agentmemory
+ExecStop={{ .chezmoi.homeDir }}/.local/share/mise/shims/agentmemory stop
 Restart=on-failure
 RestartSec=5
 Environment=AGENTMEMORY_URL=http://localhost:3111
+# agentmemory >= 0.9.32 no longer infers providers from API keys; keys stay in the EnvironmentFile.
+Environment=AGENTMEMORY_LLM_PROVIDER=gemini
+# Must match the existing 768-dim vector index.
+Environment=EMBEDDING_PROVIDER=gemini
 Environment=GRAPH_EXTRACTION_ENABLED=true
 Environment=CONSOLIDATION_ENABLED=true
 Environment=AGENTMEMORY_AUTO_COMPRESS=true
