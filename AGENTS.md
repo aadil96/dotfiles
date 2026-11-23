@@ -12,7 +12,7 @@ sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply aadil96/dotfiles   
 chezmoi apply                        # Apply all dotfiles to $HOME
 chezmoi update                       # Pull latest changes and re-apply
 mise exec -- chezmoi apply           # Run via mise if chezmoi not on PATH
-tests/sandbox/run.sh                 # Disposable-container install verification (Docker; never on host)
+tests/sandbox/run.sh                 # CI Sandbox jobs only. Do not run locally unless the owner asks.
 ```
 
 ## One-command install (invariant)
@@ -32,7 +32,7 @@ Invariants that must never regress:
 - `setup`, zsh login-shell, and package-manager rules unchanged.
 - After any `.chezmoi.toml.tmpl` change, the on-disk config must be regenerated (`chezmoi init`) or every run warns `config file template has changed`; keep template changes deterministic (env/saved-state driven) so regeneration converges to a single render.
 
-Before merging any change touching the above: run `tests/template-checks/check.sh` and (when Docker is available) `tests/sandbox/run.sh --distro ubuntu`; a breaking hook/config/env change without this verification is review-blocking.
+Before merging any change touching the above: run `tests/template-checks/check.sh` locally. Do not run `tests/sandbox/run.sh` or `tests/sandbox/macos-run.sh` unless the owner explicitly asks. Sandbox verification is the CI Sandbox jobs on the pull request. A breaking hook, config, or env change is still review-blocking until those jobs are green.
 
 ## Repo structure
 
@@ -80,7 +80,7 @@ Before merging any change touching the above: run `tests/template-checks/check.s
 | GPG crypto settings | `dot_gnupg/gpg.conf` | Digest/cipher preferences |
 | GPG signing preset | `dot_local/bin/executable_gpg-sign-preset.tmpl` | Silent preset at login/shell start |
 | GPG systemd service | `dot_config/systemd/user/gpg-sign-preset.service` | Presets passphrase at login |
-| Sandbox install tests | `tests/sandbox/run.sh` | Disposable-container verification (Ubuntu/Debian/Fedora/Arch; Docker required) |
+| Sandbox install tests | CI Sandbox jobs | `tests/sandbox/run.sh` and `macos-run.sh` run in CI, not on a laptop, unless the owner asks |
 
 ## Git safety
 

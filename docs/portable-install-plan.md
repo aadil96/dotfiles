@@ -53,7 +53,8 @@ unchanged; document its replacement.
 ## Sandboxed verification
 
 Docker was available locally during planning. Run installation tests only in
-disposable environments.
+disposable environments. The harness runs in CI (`.github/workflows/ci.yml`);
+do not run it on a laptop unless diagnosing a failure.
 
 - Add a repeatable harness using Ubuntu, Debian, Fedora, and Arch containers,
   disposable non-root users, and isolated home/XDG directories. Mount source

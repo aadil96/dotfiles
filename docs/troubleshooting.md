@@ -101,7 +101,7 @@
 - If the full-lane lock assertion fails, compare `/home/tester/.config/mise/mise.lock` with `dot_config/mise/mise.lock`; the second install will stop at the conflict guard until the generated lock is committed.
 - **2026-11-23:** `mise install` re-resolves `version = "latest"` and rewrites the deployed `mise.lock` (observed: chezmoi 2.72.1 in the lock became 2.74.1). The next `chezmoi apply` then stops with `.config/mise/mise.lock has changed since chezmoi last wrote it?` and, without a TTY, `could not open a new TTY`. `[settings] locked = true` makes install use the committed lock and not write it. `mise lock` and `mise upgrade` still update the lock on purpose; commit that result. Do not drop the lock or force the apply.
 - Sandbox suite scripts run as root, but installer commands run as `tester`. For lock checks, use `/home/tester` paths; `$HOME` in the suite script points to `/root`.
-- For local diagnosis, run `SANDBOX_SOURCE=worktree tests/sandbox/run.sh --distro ubuntu --full`. Check the last `mise ... fetching` line and registry/network access when the bootstrap itself times out.
+- CI runs the sandbox lanes. A local run is opt-in diagnosis only: `SANDBOX_SOURCE=worktree tests/sandbox/run.sh --distro ubuntu --full`. Check the last `mise ... fetching` line and registry/network access when the bootstrap itself times out.
 - GitHub API rate limits can block release lookups even after `mise install` has begun. Set `MISE_GITHUB_TOKEN` in the host environment before running the full sandbox; the runner passes it into Docker only when set. Never paste the token into command arguments or logs.
 
 ### Tool excluded during install
