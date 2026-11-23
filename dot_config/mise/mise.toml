@@ -42,6 +42,10 @@ bun = "latest"
 experimental = true
 auto_update = true
 lockfile = true
+# Install uses the committed lock and does not rewrite it. `latest` tools
+# otherwise re-resolve during `mise install`, and chezmoi then prompts because
+# the deployed lock changed. Refresh the lock on purpose with `mise lock`.
+locked = true
 pin = true
 disable_backends = ["asdf", "vfox"] # Don't use these backends
 
