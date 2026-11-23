@@ -6,6 +6,8 @@ All tests run inside throwaway Docker containers — **never on the host**.
 
 ## Quick start
 
+CI (`.github/workflows/ci.yml`) is where these lanes run: fast lane per distro, the full Ubuntu mise lane, and `macos-run.sh`. A local run is opt-in diagnosis only.
+
 ```sh
 tests/sandbox/run.sh                  # all four distros, fast lanes
 tests/sandbox/run.sh --distro ubuntu  # single distro
@@ -24,7 +26,7 @@ Requires a reachable Docker daemon (`docker version`). The driver:
    non-zero on any failure.
 
 `SANDBOX_SOURCE=worktree tests/sandbox/run.sh` archives the working tree instead
-of `HEAD` (useful for pre-commit local runs of uncommitted changes; CI always
+of `HEAD` (opt-in local diagnosis of uncommitted changes; CI always
 uses `HEAD`). After the feature branch merges, `aadil96/dotfiles` carries the
 same code and the suite also covers the documented GitHub command
 (`INSTALL_SOURCE=github`) — until then candidate-checkout is the tested path.
