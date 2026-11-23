@@ -27,11 +27,11 @@ deno = "2.7.14"
 "npm:@google/gemini-cli" = "0.41.2"
 "npm:aicommits" = "3.1.2"
 "npm:openclaw" = { version = "latest", allow_builds = ["openclaw"] }
-# 0.9.31 is the newest pair with npm SLSA provenance. mcp@0.9.31 depends on
-# @agentmemory/agentmemory@0.9.31 exactly, so install does not float onto a later
-# 0.9.x release that has no provenance. Do not add a blanket trust exclude.
-"npm:@agentmemory/agentmemory" = "0.9.31"
-"npm:@agentmemory/mcp" = "0.9.31"
+# 0.9.32 has no SLSA provenance. These excludes are the exact versions only
+# (https://mise.jdx.dev/dev-tools/backends/npm). Drop them when a later release
+# publishes provenance. Do not exclude the package name alone.
+"npm:@agentmemory/agentmemory" = { version = "0.9.32", trust_policy_excludes = ["@agentmemory/agentmemory@0.9.32"] }
+"npm:@agentmemory/mcp" = { version = "0.9.32", trust_policy_excludes = ["@agentmemory/mcp@0.9.32", "@agentmemory/agentmemory@0.9.32"] }
 tmux = "latest"
 uv = "latest"
 "github:ifd3f/caligula" = "0.5.0"
