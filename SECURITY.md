@@ -11,6 +11,7 @@ This repo manages personal dotfiles and configuration. It does NOT run productio
 - GPG configuration lives in `private_dot_gnupg/` (not tracked in git by convention — chezmoi ignores `private_*`).
 - If a file should never leave this machine, prefix it `private_`.
 - Template variables like `github_token` in `.chezmoi.toml.tmpl` must remain empty strings in version control. Set via environment variables or chezmoi's `promptStringOnce`.
+- `gemini_api_key` is the same kind of secret: the template source never contains a key. `GEMINI_API_KEY` or `promptStringOnce` fills it locally. `private_dot_aicommits.tmpl` is tracked only because it has no key; `private_` makes the installed `~/.aicommits` mode 0600. `.config/gh/hosts.yml` is ignored because it holds the gh auth token.
 
 ## External dependencies
 

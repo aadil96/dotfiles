@@ -17,3 +17,6 @@ tests/**
 .config/htop/**
 .config/systemd/system/**
 {{ if not $systemd_ok }}.config/systemd/**{{ end }}
+# gh auth token; never track
+.config/gh/hosts.yml
+{{ if not (get . "gemini_api_key") }}.aicommits{{ end }}

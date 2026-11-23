@@ -9,6 +9,7 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 {{- $name := "" -}}
 {{- $email := "" -}}
 {{- $gpg_key := "" -}}
+{{- $gemini_api_key := "" -}}
 
 {{- if $noninteractive }}
   {{- $name = env "GIT_USER_NAME" }}
@@ -17,6 +18,8 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   {{- if and (eq $email "") (hasKey . "email") }}{{ $email = index . "email" }}{{ end }}
   {{- $gpg_key = env "GPG_KEY" }}
   {{- if and (eq $gpg_key "") (hasKey . "gpg_signing_key") }}{{ $gpg_key = index . "gpg_signing_key" }}{{ end }}
+  {{- $gemini_api_key = env "GEMINI_API_KEY" }}
+  {{- if and (eq $gemini_api_key "") (hasKey . "gemini_api_key") }}{{ $gemini_api_key = index . "gemini_api_key" }}{{ end }}
   {{- if or (eq $name "") (eq $email "") }}
     {{ fail "DOTFILES_NONINTERACTIVE=1 requires GIT_USER_NAME and GIT_USER_EMAIL (no saved identity found)" }}
   {{- end }}
@@ -27,6 +30,8 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   {{- if eq $email "" }}{{ $email = promptStringOnce . "email" "Git user.email" }}{{ end }}
   {{- $gpg_key = env "GPG_KEY" }}
   {{- if eq $gpg_key "" }}{{ $gpg_key = promptStringOnce . "gpg_signing_key" "GPG key fingerprint (leave blank to skip)" }}{{ end }}
+  {{- $gemini_api_key = env "GEMINI_API_KEY" }}
+  {{- if eq $gemini_api_key "" }}{{ $gemini_api_key = promptStringOnce . "gemini_api_key" "Gemini API key for aicommits (leave blank to skip)" }}{{ end }}
 {{- end }}
 
 [data]
@@ -35,6 +40,7 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   email = {{ $email | quote }}
   gpg_signing_key = {{ $gpg_key | quote }}
   github_token = ""
+  gemini_api_key = {{ $gemini_api_key | quote }}
   aeos_repo_url = "https://github.com/aadil/autonomous-engineering-os.git"
   aeos_dir = "$HOME/.aeos"
   anchor_bin_dir = "$HOME/.local/bin"

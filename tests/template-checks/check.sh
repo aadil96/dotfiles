@@ -158,6 +158,31 @@ if ! grep -q 'systemd' /proc/1/comm 2>/dev/null; then
   fi
 fi
 
+# Configs written before gemini_api_key existed have no [data] key. chezmoi
+# templates use missingkey=error, so a direct .gemini_api_key lookup fails apply.
+cfg="$XDG_CONFIG_HOME/chezmoi/chezmoi.toml"
+if [ -f "$cfg" ] && grep -q 'gemini_api_key' "$cfg"; then
+  mv "$cfg" "$cfg.bak"
+  grep -v 'gemini_api_key' "$cfg.bak" >"$cfg"
+  nokey_ignore="$TH/ignore-nokey"
+  nokey_ai="$TH/aicommits-nokey"
+  set +e
+  ( cd "$REPO" && DOTFILES_NONINTERACTIVE=1 GIT_USER_NAME=T GIT_USER_EMAIL=t@e \
+      "$CHEZ" execute-template --source "$REPO" <"$REPO/.chezmoiignore.tmpl" >"$nokey_ignore" 2>"$nokey_ignore.err" )
+  nokey_rc=$?
+  ( cd "$REPO" && DOTFILES_NONINTERACTIVE=1 GIT_USER_NAME=T GIT_USER_EMAIL=t@e \
+      "$CHEZ" execute-template --source "$REPO" <"$REPO/private_dot_aicommits.tmpl" >"$nokey_ai" 2>"$nokey_ai.err" )
+  nokey_ai_rc=$?
+  set -e
+  mv "$cfg.bak" "$cfg"
+  if [ "$nokey_rc" -ne 0 ] || ! grep -q '^\.aicommits$' "$nokey_ignore"; then
+    FAILED_FILES+=(".chezmoiignore.tmpl missing gemini_api_key should ignore .aicommits ($(tr '\n' ' ' <"$nokey_ignore.err" 2>/dev/null))")
+  fi
+  if [ "$nokey_ai_rc" -ne 0 ] || grep -q 'OPENAI_API_KEY' "$nokey_ai"; then
+    FAILED_FILES+=("private_dot_aicommits.tmpl missing gemini_api_key should render without a key ($(tr '\n' ' ' <"$nokey_ai.err" 2>/dev/null))")
+  fi
+fi
+
 # optional nicety: shellcheck rendered hooks (error level only) when available
 if command -v shellcheck >/dev/null 2>&1 && ls "$SHELL_DIR"/*.sh >/dev/null 2>&1; then
   set +e
