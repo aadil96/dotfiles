@@ -67,6 +67,7 @@ Unattended runs never prompt: missing `GIT_USER_NAME`/`GIT_USER_EMAIL` aborts wi
 | --- | --- |
 | `GIT_USER_NAME`, `GIT_USER_EMAIL` | Git identity; required. Env overrides saved config and interactive prompts. |
 | `GPG_KEY` | GPG key fingerprint. Empty/absent means Git signing is not configured. |
+| `GEMINI_API_KEY` | Gemini key for `~/.aicommits`. Empty/absent skips that file. Env overrides a saved answer. Never commit the key. |
 | `DOTFILES_NONINTERACTIVE=1` | No prompts; missing required values abort clearly. |
 | `TAILSCALE_AUTHKEY` | Tailscale enrollment, explicit opt-in. Set at install time to enroll. Runtime env only — never persisted or written to generated files. |
 | `TAILSCALE_SSH=1` | Opt into remote SSH access on `tailscale up` (off by default). |

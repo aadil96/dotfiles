@@ -1,0 +1,7 @@
+{{- if .gemini_api_key -}}
+OPENAI_API_KEY={{ .gemini_api_key }}
+{{ end -}}
+OPENAI_BASE_URL=https://generativelanguage.googleapis.com/v1beta
+OPENAI_MODEL=gemini-3-flash-preview
+locale=en
+type=conventional
