@@ -760,64 +760,75 @@ url = "https://github.com/ifd3f/caligula/releases/download/v0.5.0/caligula-x86_6
 url_api = "https://api.github.com/repos/ifd3f/caligula/releases/assets/426556662"
 
 [[tools."github:nushell/nushell"]]
-version = "0.108.0"
+version = "0.117.0"
 backend = "github:nushell/nushell"
-specifiers = ["0.108.0"]
+specifiers = ["0.117.0"]
 
 [tools."github:nushell/nushell"."platforms.linux-arm64"]
-checksum = "sha256:adbe9a5b438eb258d43a40442f87cfac31a88a0c5a5ec2363cb5dcd3d807dbd2"
-url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-aarch64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304563858"
+checksum = "sha256:e1a4ff6baa2d7976bb51eccfd44295a871cdd0bc69890a5e9b3b83a0abd9acb1"
+checksum_source = "mise-versions"
+url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729060198"
 
 [tools."github:nushell/nushell"."platforms.linux-arm64-musl"]
-checksum = "sha256:c9805f2f3115ca867368e67cce0dc3b5a13ca165a25372627d31c8bc7dee777a"
-url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304563809"
+checksum = "sha256:19966b94ae19f52e2cf0402cb99844ddfa06e2361cf6c77b1b2e29abd17e9188"
+checksum_source = "mise-versions"
+url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729047177"
 
 [tools."github:nushell/nushell"."platforms.linux-x64"]
-checksum = "sha256:f0daaa0256b0f7dd5f4d9925b4d5522d8de5e947ed9ad64a43526e5cffeb05df"
-url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304563424"
+checksum = "sha256:33b907da92b0e80bd10fea9fa0e8a1624cabfebd89ee2568e365da3c492ffc68"
+checksum_source = "mise-versions"
+url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729055920"
 
 [tools."github:nushell/nushell"."platforms.linux-x64-baseline"]
-checksum = "sha256:f0daaa0256b0f7dd5f4d9925b4d5522d8de5e947ed9ad64a43526e5cffeb05df"
-url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304563424"
+checksum = "sha256:33b907da92b0e80bd10fea9fa0e8a1624cabfebd89ee2568e365da3c492ffc68"
+checksum_source = "mise-versions"
+url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729055920"
 
 [tools."github:nushell/nushell"."platforms.linux-x64-musl"]
-checksum = "sha256:3a3695d3fbaae1553229e263143ee02359f703efbc982bb1b475d2769d4ff6d9"
-url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304563563"
+checksum = "sha256:2b808786d44af41170a29f8b9a15b5113bb6ea5dda9221098eca932f8a149924"
+checksum_source = "mise-versions"
+url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729056401"
 
 [tools."github:nushell/nushell"."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:3a3695d3fbaae1553229e263143ee02359f703efbc982bb1b475d2769d4ff6d9"
-url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304563563"
+checksum = "sha256:2b808786d44af41170a29f8b9a15b5113bb6ea5dda9221098eca932f8a149924"
+checksum_source = "mise-versions"
+url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729056401"
 
 [tools."github:nushell/nushell"."platforms.macos-arm64"]
-checksum = "sha256:21a11b4eb804f4bb7ce67bb18d90d227824d271e19e9f88da15733691888b916"
-url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-aarch64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304565606"
+checksum = "sha256:1d0e642ef3bff22113a82749a0fa24a0126f4fea0db46a5909e56e94a4b57527"
+checksum_source = "mise-versions"
+url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729066896"
 
 [tools."github:nushell/nushell"."platforms.macos-x64"]
-checksum = "sha256:7f5fb53a5208b36b8b0276f53ab78ca61e7f5fa4f122d0efd8a94f8db83bccb4"
-url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-x86_64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304565484"
+checksum = "sha256:f44a99227d1fd19d7da9b4a60adbe32bf45700dc25f1a3cb08e4979dee0c1b2f"
+checksum_source = "mise-versions"
+url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-x86_64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729050536"
 
 [tools."github:nushell/nushell"."platforms.macos-x64-baseline"]
-checksum = "sha256:7f5fb53a5208b36b8b0276f53ab78ca61e7f5fa4f122d0efd8a94f8db83bccb4"
-url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-x86_64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304565484"
+checksum = "sha256:f44a99227d1fd19d7da9b4a60adbe32bf45700dc25f1a3cb08e4979dee0c1b2f"
+checksum_source = "mise-versions"
+url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-x86_64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729050536"
 
 [tools."github:nushell/nushell"."platforms.windows-x64"]
-checksum = "sha256:425a423950bbbec95f1e879fe036fd861cbbcbba9bef03398a4057f9febe7de8"
-url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-x86_64-pc-windows-msvc.zip"
-url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304567776"
+checksum = "sha256:8a135f25d3f22f1542107eb117e94628af35ce65402cbc098bfb26914227d3b2"
+checksum_source = "mise-versions"
+url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-x86_64-pc-windows-msvc.zip"
+url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729111223"
 
 [tools."github:nushell/nushell"."platforms.windows-x64-baseline"]
-checksum = "sha256:425a423950bbbec95f1e879fe036fd861cbbcbba9bef03398a4057f9febe7de8"
-url = "https://github.com/nushell/nushell/releases/download/0.108.0/nu-0.108.0-x86_64-pc-windows-msvc.zip"
-url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/304567776"
+checksum = "sha256:8a135f25d3f22f1542107eb117e94628af35ce65402cbc098bfb26914227d3b2"
+checksum_source = "mise-versions"
+url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-x86_64-pc-windows-msvc.zip"
+url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729111223"
 
 [[tools."github:supabase/cli"]]
 version = "2.98.2"
