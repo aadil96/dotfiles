@@ -1032,64 +1032,75 @@ url = "https://github.com/jj-vcs/jj/releases/download/v0.47.1/jj-v0.47.1-x86_64-
 url_api = "https://api.github.com/repos/jj-vcs/jj/releases/assets/711497973"
 
 [[tools.lazygit]]
-version = "0.57.0"
+version = "0.66.3"
 backend = "aqua:jesseduffield/lazygit"
-specifiers = ["0.57.0"]
+specifiers = ["0.66.3"]
 
 [tools.lazygit."platforms.linux-arm64"]
-checksum = "sha256:6bc14dcfafe943363226ed2a2c222d5dda68247acc9bdc382d129dd7fe98f985"
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.57.0/lazygit_0.57.0_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/325142355"
+checksum = "sha256:ac0b48237f3d0283813e7154ec063237e519532feb0470c0881a1793ee78fd42"
+checksum_source = "mise-versions"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.66.3/lazygit_0.66.3_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/722269035"
 
 [tools.lazygit."platforms.linux-arm64-musl"]
-checksum = "sha256:6bc14dcfafe943363226ed2a2c222d5dda68247acc9bdc382d129dd7fe98f985"
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.57.0/lazygit_0.57.0_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/325142355"
+checksum = "sha256:ac0b48237f3d0283813e7154ec063237e519532feb0470c0881a1793ee78fd42"
+checksum_source = "mise-versions"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.66.3/lazygit_0.66.3_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/722269035"
 
 [tools.lazygit."platforms.linux-x64"]
-checksum = "sha256:ced011ecd1459d069c66128fbf172b7248c8b99d8983fa17d84a247a98146d5e"
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.57.0/lazygit_0.57.0_linux_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/325142339"
+checksum = "sha256:0a23f429a95f0d09db298b3c291536d818de066aa5a85c255806f0490ff6656b"
+checksum_source = "mise-versions"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.66.3/lazygit_0.66.3_linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/722268995"
 
 [tools.lazygit."platforms.linux-x64-baseline"]
-checksum = "sha256:ced011ecd1459d069c66128fbf172b7248c8b99d8983fa17d84a247a98146d5e"
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.57.0/lazygit_0.57.0_linux_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/325142339"
+checksum = "sha256:0a23f429a95f0d09db298b3c291536d818de066aa5a85c255806f0490ff6656b"
+checksum_source = "mise-versions"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.66.3/lazygit_0.66.3_linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/722268995"
 
 [tools.lazygit."platforms.linux-x64-musl"]
-checksum = "sha256:ced011ecd1459d069c66128fbf172b7248c8b99d8983fa17d84a247a98146d5e"
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.57.0/lazygit_0.57.0_linux_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/325142339"
+checksum = "sha256:0a23f429a95f0d09db298b3c291536d818de066aa5a85c255806f0490ff6656b"
+checksum_source = "mise-versions"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.66.3/lazygit_0.66.3_linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/722268995"
 
 [tools.lazygit."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:ced011ecd1459d069c66128fbf172b7248c8b99d8983fa17d84a247a98146d5e"
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.57.0/lazygit_0.57.0_linux_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/325142339"
+checksum = "sha256:0a23f429a95f0d09db298b3c291536d818de066aa5a85c255806f0490ff6656b"
+checksum_source = "mise-versions"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.66.3/lazygit_0.66.3_linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/722268995"
 
 [tools.lazygit."platforms.macos-arm64"]
-checksum = "sha256:e90dd90c37bb012f1fe708e7f3d32d28747c8638c75a45268734c5e33277c3d0"
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.57.0/lazygit_0.57.0_darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/325142338"
+checksum = "sha256:6873e6b7a538b521c4d7ff3f76ec49e6dcafa41e6053a6aae33c12f62663e163"
+checksum_source = "mise-versions"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.66.3/lazygit_0.66.3_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/722268996"
 
 [tools.lazygit."platforms.macos-x64"]
-checksum = "sha256:c34dd41ba01007b3684fd84761f7103dba4af087785200fa1d355a253acd31a2"
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.57.0/lazygit_0.57.0_darwin_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/325142340"
+checksum = "sha256:f6c116c09b960842351e3e142cc8be1784de611f19d09920421bd7639cccd30b"
+checksum_source = "mise-versions"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.66.3/lazygit_0.66.3_darwin_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/722269090"
 
 [tools.lazygit."platforms.macos-x64-baseline"]
-checksum = "sha256:c34dd41ba01007b3684fd84761f7103dba4af087785200fa1d355a253acd31a2"
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.57.0/lazygit_0.57.0_darwin_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/325142340"
+checksum = "sha256:f6c116c09b960842351e3e142cc8be1784de611f19d09920421bd7639cccd30b"
+checksum_source = "mise-versions"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.66.3/lazygit_0.66.3_darwin_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/722269090"
 
 [tools.lazygit."platforms.windows-x64"]
-checksum = "sha256:775a210b3becd262a067d75be33d3d0ecd58cbc2dde3a36ca74e4757b080618c"
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.57.0/lazygit_0.57.0_windows_x86_64.zip"
-url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/325142360"
+checksum = "sha256:a76fe17339fd387c20addc09060f07c240e4b20a9f55fee4ad7c86a251c0741e"
+checksum_source = "mise-versions"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.66.3/lazygit_0.66.3_windows_x86_64.zip"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/722269081"
 
 [tools.lazygit."platforms.windows-x64-baseline"]
-checksum = "sha256:775a210b3becd262a067d75be33d3d0ecd58cbc2dde3a36ca74e4757b080618c"
-url = "https://github.com/jesseduffield/lazygit/releases/download/v0.57.0/lazygit_0.57.0_windows_x86_64.zip"
-url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/325142360"
+checksum = "sha256:a76fe17339fd387c20addc09060f07c240e4b20a9f55fee4ad7c86a251c0741e"
+checksum_source = "mise-versions"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.66.3/lazygit_0.66.3_windows_x86_64.zip"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/722269081"
 
 [[tools.lsd]]
 version = "1.2.0"
