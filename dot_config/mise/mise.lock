@@ -384,53 +384,53 @@ url = "https://github.com/cloudflare/cloudflared/releases/download/2026.11.2/clo
 url_api = "https://api.github.com/repos/cloudflare/cloudflared/releases/assets/783002883"
 
 [[tools.deno]]
-version = "2.7.14"
+version = "2.9.8"
 backend = "core:deno"
-specifiers = ["2.7.14"]
+specifiers = ["2.9.8"]
 
 [tools.deno."platforms.linux-arm64"]
-checksum = "sha256:b815c919452b5993a7c22df018a88c2f706eea6b5e0aa7802b2b0709edde01e8"
-url = "https://dl.deno.land/release/v2.7.14/deno-aarch64-unknown-linux-gnu.zip"
+checksum = "sha256:2664fcd6a58a37676449e5750ef2140cd46c18f2bbc08be0e03cbcb26ca4de22"
+url = "https://dl.deno.land/release/v2.9.8/deno-aarch64-unknown-linux-gnu.zip"
 
 [tools.deno."platforms.linux-arm64-musl"]
-checksum = "sha256:b815c919452b5993a7c22df018a88c2f706eea6b5e0aa7802b2b0709edde01e8"
-url = "https://dl.deno.land/release/v2.7.14/deno-aarch64-unknown-linux-gnu.zip"
+checksum = "sha256:2664fcd6a58a37676449e5750ef2140cd46c18f2bbc08be0e03cbcb26ca4de22"
+url = "https://dl.deno.land/release/v2.9.8/deno-aarch64-unknown-linux-gnu.zip"
 
 [tools.deno."platforms.linux-x64"]
-checksum = "sha256:3287efef53606966469cb6a02781327be22b908959397f976e2996dc1b64ae0f"
-url = "https://dl.deno.land/release/v2.7.14/deno-x86_64-unknown-linux-gnu.zip"
+checksum = "sha256:a39762429792913fe762ef0b59c9cba41dbd38195984da99221a193b13d97b40"
+url = "https://dl.deno.land/release/v2.9.8/deno-x86_64-unknown-linux-gnu.zip"
 
 [tools.deno."platforms.linux-x64-baseline"]
-checksum = "sha256:3287efef53606966469cb6a02781327be22b908959397f976e2996dc1b64ae0f"
-url = "https://dl.deno.land/release/v2.7.14/deno-x86_64-unknown-linux-gnu.zip"
+checksum = "sha256:a39762429792913fe762ef0b59c9cba41dbd38195984da99221a193b13d97b40"
+url = "https://dl.deno.land/release/v2.9.8/deno-x86_64-unknown-linux-gnu.zip"
 
 [tools.deno."platforms.linux-x64-musl"]
-checksum = "sha256:3287efef53606966469cb6a02781327be22b908959397f976e2996dc1b64ae0f"
-url = "https://dl.deno.land/release/v2.7.14/deno-x86_64-unknown-linux-gnu.zip"
+checksum = "sha256:a39762429792913fe762ef0b59c9cba41dbd38195984da99221a193b13d97b40"
+url = "https://dl.deno.land/release/v2.9.8/deno-x86_64-unknown-linux-gnu.zip"
 
 [tools.deno."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:3287efef53606966469cb6a02781327be22b908959397f976e2996dc1b64ae0f"
-url = "https://dl.deno.land/release/v2.7.14/deno-x86_64-unknown-linux-gnu.zip"
+checksum = "sha256:a39762429792913fe762ef0b59c9cba41dbd38195984da99221a193b13d97b40"
+url = "https://dl.deno.land/release/v2.9.8/deno-x86_64-unknown-linux-gnu.zip"
 
 [tools.deno."platforms.macos-arm64"]
-checksum = "sha256:aeb5825f83b4a9cd7f9355a1c4ddd666205dacf76ccb7b98c2b10e066bc9e4bb"
-url = "https://dl.deno.land/release/v2.7.14/deno-aarch64-apple-darwin.zip"
+checksum = "sha256:5882caa6c9b7ab7adb06f23ec1894ac5bec0b1a5df1195157f75829a0d3cb651"
+url = "https://dl.deno.land/release/v2.9.8/deno-aarch64-apple-darwin.zip"
 
 [tools.deno."platforms.macos-x64"]
-checksum = "sha256:c89149513bf8e82ab5b351dac544f8c0cada90753bd2f576f46325fb67997ae1"
-url = "https://dl.deno.land/release/v2.7.14/deno-x86_64-apple-darwin.zip"
+checksum = "sha256:05968936d544988b3e0116c9a07204e246956f78476ae5000652f2a9e2e4d075"
+url = "https://dl.deno.land/release/v2.9.8/deno-x86_64-apple-darwin.zip"
 
 [tools.deno."platforms.macos-x64-baseline"]
-checksum = "sha256:c89149513bf8e82ab5b351dac544f8c0cada90753bd2f576f46325fb67997ae1"
-url = "https://dl.deno.land/release/v2.7.14/deno-x86_64-apple-darwin.zip"
+checksum = "sha256:05968936d544988b3e0116c9a07204e246956f78476ae5000652f2a9e2e4d075"
+url = "https://dl.deno.land/release/v2.9.8/deno-x86_64-apple-darwin.zip"
 
 [tools.deno."platforms.windows-x64"]
-checksum = "sha256:25f9871f5c1d9e999d60071f8069767134495fd601d2e2c7ce1e8c641487bda0"
-url = "https://dl.deno.land/release/v2.7.14/deno-x86_64-pc-windows-msvc.zip"
+checksum = "sha256:b0f654158ad3edaee34cf6aa8d39695f242d3b122753f6fb965261b9c7986f24"
+url = "https://dl.deno.land/release/v2.9.8/deno-x86_64-pc-windows-msvc.zip"
 
 [tools.deno."platforms.windows-x64-baseline"]
-checksum = "sha256:25f9871f5c1d9e999d60071f8069767134495fd601d2e2c7ce1e8c641487bda0"
-url = "https://dl.deno.land/release/v2.7.14/deno-x86_64-pc-windows-msvc.zip"
+checksum = "sha256:b0f654158ad3edaee34cf6aa8d39695f242d3b122753f6fb965261b9c7986f24"
+url = "https://dl.deno.land/release/v2.9.8/deno-x86_64-pc-windows-msvc.zip"
 
 [[tools.doggo]]
 version = "1.4.2"
