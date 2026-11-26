@@ -1271,9 +1271,9 @@ specifiers = ["latest"]
 allow_builds = '["openclaw"]'
 
 [[tools."npm:wrangler"]]
-version = "4.88.0"
+version = "4.168.0"
 backend = "npm:wrangler"
-specifiers = ["4.88.0"]
+specifiers = ["4.168.0"]
 
 [[tools.ripgrep]]
 version = "16.0.0"
