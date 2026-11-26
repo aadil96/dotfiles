@@ -301,9 +301,6 @@ symbol = "⚠️"
 style = "bg:lavender fg:crust"
 format = "[](lavender)[$symbol]($style)[ ](fg:lavender)"
 
-[gcloud]
-disabled = true
-
 [aws]
 style = "bg:sapphire fg:crust"
 format = '[ on AWS ($profile )(\($region\) )(\[$duration\] )]($style)'
