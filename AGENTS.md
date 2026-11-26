@@ -61,7 +61,7 @@ Before merging any change touching the above: run `tests/template-checks/check.s
 ## Security
 
 - `private_*` prefix = never commit to git
-- GPG config in `dot_gnupg/`
+- GPG config in `private_dot_gnupg/` (`private_` makes `~/.gnupg` mode 0700; the files are tracked because they contain no secrets)
 - `.chezmoiignore` uses gitignore semantics only — does NOT redact secrets
 - Never hardcode secrets; use `.chezmoi.toml.tmpl` env vars or prompts
 
@@ -76,8 +76,8 @@ Before merging any change touching the above: run `tests/template-checks/check.s
 | Shell config | `dot_bashrc.tmpl`, `dot_zshrc.tmpl` | |
 | Bootstrap logic | `setup` | |
 | Branch rules | `BRANCHING.md` | |
-| GPG agent config | `dot_gnupg/gpg-agent.conf` | Allows preset passphrase |
-| GPG crypto settings | `dot_gnupg/gpg.conf` | Digest/cipher preferences |
+| GPG agent config | `private_dot_gnupg/gpg-agent.conf` | Allows preset passphrase |
+| GPG crypto settings | `private_dot_gnupg/gpg.conf` | Digest/cipher preferences |
 | GPG signing preset | `dot_local/bin/executable_gpg-sign-preset.tmpl` | Silent preset at login/shell start |
 | GPG systemd service | `dot_config/systemd/user/gpg-sign-preset.service` | Presets passphrase at login |
 | Sandbox install tests | CI Sandbox jobs | `tests/sandbox/run.sh` and `macos-run.sh` run in CI, not on a laptop, unless the owner asks |

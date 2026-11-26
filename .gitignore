@@ -8,6 +8,9 @@ node_modules/*
 private_*
 # Template only; the key is chezmoi data, not this file. private_ sets mode 0600.
 !private_dot_aicommits.tmpl
+# No secrets. private_ sets ~/.gnupg to 0700.
+!private_dot_gnupg/
+!private_dot_gnupg/**
 SESSION_STATE.md
 # Claude Code machine-local permissions. Not shared config.
 .claude/settings.local.json
