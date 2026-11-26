@@ -11,7 +11,7 @@ github-cli = "2.82.1"
 jj = "0.34.0"
 lsd = "1.2.0"
 node = "26.6.0"
-ripgrep = "14.1.1"
+ripgrep = "16.0.0"
 starship = "1.23.0"
 "github:nushell/nushell" = { version = "0.108.0", filter_bins = "nu" }
 zellij = "0.43.0"
