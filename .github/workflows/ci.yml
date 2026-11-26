@@ -17,7 +17,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: ShellCheck
         uses: reviewdog/action-shellcheck@v1
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install chezmoi
         run: |
@@ -59,7 +59,7 @@ jobs:
       matrix:
         distro: [ubuntu, debian, fedora, arch]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Run sandbox install suite
         run: tests/sandbox/run.sh --distro ${{ matrix.distro }}
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 75
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Run sandbox full lane
         run: tests/sandbox/run.sh --distro ubuntu --full
@@ -79,7 +79,7 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Run macOS core install verification
         run: tests/sandbox/macos-run.sh
