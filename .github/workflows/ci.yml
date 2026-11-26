@@ -33,6 +33,19 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-check
 
+      # mise lock --check needs >= 2026.11.12 (false failures for platforms
+      # with no build were fixed in that release). The repo lock is
+      # dot_config/mise/mise.lock; checking from the repo root or with -g
+      # before chezmoi apply reports no tools and exits 0.
+      - name: Check mise.lock matches pins
+        run: |
+          set -euo pipefail
+          curl -fsSL https://mise.run | MISE_VERSION=v2026.11.14 sh
+          mise="$HOME/.local/bin/mise"
+          "$mise" --version
+          "$mise" trust dot_config/mise/mise.toml
+          "$mise" -C dot_config/mise lock --check
+
   template-checks:
     name: Template checks
     runs-on: ubuntu-latest
