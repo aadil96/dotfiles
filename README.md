@@ -18,7 +18,7 @@ This repository contains my personal dotfiles, managed with [chezmoi](https://ww
 ├── .devcontainer/             # VS Code Dev Container config (Dockerfile, devcontainer.json)
 ├── dot_*                      # Dotfiles (bashrc, gitconfig, tmux, wezterm, zshrc, etc.)
 ├── dot_config/                # XDG config files (alacritty, git, k9s, mise, nvim, starship, systemd, zellij, zsh)
-├── dot_gnupg/                 # GPG config (gpg-agent.conf, gpg.conf)
+├── private_dot_gnupg/         # GPG config (gpg-agent.conf, gpg.conf); private_ sets ~/.gnupg to 0700
 ├── setup                      # Legacy bootstrap script (local clone-based)
 ```
 
