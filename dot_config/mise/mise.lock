@@ -842,74 +842,75 @@ url = "https://github.com/nushell/nushell/releases/download/0.117.0/nu-0.117.0-x
 url_api = "https://api.github.com/repos/nushell/nushell/releases/assets/729111223"
 
 [[tools."github:supabase/cli"]]
-version = "2.98.2"
+version = "3.4.0"
 backend = "github:supabase/cli"
-specifiers = ["2.98.2"]
+specifiers = ["3.4.0"]
 
 [tools."github:supabase/cli"."platforms.linux-arm64"]
-checksum = "sha256:d82f8533301cf24111c4a04d146cdb9c06a0496ed64c5a2f52f00a3cc55cbef7"
-checksum_source = "mise-versions"
-url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528299"
+checksum = "sha256:35f211ede3b4b6ae479cb6aaf6f323dbf56f7268dab503cf4f549b2973580402"
+url = "https://github.com/supabase/cli/releases/download/v3.4.0/supabase_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/787823203"
+provenance = "github-attestations"
 
 [tools."github:supabase/cli"."platforms.linux-arm64-musl"]
-checksum = "sha256:d82f8533301cf24111c4a04d146cdb9c06a0496ed64c5a2f52f00a3cc55cbef7"
-checksum_source = "mise-versions"
-url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528299"
+checksum = "sha256:35f211ede3b4b6ae479cb6aaf6f323dbf56f7268dab503cf4f549b2973580402"
+url = "https://github.com/supabase/cli/releases/download/v3.4.0/supabase_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/787823203"
+provenance = "github-attestations"
 
 [tools."github:supabase/cli"."platforms.linux-x64"]
-checksum = "sha256:0f59df9e6837e876f309e0b4f47005133c51296e85a02727b2927f33ed9adb2d"
-url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528301"
+checksum = "sha256:d82f8fc8a1611c45b9422b10378f61df614325f7e25624acda3704544513d6ac"
+url = "https://github.com/supabase/cli/releases/download/v3.4.0/supabase_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/787823510"
+provenance = "github-attestations"
 
 [tools."github:supabase/cli"."platforms.linux-x64-baseline"]
-checksum = "sha256:0f59df9e6837e876f309e0b4f47005133c51296e85a02727b2927f33ed9adb2d"
-checksum_source = "mise-versions"
-url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528301"
+checksum = "sha256:d82f8fc8a1611c45b9422b10378f61df614325f7e25624acda3704544513d6ac"
+url = "https://github.com/supabase/cli/releases/download/v3.4.0/supabase_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/787823510"
+provenance = "github-attestations"
 
 [tools."github:supabase/cli"."platforms.linux-x64-musl"]
-checksum = "sha256:0f59df9e6837e876f309e0b4f47005133c51296e85a02727b2927f33ed9adb2d"
-checksum_source = "mise-versions"
-url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528301"
+checksum = "sha256:d82f8fc8a1611c45b9422b10378f61df614325f7e25624acda3704544513d6ac"
+url = "https://github.com/supabase/cli/releases/download/v3.4.0/supabase_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/787823510"
+provenance = "github-attestations"
 
 [tools."github:supabase/cli"."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:0f59df9e6837e876f309e0b4f47005133c51296e85a02727b2927f33ed9adb2d"
-checksum_source = "mise-versions"
-url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528301"
+checksum = "sha256:d82f8fc8a1611c45b9422b10378f61df614325f7e25624acda3704544513d6ac"
+url = "https://github.com/supabase/cli/releases/download/v3.4.0/supabase_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/787823510"
+provenance = "github-attestations"
 
 [tools."github:supabase/cli"."platforms.macos-arm64"]
-checksum = "sha256:d29d34b2cc1299b98ae03202309962b692993e2b1934d45870912b26af89f03d"
-checksum_source = "mise-versions"
-url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528300"
+checksum = "sha256:630cf3f52821c33ed6023e7f395e1deaf5cc07c0a88b7e1aaf25966c1fca996d"
+url = "https://github.com/supabase/cli/releases/download/v3.4.0/supabase_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/787822825"
+provenance = "github-attestations"
 
 [tools."github:supabase/cli"."platforms.macos-x64"]
-checksum = "sha256:d11af509b945510ba01cb33d151b5749a687bfbaacb64a1a0d832c9cd1f12d30"
-checksum_source = "mise-versions"
-url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_darwin_amd64.tar.gz"
-url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528315"
+checksum = "sha256:1b15b8d81593b164bd5eedb97a8e6001c32c7a90c09ff5b45a24402bc71ed367"
+url = "https://github.com/supabase/cli/releases/download/v3.4.0/supabase_darwin_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/787822999"
+provenance = "github-attestations"
 
 [tools."github:supabase/cli"."platforms.macos-x64-baseline"]
-checksum = "sha256:d11af509b945510ba01cb33d151b5749a687bfbaacb64a1a0d832c9cd1f12d30"
-checksum_source = "mise-versions"
-url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_darwin_amd64.tar.gz"
-url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528315"
+checksum = "sha256:1b15b8d81593b164bd5eedb97a8e6001c32c7a90c09ff5b45a24402bc71ed367"
+url = "https://github.com/supabase/cli/releases/download/v3.4.0/supabase_darwin_amd64.tar.gz"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/787822999"
+provenance = "github-attestations"
 
 [tools."github:supabase/cli"."platforms.windows-x64"]
-checksum = "sha256:b2c923bcceed8451d4c332545dba15e87dbf4e2505d200cd3a8e25583ef2751d"
-checksum_source = "mise-versions"
-url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_windows_amd64.tar.gz"
-url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528313"
+checksum = "sha256:9f5dff7fd4aa42f88846e16c57bc4987eff6f04f47d07b1dc39b2f868b59aa7e"
+url = "https://github.com/supabase/cli/releases/download/v3.4.0/supabase_3.4.0_windows_amd64.zip"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/787822189"
+provenance = "github-attestations"
 
 [tools."github:supabase/cli"."platforms.windows-x64-baseline"]
-checksum = "sha256:b2c923bcceed8451d4c332545dba15e87dbf4e2505d200cd3a8e25583ef2751d"
-checksum_source = "mise-versions"
-url = "https://github.com/supabase/cli/releases/download/v2.98.2/supabase_windows_amd64.tar.gz"
-url_api = "https://api.github.com/repos/supabase/cli/releases/assets/412528313"
+checksum = "sha256:9f5dff7fd4aa42f88846e16c57bc4987eff6f04f47d07b1dc39b2f868b59aa7e"
+url = "https://github.com/supabase/cli/releases/download/v3.4.0/supabase_3.4.0_windows_amd64.zip"
+url_api = "https://api.github.com/repos/supabase/cli/releases/assets/787822189"
+provenance = "github-attestations"
 
 [[tools.go]]
 version = "1.25.6"
