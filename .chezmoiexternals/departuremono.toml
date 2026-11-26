@@ -1,4 +1,5 @@
 [".fonts"]
 type = "archive"
-url = "https://github.com/rektdeckard/departure-mono/releases/download/v1.422/DepartureMono-1.422.zip"
-exclude = ["LICENSE", "README.md"]
+url = "https://github.com/rektdeckard/departure-mono/releases/download/v1.500/DepartureMono-1.500.zip"
+stripComponents = 1
+exclude = ["**/LICENSE", "**/README.md"]

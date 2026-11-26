@@ -214,7 +214,7 @@
 - Run `chezmoi apply --refresh-externals` to force refresh
 - External resources defined in `.chezmoiexternal.toml`
 - Symptom: `mise ERROR mise version X.Y.Z is required, but you are using A.B.C` where `A.B.C < X.Y.Z`. The chezmoi external cached an older `mise-latest` artifact and overwrote a newer mise binary during apply. Fix: `chezmoi apply --refresh-externals` (forces re-download of all externals), or run `mise self-update` to let mise manage its own binary again.
-- **2026-11-23:** Departure Mono 1.422 is downloaded from the GitHub release, not `departuremono.com`. CI runs were failing with `Get "https://departuremono.com/assets/DepartureMono-1.422.zip": dial tcp 67.205.0.172:443: i/o timeout`. The GitHub zip (`v1.422`) is the same bytes. `exclude` still drops `LICENSE` and `README.md`, so `~/.fonts` still receives `DepartureMono-Regular.otf`, `.woff`, and `.woff2`.
+- **2026-11-23:** Departure Mono is downloaded from the GitHub release, not `departuremono.com`. CI runs were failing with `Get "https://departuremono.com/assets/DepartureMono-1.422.zip": dial tcp 67.205.0.172:443: i/o timeout`. The pin is [v1.500](https://github.com/rektdeckard/departure-mono/releases/tag/v1.500) (`DepartureMono-1.500.zip`). That zip nests files under `DepartureMono-1.500/`, so the external sets `stripComponents = 1` and excludes `**/LICENSE` and `**/README.md`. `~/.fonts` still receives `DepartureMono-Regular.otf`, `.woff`, and `.woff2`.
 
 ### Dev Container not building
 
