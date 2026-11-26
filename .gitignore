@@ -9,3 +9,5 @@ private_*
 # Template only; the key is chezmoi data, not this file. private_ sets mode 0600.
 !private_dot_aicommits.tmpl
 SESSION_STATE.md
+# Claude Code machine-local permissions. Not shared config.
+.claude/settings.local.json
