@@ -1258,9 +1258,9 @@ specifiers = ["latest"]
 allow_builds = '["@opencode/cli"]'
 
 [[tools."npm:aicommits"]]
-version = "3.1.2"
+version = "5.0.1"
 backend = "npm:aicommits"
-specifiers = ["3.1.2"]
+specifiers = ["5.0.1"]
 
 [[tools."npm:openclaw"]]
 version = "2026.11.1"
