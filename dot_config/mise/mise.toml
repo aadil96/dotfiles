@@ -22,7 +22,7 @@ cloudflared = "2026.11.2"
 go = "1.25.6"
 "github:supabase/cli" = "3.4.0"
 deno = "2.9.8"
-"npm:wrangler" = "4.88.0"
+"npm:wrangler" = "4.168.0"
 "npm:@opencode/cli" = { version = "latest", auto_update = "24h", allow_builds = ["@opencode/cli"] }
 "npm:@google/gemini-cli" = "0.41.2"
 "npm:aicommits" = "3.1.2"
