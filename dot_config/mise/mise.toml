@@ -14,7 +14,7 @@ node = "26.6.0"
 ripgrep = "16.0.0"
 starship = "1.27.0"
 "github:nushell/nushell" = { version = "0.117.0", filter_bins = "nu" }
-zellij = "0.43.0"
+zellij = "0.46.1"
 zoxide = "0.10.0"
 lazygit = "0.66.3"
 cloudflared = "2026.11.2"

@@ -1542,58 +1542,75 @@ url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/469655815"
 provenance = "github-attestations"
 
 [[tools.zellij]]
-version = "0.43.0"
+version = "0.46.1"
 backend = "aqua:zellij-org/zellij"
-specifiers = ["0.43.0"]
-unsupported_platforms = [
-    "windows-x64",
-    "windows-x64-baseline",
-]
+specifiers = ["0.46.1"]
 
 [tools.zellij."platforms.linux-arm64"]
-checksum = "sha256:8b237b1dd7f0d2634e985347db8cad0cd5d67cfe01194f1b940abd89aff83e55"
-url = "https://github.com/zellij-org/zellij/releases/download/v0.43.0/zellij-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/279471578"
+checksum = "sha256:f2ff1bc9dddda79d7c019dfb17f95b3c8a180b1fb2011ee339c6882711ae9bbd"
+checksum_source = "mise-versions"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.46.1/zellij-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/786102743"
 
 [tools.zellij."platforms.linux-arm64-musl"]
-checksum = "sha256:8b237b1dd7f0d2634e985347db8cad0cd5d67cfe01194f1b940abd89aff83e55"
-url = "https://github.com/zellij-org/zellij/releases/download/v0.43.0/zellij-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/279471578"
+checksum = "sha256:5371af1eae34a22da0fdc0a2d4c4bff648e3e75345adb341f14d93d678487c5c"
+checksum_source = "mise-versions"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.46.1/zellij-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/786106198"
 
 [tools.zellij."platforms.linux-x64"]
-checksum = "sha256:00070e052a86e3072dbd626cc0a0295106e7ed74c42871ba38185d4ebbcae58a"
-url = "https://github.com/zellij-org/zellij/releases/download/v0.43.0/zellij-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/279471561"
+checksum = "sha256:5bbfb977f383b78e9c3cc9342511f9a84d05f2283fb53f158737dcea2d59e2a6"
+checksum_source = "mise-versions"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.46.1/zellij-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/786116478"
 
 [tools.zellij."platforms.linux-x64-baseline"]
-checksum = "sha256:00070e052a86e3072dbd626cc0a0295106e7ed74c42871ba38185d4ebbcae58a"
-url = "https://github.com/zellij-org/zellij/releases/download/v0.43.0/zellij-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/279471561"
+checksum = "sha256:5bbfb977f383b78e9c3cc9342511f9a84d05f2283fb53f158737dcea2d59e2a6"
+checksum_source = "mise-versions"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.46.1/zellij-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/786116478"
 
 [tools.zellij."platforms.linux-x64-musl"]
-checksum = "sha256:00070e052a86e3072dbd626cc0a0295106e7ed74c42871ba38185d4ebbcae58a"
-url = "https://github.com/zellij-org/zellij/releases/download/v0.43.0/zellij-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/279471561"
+checksum = "sha256:1633211357c236053b51d1ae6415c23f7ff71aaae8e087315e499ceca1b17fa4"
+checksum_source = "mise-versions"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.46.1/zellij-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/786103951"
 
 [tools.zellij."platforms.linux-x64-musl-baseline"]
-checksum = "sha256:00070e052a86e3072dbd626cc0a0295106e7ed74c42871ba38185d4ebbcae58a"
-url = "https://github.com/zellij-org/zellij/releases/download/v0.43.0/zellij-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/279471561"
+checksum = "sha256:1633211357c236053b51d1ae6415c23f7ff71aaae8e087315e499ceca1b17fa4"
+checksum_source = "mise-versions"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.46.1/zellij-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/786103951"
 
 [tools.zellij."platforms.macos-arm64"]
-checksum = "sha256:03569f56e3f31d24471128169ba32be476c5dd25b261ae9193645bf7a2e52e7c"
-url = "https://github.com/zellij-org/zellij/releases/download/v0.43.0/zellij-aarch64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/279471579"
+checksum = "sha256:97ace8e179b98576debd963870424cf208e1ef4fc9bd6180e3c73ff1d798087d"
+checksum_source = "mise-versions"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.46.1/zellij-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/786127642"
 
 [tools.zellij."platforms.macos-x64"]
-checksum = "sha256:d4933b805e127cc60edb77cf9356995863eb484aa014bc2f90804384ce1bb852"
-url = "https://github.com/zellij-org/zellij/releases/download/v0.43.0/zellij-x86_64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/279470782"
+checksum = "sha256:39230d4f8306643c6051e76884bb5b1f038e0d41291862da62c9b1830c9a1504"
+checksum_source = "mise-versions"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.46.1/zellij-x86_64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/786140022"
 
 [tools.zellij."platforms.macos-x64-baseline"]
-checksum = "sha256:d4933b805e127cc60edb77cf9356995863eb484aa014bc2f90804384ce1bb852"
-url = "https://github.com/zellij-org/zellij/releases/download/v0.43.0/zellij-x86_64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/279470782"
+checksum = "sha256:39230d4f8306643c6051e76884bb5b1f038e0d41291862da62c9b1830c9a1504"
+checksum_source = "mise-versions"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.46.1/zellij-x86_64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/786140022"
+
+[tools.zellij."platforms.windows-x64"]
+checksum = "sha256:a2fe1b52ba8cd08d75a3a7ee8b9ecf66d8a8bbaf65ed6096a506f65a69a2c77b"
+checksum_source = "mise-versions"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.46.1/zellij-x86_64-pc-windows-msvc.zip"
+url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/786157533"
+
+[tools.zellij."platforms.windows-x64-baseline"]
+checksum = "sha256:a2fe1b52ba8cd08d75a3a7ee8b9ecf66d8a8bbaf65ed6096a506f65a69a2c77b"
+checksum_source = "mise-versions"
+url = "https://github.com/zellij-org/zellij/releases/download/v0.46.1/zellij-x86_64-pc-windows-msvc.zip"
+url_api = "https://api.github.com/repos/zellij-org/zellij/releases/assets/786157533"
 
 [[tools.zoxide]]
 version = "0.10.0"
