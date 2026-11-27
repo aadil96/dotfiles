@@ -72,6 +72,7 @@ Before merging any change touching the above: run `tests/template-checks/check.s
 | chezmoi config + template vars | `.chezmoi.toml.tmpl` | |
 | Install contract + env vars | docs/portable-install-plan.md, README.md | One-command install invariants |
 | Tool versions | `dot_config/mise/mise.toml` | |
+| Dependency updates | `renovate.json` | Weekly mise pin and GitHub Actions PRs. `dot_config/nvim/lazy-lock.json` and `.chezmoiexternals/` font URLs stay manual. |
 | OpenCode config | `.opencode/ocx.jsonc` | |
 | Shell config | `dot_bashrc.tmpl`, `dot_zshrc.tmpl` | |
 | Bootstrap logic | `setup` | |

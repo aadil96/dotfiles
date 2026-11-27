@@ -77,6 +77,10 @@
 - Ensure the source directory exists: `~/.local/share/chezmoi`
 - If cloning fresh: `chezmoi init --apply https://github.com/aadil96/dotfiles.git`
 
+### Dependency updates
+
+Renovate (`renovate.json`) opens the weekly pull requests for mise pins in `dot_config/mise/mise.toml` and for GitHub Actions. The lock file is `dot_config/mise/mise.lock`, beside that config, so a pin bump updates the lock with the pin. Neovim `dot_config/nvim/lazy-lock.json` and font URLs under `.chezmoiexternals/` (Departure Mono) are not covered; refresh those by hand.
+
 ### mise install fails
 
 - Check `dot_config/mise/mise.toml` for pinned versions
