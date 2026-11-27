@@ -10,7 +10,7 @@ fzf = "0.75.0"
 github-cli = "2.106.0"
 jj = "0.47.1"
 lsd = "1.2.0"
-node = "26.6.0"
+node = "26.13.1"
 ripgrep = "16.0.0"
 starship = "1.27.0"
 "github:nushell/nushell" = { version = "0.117.0", filter_bins = "nu" }
