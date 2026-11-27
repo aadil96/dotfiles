@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommitTypeAll(chore)",
+    ":semanticCommitScopeDisabled"
+  ],
+  "ignorePresets": ["group:monorepos", "group:recommended"],
+  "enabledManagers": ["mise", "github-actions"],
+  "mise": {
+    "managerFilePatterns": ["dot_config/mise/mise.toml"]
+  },
+  "schedule": ["before 9am on monday"],
+  "timezone": "Asia/Kolkata",
+  "automerge": false,
+  "prConcurrentLimit": 5,
+  "labels": ["dependencies"],
+  "commitMessageAction": "Bump",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}"
+}

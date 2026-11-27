@@ -129,6 +129,12 @@ DevPod is supported via `.chezmoiexternals/devpod.toml`, which ensures the DevPo
 
 ---
 
+## Dependency updates
+
+[Renovate](https://docs.renovatebot.com/) (`renovate.json`) opens weekly pull requests for mise tool pins in `dot_config/mise/mise.toml` and for GitHub Actions. `dot_config/mise/mise.lock` sits next to that config, so a pin bump includes the lock update. Neovim's `dot_config/nvim/lazy-lock.json` and font URLs under `.chezmoiexternals/` (Departure Mono) are not covered and stay manual.
+
+---
+
 ## License
 
 These dotfiles are provided as-is for personal use and inspiration. Use at your own risk.
